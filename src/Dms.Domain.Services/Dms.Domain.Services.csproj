@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6</TargetFramework>
+        <RootNamespace>Dms.Domain.Services</RootNamespace>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="JHipsterNet.Core"  />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection"  />
+        <PackageReference Include="LanguageExt.Core"  />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Dms.Infrastructure\Dms.Infrastructure.csproj" />
+        <ProjectReference Include="..\Dms.Domain\Dms.Domain.csproj" />
+        <ProjectReference Include="..\Dms.Crosscutting\Dms.Crosscutting.csproj" />
+    </ItemGroup>
+
+</Project>

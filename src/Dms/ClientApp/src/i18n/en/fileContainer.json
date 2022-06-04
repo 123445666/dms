@@ -1,0 +1,28 @@
+{
+  "dmsApp": {
+    "fileContainer": {
+      "home": {
+        "title": "File Containers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new File Container",
+        "createOrEditLabel": "Create or edit a File Container",
+        "notFound": "No File Containers found"
+      },
+      "created": "A new File Container is created with identifier {{ param }}",
+      "updated": "A File Container is updated with identifier {{ param }}",
+      "deleted": "A File Container is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete File Container {{ id }}?"
+      },
+      "detail": {
+        "title": "File Container"
+      },
+      "id": "ID",
+      "name": "Name",
+      "concurrencyStamp": "Concurrency Stamp",
+      "creator": "Creator",
+      "owner": "Owner",
+      "filePart": "File Part"
+    }
+  }
+}
