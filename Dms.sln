@@ -1,33 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9093216D-0D3D-494A-B334-8EA6862E7DAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms", "src\Dms\Dms.csproj", "{FDD2C9B7-4C7A-4AA3-B30B-636DDBE58544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms", "src\Dms\Dms.csproj", "{FDD2C9B7-4C7A-4AA3-B30B-636DDBE58544}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BB0E3DA8-0B40-4EDF-9B9B-7762B0B78F7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.Test", "test\Dms.Test\Dms.Test.csproj", "{8A03E26A-1BC8-450A-864B-CD4A6645B764}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms.Test", "test\Dms.Test\Dms.Test.csproj", "{8A03E26A-1BC8-450A-864B-CD4A6645B764}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.Crosscutting", "src\Dms.Crosscutting\Dms.Crosscutting.csproj", "{0AE7C5A1-134B-44CF-BE10-1A9621CDD547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms.Crosscutting", "src\Dms.Crosscutting\Dms.Crosscutting.csproj", "{0AE7C5A1-134B-44CF-BE10-1A9621CDD547}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.Domain", "src\Dms.Domain\Dms.Domain.csproj", "{02E8DAB0-AAD7-4706-B5E9-963D4026AA03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms.Domain", "src\Dms.Domain\Dms.Domain.csproj", "{02E8DAB0-AAD7-4706-B5E9-963D4026AA03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.Dto", "src\Dms.Dto\Dms.Dto.csproj", "{9E1453BC-022D-47D3-A821-118315B489D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms.Dto", "src\Dms.Dto\Dms.Dto.csproj", "{9E1453BC-022D-47D3-A821-118315B489D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.Domain.Services", "src\Dms.Domain.Services\Dms.Domain.Services.csproj", "{B05DC47C-695F-4A42-8BF5-66FEC618E372}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms.Domain.Services", "src\Dms.Domain.Services\Dms.Domain.Services.csproj", "{B05DC47C-695F-4A42-8BF5-66FEC618E372}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.Infrastructure", "src\Dms.Infrastructure\Dms.Infrastructure.csproj", "{D9667919-00B5-4729-83C9-DDA79525886B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms.Infrastructure", "src\Dms.Infrastructure\Dms.Infrastructure.csproj", "{D9667919-00B5-4729-83C9-DDA79525886B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.BlockChain.Library", "Dms.BlockChain.Library\Dms.BlockChain.Library.csproj", "{DB334CA9-0B9A-401F-90D1-23539A1C1DA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FDD2C9B7-4C7A-4AA3-B30B-636DDBE58544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,6 +57,13 @@ Global
 		{D9667919-00B5-4729-83C9-DDA79525886B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9667919-00B5-4729-83C9-DDA79525886B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9667919-00B5-4729-83C9-DDA79525886B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB334CA9-0B9A-401F-90D1-23539A1C1DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB334CA9-0B9A-401F-90D1-23539A1C1DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB334CA9-0B9A-401F-90D1-23539A1C1DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB334CA9-0B9A-401F-90D1-23539A1C1DA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FDD2C9B7-4C7A-4AA3-B30B-636DDBE58544} = {9093216D-0D3D-494A-B334-8EA6862E7DAF}
@@ -67,5 +73,9 @@ Global
 		{9E1453BC-022D-47D3-A821-118315B489D6} = {9093216D-0D3D-494A-B334-8EA6862E7DAF}
 		{B05DC47C-695F-4A42-8BF5-66FEC618E372} = {9093216D-0D3D-494A-B334-8EA6862E7DAF}
 		{D9667919-00B5-4729-83C9-DDA79525886B} = {9093216D-0D3D-494A-B334-8EA6862E7DAF}
+		{DB334CA9-0B9A-401F-90D1-23539A1C1DA1} = {9093216D-0D3D-494A-B334-8EA6862E7DAF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E01C0E7D-9AC3-4256-83A8-C473BA983A1D}
 	EndGlobalSection
 EndGlobal

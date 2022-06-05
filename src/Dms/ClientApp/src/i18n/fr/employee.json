@@ -24,6 +24,7 @@
       "phoneNumber": "Phone Number",
       "hireDate": "Hire Date",
       "title": "Title",
+      "signature": "Signature",
       "user": "User",
       "manager": "Manager",
       "department": "Department",

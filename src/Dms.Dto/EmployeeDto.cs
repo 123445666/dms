@@ -14,6 +14,8 @@ namespace Dms.Dto
         public string PhoneNumber { get; set; }
         public DateTime HireDate { get; set; }
         public string Title { get; set; }
+        public byte[] Signature { get; set; }
+        public string SignatureContentType { get; set; }
         public long? UserId { get; set; }
         public UserDto User { get; set; }
         public long? ManagerId { get; set; }

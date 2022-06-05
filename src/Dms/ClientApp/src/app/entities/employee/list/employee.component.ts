@@ -5,6 +5,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { IEmployee } from "../employee.model";
 import { EmployeeService } from "../service/employee.service";
 import { EmployeeDeleteDialogComponent } from "../delete/employee-delete-dialog.component";
+import { DataUtils } from "app/core/util/data-util.service";
 
 @Component({
   selector: "jhi-employee",
@@ -16,6 +17,7 @@ export class EmployeeComponent implements OnInit {
 
   constructor(
     protected employeeService: EmployeeService,
+    protected dataUtils: DataUtils,
     protected modalService: NgbModal
   ) {}
 
@@ -39,6 +41,14 @@ export class EmployeeComponent implements OnInit {
 
   trackId(_index: number, item: IEmployee): number {
     return item.id!;
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    return this.dataUtils.openFile(base64String, contentType);
   }
 
   delete(employee: IEmployee): void {

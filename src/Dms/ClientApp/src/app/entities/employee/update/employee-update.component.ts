@@ -10,6 +10,12 @@ import { DATE_TIME_FORMAT } from "app/config/input.constants";
 
 import { IEmployee, Employee } from "../employee.model";
 import { EmployeeService } from "../service/employee.service";
+import { AlertError } from "app/shared/alert/alert-error.model";
+import {
+  EventManager,
+  EventWithContent,
+} from "app/core/util/event-manager.service";
+import { DataUtils, FileLoadError } from "app/core/util/data-util.service";
 import { IUser } from "app/entities/user/user.model";
 import { UserService } from "app/entities/user/user.service";
 import { IDepartment } from "app/entities/department/department.model";
@@ -34,12 +40,16 @@ export class EmployeeUpdateComponent implements OnInit {
     phoneNumber: [],
     hireDate: [],
     title: [],
+    signature: [],
+    signatureContentType: [],
     user: [],
     manager: [],
     department: [],
   });
 
   constructor(
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
     protected employeeService: EmployeeService,
     protected userService: UserService,
     protected departmentService: DepartmentService,
@@ -58,6 +68,28 @@ export class EmployeeUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils
+      .loadFileToForm(event, this.editForm, field, isImage)
+      .subscribe({
+        error: (err: FileLoadError) =>
+          this.eventManager.broadcast(
+            new EventWithContent<AlertError>("dmsApp.error", {
+              ...err,
+              key: "error.file." + err.key,
+            })
+          ),
+      });
   }
 
   previousState(): void {
@@ -118,6 +150,8 @@ export class EmployeeUpdateComponent implements OnInit {
         ? employee.hireDate.format(DATE_TIME_FORMAT)
         : null,
       title: employee.title,
+      signature: employee.signature,
+      signatureContentType: employee.signatureContentType,
       user: employee.user,
       manager: employee.manager,
       department: employee.department,
@@ -197,6 +231,8 @@ export class EmployeeUpdateComponent implements OnInit {
         ? dayjs(this.editForm.get(["hireDate"])!.value, DATE_TIME_FORMAT)
         : undefined,
       title: this.editForm.get(["title"])!.value,
+      signatureContentType: this.editForm.get(["signatureContentType"])!.value,
+      signature: this.editForm.get(["signature"])!.value,
       user: this.editForm.get(["user"])!.value,
       manager: this.editForm.get(["manager"])!.value,
       department: this.editForm.get(["department"])!.value,

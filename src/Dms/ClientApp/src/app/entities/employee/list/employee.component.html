@@ -68,6 +68,9 @@
             <span jhiTranslate="dmsApp.employee.title">Title</span>
           </th>
           <th scope="col">
+            <span jhiTranslate="dmsApp.employee.signature">Signature</span>
+          </th>
+          <th scope="col">
             <span jhiTranslate="dmsApp.employee.user">User</span>
           </th>
           <th scope="col">
@@ -95,6 +98,20 @@
           <td>{{ employee.phoneNumber }}</td>
           <td>{{ employee.hireDate | formatMediumDatetime }}</td>
           <td>{{ employee.title }}</td>
+          <td>
+            <a
+              *ngIf="employee.signature"
+              (click)="
+                openFile(employee.signature, employee.signatureContentType)
+              "
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="employee.signature"
+              >{{ employee.signatureContentType }},
+              {{ byteSize(employee.signature) }}</span
+            >
+          </td>
           <td>
             {{ employee.user?.id }}
           </td>

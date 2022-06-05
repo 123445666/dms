@@ -48,6 +48,20 @@
         <dd>
           <span>{{ employee.title }}</span>
         </dd>
+        <dt><span jhiTranslate="dmsApp.employee.signature">Signature</span></dt>
+        <dd>
+          <div *ngIf="employee.signature">
+            <a
+              (click)="
+                openFile(employee.signature, employee.signatureContentType)
+              "
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            {{ employee.signatureContentType }},
+            {{ byteSize(employee.signature) }}
+          </div>
+        </dd>
         <dt><span jhiTranslate="dmsApp.employee.user">User</span></dt>
         <dd>
           <span>{{ employee.user?.id }}</span>

@@ -54,6 +54,9 @@ namespace Dms.Test.Controllers
         private const string DefaultTitle = "AAAAAAAAAA";
         private const string UpdatedTitle = "BBBBBBBBBB";
 
+        private static readonly byte[] DefaultSignature = null;
+        private static readonly byte[] UpdatedSignature = null;
+
         private readonly AppWebApplicationFactory<TestStartup> _factory;
         private readonly HttpClient _client;
         private readonly IEmployeeRepository _employeeRepository;
@@ -72,6 +75,7 @@ namespace Dms.Test.Controllers
                 PhoneNumber = DefaultPhoneNumber,
                 HireDate = DefaultHireDate,
                 Title = DefaultTitle,
+                Signature = DefaultSignature,
             };
         }
 
@@ -100,6 +104,7 @@ namespace Dms.Test.Controllers
             testEmployee.PhoneNumber.Should().Be(DefaultPhoneNumber);
             testEmployee.HireDate.Should().Be(DefaultHireDate);
             testEmployee.Title.Should().Be(DefaultTitle);
+            //testEmployee.Signature.Should().Be(DefaultSignature);
         }
 
         [Fact]
@@ -137,6 +142,7 @@ namespace Dms.Test.Controllers
             json.SelectTokens("$.[*].phoneNumber").Should().Contain(DefaultPhoneNumber);
             json.SelectTokens("$.[*].hireDate").Should().Contain(DefaultHireDate);
             json.SelectTokens("$.[*].title").Should().Contain(DefaultTitle);
+            json.SelectTokens("$.[*].signature").Should().Contain(DefaultSignature);
         }
 
         [Fact]
@@ -158,6 +164,7 @@ namespace Dms.Test.Controllers
             json.SelectTokens("$.phoneNumber").Should().Contain(DefaultPhoneNumber);
             json.SelectTokens("$.hireDate").Should().Contain(DefaultHireDate);
             json.SelectTokens("$.title").Should().Contain(DefaultTitle);
+            json.SelectTokens("$.signature").Should().Contain(DefaultSignature);
         }
 
         [Fact]
@@ -186,6 +193,7 @@ namespace Dms.Test.Controllers
             updatedEmployee.PhoneNumber = UpdatedPhoneNumber;
             updatedEmployee.HireDate = UpdatedHireDate;
             updatedEmployee.Title = UpdatedTitle;
+            updatedEmployee.Signature = UpdatedSignature;
 
             EmployeeDto updatedEmployeeDto = _mapper.Map<EmployeeDto>(updatedEmployee);
             var response = await _client.PutAsync($"/api/employees/{_employee.Id}", TestUtil.ToJsonContent(updatedEmployeeDto));
@@ -201,6 +209,7 @@ namespace Dms.Test.Controllers
             testEmployee.PhoneNumber.Should().Be(UpdatedPhoneNumber);
             testEmployee.HireDate.Should().BeCloseTo(UpdatedHireDate);
             testEmployee.Title.Should().Be(UpdatedTitle);
+            //testEmployee.Signature.Should().Be(UpdatedSignature);
         }
 
         [Fact]

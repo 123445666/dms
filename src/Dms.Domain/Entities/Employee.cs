@@ -14,6 +14,8 @@ namespace Dms.Domain
         public string PhoneNumber { get; set; }
         public DateTime HireDate { get; set; }
         public string Title { get; set; }
+        public byte[] Signature { get; set; }
+        public string SignatureContentType { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
 
@@ -49,6 +51,7 @@ namespace Dms.Domain
                     $", PhoneNumber='{PhoneNumber}'" +
                     $", HireDate='{HireDate}'" +
                     $", Title='{Title}'" +
+                    $", Signature='{Signature}'" +
                     "}";
         }
     }
