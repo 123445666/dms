@@ -139,6 +139,15 @@ export class EmployeeUpdateComponent implements OnInit, AfterViewInit {
     save(): void {
         this.isSaving = true;
         const employee = this.createFromForm();
+
+        const base64Data = this.signaturePad?.toDataURL();
+        this.signatureImg = base64Data ?? "";
+
+        const encoded_image = base64Data?.split(",")[1] ?? "";
+
+        employee.signature = encoded_image;
+        employee.signatureContentType = "image/png";
+
         if (employee.id !== undefined) {
             this.subscribeToSaveResponse(this.employeeService.update(employee));
         } else {
@@ -260,6 +269,7 @@ export class EmployeeUpdateComponent implements OnInit, AfterViewInit {
     }
 
     protected createFromForm(): IEmployee {
+
         return {
             ...new Employee(),
             id: this.editForm.get(["id"])!.value,
