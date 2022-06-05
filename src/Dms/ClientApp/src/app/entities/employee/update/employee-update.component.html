@@ -1,331 +1,255 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8">
-    <form
-      name="editForm"
-      role="form"
-      novalidate
-      (ngSubmit)="save()"
-      [formGroup]="editForm"
-    >
-      <h2
-        id="jhi-employee-heading"
-        data-cy="EmployeeCreateUpdateHeading"
-        jhiTranslate="dmsApp.employee.home.createOrEditLabel"
-      >
-        Create or edit a Employee
-      </h2>
+    <div class="col-8">
+        <form name="editForm"
+              role="form"
+              novalidate
+              (ngSubmit)="save()"
+              [formGroup]="editForm">
+            <h2 id="jhi-employee-heading"
+                data-cy="EmployeeCreateUpdateHeading"
+                jhiTranslate="dmsApp.employee.home.createOrEditLabel">
+                Create or edit a Employee
+            </h2>
 
-      <div>
-        <jhi-alert-error></jhi-alert-error>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-          <label
-            class="form-label"
-            jhiTranslate="global.field.id"
-            for="field_id"
-            >ID</label
-          >
-          <input
-            type="number"
-            class="form-control"
-            name="id"
-            id="field_id"
-            data-cy="id"
-            formControlName="id"
-            [readonly]="true"
-          />
-        </div>
+                <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+                    <label class="form-label"
+                           jhiTranslate="global.field.id"
+                           for="field_id">ID</label>
+                    <input type="number"
+                           class="form-control"
+                           name="id"
+                           id="field_id"
+                           data-cy="id"
+                           formControlName="id"
+                           [readonly]="true" />
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.firstName"
-            for="field_firstName"
-            [ngbTooltip]="'dmsApp.employee.help.firstName' | translate"
-            >First Name</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="firstName"
-            id="field_firstName"
-            data-cy="firstName"
-            formControlName="firstName"
-          />
-        </div>
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.firstName"
+                           for="field_firstName"
+                           [ngbTooltip]="'dmsApp.employee.help.firstName' | translate">First Name</label>
+                    <input type="text"
+                           class="form-control"
+                           name="firstName"
+                           id="field_firstName"
+                           data-cy="firstName"
+                           formControlName="firstName" />
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.lastName"
-            for="field_lastName"
-            >Last Name</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="lastName"
-            id="field_lastName"
-            data-cy="lastName"
-            formControlName="lastName"
-          />
-        </div>
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.lastName"
+                           for="field_lastName">Last Name</label>
+                    <input type="text"
+                           class="form-control"
+                           name="lastName"
+                           id="field_lastName"
+                           data-cy="lastName"
+                           formControlName="lastName" />
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.email"
-            for="field_email"
-            >Email</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="email"
-            id="field_email"
-            data-cy="email"
-            formControlName="email"
-          />
-        </div>
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.email"
+                           for="field_email">Email</label>
+                    <input type="text"
+                           class="form-control"
+                           name="email"
+                           id="field_email"
+                           data-cy="email"
+                           formControlName="email" />
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.phoneNumber"
-            for="field_phoneNumber"
-            >Phone Number</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="phoneNumber"
-            id="field_phoneNumber"
-            data-cy="phoneNumber"
-            formControlName="phoneNumber"
-          />
-        </div>
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.phoneNumber"
+                           for="field_phoneNumber">Phone Number</label>
+                    <input type="text"
+                           class="form-control"
+                           name="phoneNumber"
+                           id="field_phoneNumber"
+                           data-cy="phoneNumber"
+                           formControlName="phoneNumber" />
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.hireDate"
-            for="field_hireDate"
-            >Hire Date</label
-          >
-          <div class="d-flex">
-            <input
-              id="field_hireDate"
-              data-cy="hireDate"
-              type="datetime-local"
-              class="form-control"
-              name="hireDate"
-              formControlName="hireDate"
-              placeholder="YYYY-MM-DD HH:mm"
-            />
-          </div>
-        </div>
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.hireDate"
+                           for="field_hireDate">Hire Date</label>
+                    <div class="d-flex">
+                        <input id="field_hireDate"
+                               data-cy="hireDate"
+                               type="datetime-local"
+                               class="form-control"
+                               name="hireDate"
+                               formControlName="hireDate"
+                               placeholder="YYYY-MM-DD HH:mm" />
+                    </div>
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.title"
-            for="field_title"
-            >Title</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="title"
-            id="field_title"
-            data-cy="title"
-            formControlName="title"
-          />
-        </div>
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.title"
+                           for="field_title">Title</label>
+                    <input type="text"
+                           class="form-control"
+                           name="title"
+                           id="field_title"
+                           data-cy="title"
+                           formControlName="title" />
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.signature"
-            for="field_signature"
-            >Signature</label
-          >
-          <div>
-            <div
-              *ngIf="editForm.get('signature')!.value"
-              class="form-text text-danger clearfix"
-            >
-              <a
-                class="pull-start"
-                (click)="
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.signature"
+                           for="field_signature">Signature</label>
+                    <div>
+                        <div class="signature-pad">
+                            <div class="signature-pad--body">
+                                <canvas style="max-width:100%;" width="900" height="300" (window:resize)="onResize()" #canvas (touchstart)="startDrawing($event)" (touchmove)="moved($event)"></canvas>
+                            </div>
+                        </div>
+
+                        <button (click)="clearPad()">Clear</button>
+                        <button color="secondary" (click)="savePad()">Save</button>
+                        <img src='{{ signatureImg }}' />
+
+                        <div *ngIf="editForm.get('signature')!.value"
+                             class="form-text text-danger clearfix">
+                            <a class="pull-start"
+                               (click)="
                   openFile(
                     editForm.get('signature')!.value,
                     editForm.get('signatureContentType')!.value
                   )
                 "
-                jhiTranslate="entity.action.open"
-                >open</a
-              ><br />
-              <span class="pull-start"
-                >{{ editForm.get("signatureContentType")!.value }},
-                {{ byteSize(editForm.get("signature")!.value) }}</span
-              >
-              <button
-                type="button"
-                (click)="
+                               jhiTranslate="entity.action.open">open</a><br />
+                            <span class="pull-start">
+                                {{ editForm.get("signatureContentType")!.value }},
+                                {{ byteSize(editForm.get("signature")!.value) }}
+                            </span>
+                            <button type="button"
+                                    (click)="
                   editForm.patchValue({ signature: null });
                   editForm.patchValue({ signatureContentType: null })
                 "
-                class="btn btn-secondary btn-xs pull-end"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input
-              type="file"
-              id="file_signature"
-              data-cy="signature"
-              (change)="setFileData($event, 'signature', false)"
-              jhiTranslate="entity.action.addblob"
-            />
-          </div>
-          <input
-            type="hidden"
-            class="form-control"
-            name="signature"
-            id="field_signature"
-            data-cy="signature"
-            formControlName="signature"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            name="signatureContentType"
-            id="field_signatureContentType"
-            formControlName="signatureContentType"
-          />
-        </div>
+                                    class="btn btn-secondary btn-xs pull-end">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <!--<input type="file"
+                               id="file_signature"
+                               data-cy="signature"
+                               (change)="setFileData($event, 'signature', false)"
+                               jhiTranslate="entity.action.addblob" />-->
+                    </div>
+                    <!--<input type="hidden"
+                           class="form-control"
+                           name="signature"
+                           id="field_signature"
+                           data-cy="signature"
+                           formControlName="signature" />
+                    <input type="hidden"
+                           class="form-control"
+                           name="signatureContentType"
+                           id="field_signatureContentType"
+                           formControlName="signatureContentType" />-->
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.user"
-            for="field_user"
-            >User</label
-          >
-          <select
-            class="form-control"
-            id="field_user"
-            data-cy="user"
-            name="user"
-            formControlName="user"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.user"
+                           for="field_user">User</label>
+                    <select class="form-control"
+                            id="field_user"
+                            data-cy="user"
+                            name="user"
+                            formControlName="user">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="
                 userOption.id === editForm.get('user')!.value?.id
                   ? editForm.get('user')!.value
                   : userOption
               "
-              *ngFor="
+                                *ngFor="
                 let userOption of usersSharedCollection;
                 trackBy: trackUserById
-              "
-            >
-              {{ userOption.id }}
-            </option>
-          </select>
-        </div>
+              ">
+                            {{ userOption.id }}
+                        </option>
+                    </select>
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.manager"
-            for="field_manager"
-            >Manager</label
-          >
-          <select
-            class="form-control"
-            id="field_manager"
-            data-cy="manager"
-            name="manager"
-            formControlName="manager"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.manager"
+                           for="field_manager">Manager</label>
+                    <select class="form-control"
+                            id="field_manager"
+                            data-cy="manager"
+                            name="manager"
+                            formControlName="manager">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="
                 employeeOption.id === editForm.get('manager')!.value?.id
                   ? editForm.get('manager')!.value
                   : employeeOption
               "
-              *ngFor="
+                                *ngFor="
                 let employeeOption of employeesSharedCollection;
                 trackBy: trackEmployeeById
-              "
-            >
-              {{ employeeOption.id }}
-            </option>
-          </select>
-        </div>
+              ">
+                            {{ employeeOption.id }}
+                        </option>
+                    </select>
+                </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.employee.department"
-            for="field_department"
-            >Department</label
-          >
-          <select
-            class="form-control"
-            id="field_department"
-            data-cy="department"
-            name="department"
-            formControlName="department"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
+                <div class="row mb-3">
+                    <label class="form-label"
+                           jhiTranslate="dmsApp.employee.department"
+                           for="field_department">Department</label>
+                    <select class="form-control"
+                            id="field_department"
+                            data-cy="department"
+                            name="department"
+                            formControlName="department">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="
                 departmentOption.id === editForm.get('department')!.value?.id
                   ? editForm.get('department')!.value
                   : departmentOption
               "
-              *ngFor="
+                                *ngFor="
                 let departmentOption of departmentsSharedCollection;
                 trackBy: trackDepartmentById
-              "
-            >
-              {{ departmentOption.id }}
-            </option>
-          </select>
-        </div>
-      </div>
+              ">
+                            {{ departmentOption.id }}
+                        </option>
+                    </select>
+                </div>
+            </div>
 
-      <div>
-        <button
-          type="button"
-          id="cancel-save"
-          data-cy="entityCreateCancelButton"
-          class="btn btn-secondary"
-          (click)="previousState()"
-        >
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span
-            jhiTranslate="entity.action.cancel"
-            >Cancel</span
-          >
-        </button>
+            <div>
+                <button type="button"
+                        id="cancel-save"
+                        data-cy="entityCreateCancelButton"
+                        class="btn btn-secondary"
+                        (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
 
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span
-            jhiTranslate="entity.action.save"
-            >Save</span
-          >
-        </button>
-      </div>
-    </form>
-  </div>
+                <button type="submit"
+                        id="save-entity"
+                        data-cy="entityCreateSaveButton"
+                        [disabled]="editForm.invalid || isSaving"
+                        class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>

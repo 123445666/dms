@@ -7,13 +7,13 @@ import { EmployeeDeleteDialogComponent } from "./delete/employee-delete-dialog.c
 import { EmployeeRoutingModule } from "./route/employee-routing.module";
 
 @NgModule({
-  imports: [SharedModule, EmployeeRoutingModule],
-  declarations: [
-    EmployeeComponent,
-    EmployeeDetailComponent,
-    EmployeeUpdateComponent,
-    EmployeeDeleteDialogComponent,
-  ],
-  entryComponents: [EmployeeDeleteDialogComponent],
+    imports: [SharedModule, EmployeeRoutingModule],
+    declarations: [
+        EmployeeComponent,
+        EmployeeDetailComponent,
+        EmployeeUpdateComponent,
+        EmployeeDeleteDialogComponent,
+    ],
+    entryComponents: [EmployeeDeleteDialogComponent],
 })
-export class EmployeeModule {}
+export class EmployeeModule { }
