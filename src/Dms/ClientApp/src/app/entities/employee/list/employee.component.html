@@ -65,6 +65,9 @@
             <span jhiTranslate="dmsApp.employee.hireDate">Hire Date</span>
           </th>
           <th scope="col">
+            <span jhiTranslate="dmsApp.employee.title">Title</span>
+          </th>
+          <th scope="col">
             <span jhiTranslate="dmsApp.employee.user">User</span>
           </th>
           <th scope="col">
@@ -91,6 +94,7 @@
           <td>{{ employee.email }}</td>
           <td>{{ employee.phoneNumber }}</td>
           <td>{{ employee.hireDate | formatMediumDatetime }}</td>
+          <td>{{ employee.title }}</td>
           <td>
             {{ employee.user?.id }}
           </td>

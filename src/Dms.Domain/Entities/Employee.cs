@@ -13,6 +13,7 @@ namespace Dms.Domain
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime HireDate { get; set; }
+        public string Title { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
 
@@ -47,6 +48,7 @@ namespace Dms.Domain
                     $", Email='{Email}'" +
                     $", PhoneNumber='{PhoneNumber}'" +
                     $", HireDate='{HireDate}'" +
+                    $", Title='{Title}'" +
                     "}";
         }
     }

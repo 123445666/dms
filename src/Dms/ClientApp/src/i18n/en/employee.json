@@ -23,6 +23,7 @@
       "email": "Email",
       "phoneNumber": "Phone Number",
       "hireDate": "Hire Date",
+      "title": "Title",
       "user": "User",
       "manager": "Manager",
       "department": "Department",

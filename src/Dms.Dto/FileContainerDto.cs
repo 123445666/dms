@@ -10,9 +10,9 @@ namespace Dms.Dto
         public long Id { get; set; }
         public string Name { get; set; }
         public string ConcurrencyStamp { get; set; }
-        public long? CreatorId { get; set; }
+        public string CreatorId { get; set; }
         public UserDto Creator { get; set; }
-        public long? OwnerId { get; set; }
+        public string OwnerId { get; set; }
         public UserDto Owner { get; set; }
 
         // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove

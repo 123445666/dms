@@ -9,6 +9,7 @@ export interface IEmployee {
   email?: string | null;
   phoneNumber?: string | null;
   hireDate?: dayjs.Dayjs | null;
+  title?: string | null;
   user?: IUser | null;
   manager?: IEmployee | null;
   department?: IDepartment | null;
@@ -22,6 +23,7 @@ export class Employee implements IEmployee {
     public email?: string | null,
     public phoneNumber?: string | null,
     public hireDate?: dayjs.Dayjs | null,
+    public title?: string | null,
     public user?: IUser | null,
     public manager?: IEmployee | null,
     public department?: IDepartment | null

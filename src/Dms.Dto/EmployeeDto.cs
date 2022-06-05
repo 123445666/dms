@@ -13,6 +13,7 @@ namespace Dms.Dto
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime HireDate { get; set; }
+        public string Title { get; set; }
         public long? UserId { get; set; }
         public UserDto User { get; set; }
         public long? ManagerId { get; set; }

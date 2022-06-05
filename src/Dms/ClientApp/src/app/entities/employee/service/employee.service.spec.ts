@@ -33,6 +33,7 @@ describe("Employee Service", () => {
       email: "AAAAAAA",
       phoneNumber: "AAAAAAA",
       hireDate: currentDate,
+      title: "AAAAAAA",
     };
   });
 
@@ -86,6 +87,7 @@ describe("Employee Service", () => {
           email: "BBBBBB",
           phoneNumber: "BBBBBB",
           hireDate: currentDate.format(DATE_TIME_FORMAT),
+          title: "BBBBBB",
         },
         elemDefault
       );
@@ -113,6 +115,7 @@ describe("Employee Service", () => {
           email: "BBBBBB",
           phoneNumber: "BBBBBB",
           hireDate: currentDate.format(DATE_TIME_FORMAT),
+          title: "BBBBBB",
         },
         new Employee()
       );
@@ -144,6 +147,7 @@ describe("Employee Service", () => {
           email: "BBBBBB",
           phoneNumber: "BBBBBB",
           hireDate: currentDate.format(DATE_TIME_FORMAT),
+          title: "BBBBBB",
         },
         elemDefault
       );
@@ -209,7 +213,7 @@ describe("Employee Service", () => {
         const employeeArray: IEmployee[] = [
           { id: 123 },
           { id: 456 },
-          { id: 88639 },
+          { id: 55895 },
         ];
         const employeeCollection: IEmployee[] = [{ id: 123 }];
         expectedResult = service.addEmployeeToCollectionIfMissing(

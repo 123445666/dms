@@ -33,6 +33,7 @@ export class EmployeeUpdateComponent implements OnInit {
     email: [],
     phoneNumber: [],
     hireDate: [],
+    title: [],
     user: [],
     manager: [],
     department: [],
@@ -116,6 +117,7 @@ export class EmployeeUpdateComponent implements OnInit {
       hireDate: employee.hireDate
         ? employee.hireDate.format(DATE_TIME_FORMAT)
         : null,
+      title: employee.title,
       user: employee.user,
       manager: employee.manager,
       department: employee.department,
@@ -194,6 +196,7 @@ export class EmployeeUpdateComponent implements OnInit {
       hireDate: this.editForm.get(["hireDate"])!.value
         ? dayjs(this.editForm.get(["hireDate"])!.value, DATE_TIME_FORMAT)
         : undefined,
+      title: this.editForm.get(["title"])!.value,
       user: this.editForm.get(["user"])!.value,
       manager: this.editForm.get(["manager"])!.value,
       department: this.editForm.get(["department"])!.value,
