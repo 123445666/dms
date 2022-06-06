@@ -17,10 +17,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Dms.Crosscutting.Constants;
 
 namespace Dms.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = RolesConstants.ADMIN)]
     [Route("api/departments")]
     [ApiController]
     public class DepartmentsController : ControllerBase
