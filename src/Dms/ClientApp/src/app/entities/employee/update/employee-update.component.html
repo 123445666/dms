@@ -108,15 +108,13 @@
                            jhiTranslate="dmsApp.employee.signature"
                            for="field_signature">Signature</label>
                     <div>
+                        <img src='data:image/jpeg;base64,{{ signatureImg }}' />
                         <div class="signature-pad">
                             <div class="signature-pad--body">
                                 <canvas style="max-width:100%;" width="900" height="300" (window:resize)="onResize()" #canvas (touchstart)="startDrawing($event)" (touchmove)="moved($event)"></canvas>
                             </div>
                         </div>
-
-                        <button (click)="clearPad()">Clear</button>
-                        <button color="secondary" (click)="savePad()">Save</button>
-                        <img src='{{ signatureImg }}' />
+                        <button type="button" (click)="clearPad()">Clear</button>
 
                         <div *ngIf="editForm.get('signature')!.value"
                              class="form-text text-danger clearfix">
@@ -142,12 +140,12 @@
                             </button>
                         </div>
                         <!--<input type="file"
-                               id="file_signature"
-                               data-cy="signature"
-                               (change)="setFileData($event, 'signature', false)"
-                               jhiTranslate="entity.action.addblob" />-->
+           id="file_signature"
+           data-cy="signature"
+           (change)="setFileData($event, 'signature', false)"
+           jhiTranslate="entity.action.addblob" />-->
                     </div>
-                    <!--<input type="hidden"
+                    <input type="hidden"
                            class="form-control"
                            name="signature"
                            id="field_signature"
@@ -157,7 +155,7 @@
                            class="form-control"
                            name="signatureContentType"
                            id="field_signatureContentType"
-                           formControlName="signatureContentType" />-->
+                           formControlName="signatureContentType" />
                 </div>
 
                 <div class="row mb-3">

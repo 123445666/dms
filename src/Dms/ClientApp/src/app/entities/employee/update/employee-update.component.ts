@@ -79,6 +79,13 @@ export class EmployeeUpdateComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         this.signaturePad = new SignaturePad(this.canvasEl?.nativeElement);
+
+        const dataUrl = this.dataUtils.createFileFromData(
+            this.editForm.get('signature')!.value,
+            this.editForm.get('signatureContentType')!.value
+        );
+
+        this.signatureImg = this.editForm.get('signature')!.value;
     }
 
     onResize(): void {
@@ -99,15 +106,13 @@ export class EmployeeUpdateComponent implements OnInit, AfterViewInit {
 
     moved(event: Event): void {
         // works in device not in browser
+        /* eslint-disable no-console */
+        console.log(event);
+        /* eslint-disable no-console */
     }
 
     clearPad(): void {
         this.signaturePad?.clear();
-    }
-
-    savePad(): void {
-        const base64Data = this.signaturePad?.toDataURL();
-        this.signatureImg = base64Data ?? "";
     }
 
     byteSize(base64String: string): string {
@@ -140,13 +145,16 @@ export class EmployeeUpdateComponent implements OnInit, AfterViewInit {
         this.isSaving = true;
         const employee = this.createFromForm();
 
-        const base64Data = this.signaturePad?.toDataURL();
-        this.signatureImg = base64Data ?? "";
+        if (!this.signaturePad?.isEmpty()) {
 
-        const encoded_image = base64Data?.split(",")[1] ?? "";
+            const base64Data = this.signaturePad?.toDataURL();
+            this.signatureImg = base64Data ?? "";
 
-        employee.signature = encoded_image;
-        employee.signatureContentType = "image/png";
+            const encoded_image = base64Data?.split(",")[1] ?? "";
+
+            employee.signature = encoded_image;
+            employee.signatureContentType = "image/png";
+        }
 
         if (employee.id !== undefined) {
             this.subscribeToSaveResponse(this.employeeService.update(employee));
