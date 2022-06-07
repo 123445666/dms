@@ -18,7 +18,7 @@
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-file-container"
-        [routerLink]="['/file-container/new']"
+        [routerLink]="['/user/file-manager/new']"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="dmsApp.fileContainer.home.createLabel">
@@ -74,7 +74,7 @@
           data-cy="entityTable"
         >
           <td>
-            <a [routerLink]="['/file-container', fileManager.id, 'view']">{{
+            <a [routerLink]="['/user/file-manager', fileManager.id, 'view']">{{
               fileManager.id
             }}</a>
           </td>
@@ -90,7 +90,7 @@
             <div class="btn-group">
               <button
                 type="submit"
-                [routerLink]="['/file-container', fileManager.id, 'view']"
+                [routerLink]="['/user/file-manager', fileManager.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
@@ -104,7 +104,7 @@
 
               <button
                 type="submit"
-                [routerLink]="['/file-container', fileManager.id, 'edit']"
+                [routerLink]="['/user/file-manager', fileManager.id, 'edit']"
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >

@@ -15,116 +15,117 @@ import { UserService } from "app/entities/user/user.service";
     templateUrl: "./file-manager-update.component.html",
 })
 export class FileManagerUpdateComponent implements OnInit {
-  isSaving = false;
+    isSaving = false;
 
-  usersSharedCollection: IUser[] = [];
+    usersSharedCollection: IUser[] = [];
 
-  editForm = this.fb.group({
-    id: [],
-    name: [],
-    concurrencyStamp: [],
-    creator: [],
-    owner: [],
-  });
-
-  constructor(
-    protected fileManagerService: FileManagerService,
-    protected userService: UserService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
-  ) {}
-
-  ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ fileManager }) => {
-        this.updateForm(fileManager);
-
-      this.loadRelationshipsOptions();
+    editForm = this.fb.group({
+        id: [],
+        name: [],
+        concurrencyStamp: [],
+        creator: [],
+        owner: [],
     });
-  }
 
-  previousState(): void {
-    window.history.back();
-  }
+    constructor(
+        protected fileManagerService: FileManagerService,
+        protected userService: UserService,
+        protected activatedRoute: ActivatedRoute,
+        protected fb: FormBuilder
+    ) { }
 
-  save(): void {
-    this.isSaving = true;
-    const fileManager = this.createFromForm();
-      if (fileManager.id !== undefined) {
-      this.subscribeToSaveResponse(
-          this.fileManagerService.update(fileManager)
-      );
-    } else {
-      this.subscribeToSaveResponse(
-          this.fileManagerService.create(fileManager)
-      );
+    ngOnInit(): void {
+        this.activatedRoute.data.subscribe(({ fileManager }) => {
+            console.log(fileManager);
+            this.updateForm(fileManager);
+
+            this.loadRelationshipsOptions();
+        });
     }
-  }
 
-  trackUserById(_index: number, item: IUser): string {
-    return item.id!;
-  }
+    previousState(): void {
+        window.history.back();
+    }
 
-  protected subscribeToSaveResponse(
-    result: Observable<HttpResponse<IFileManager>>
-  ): void {
-    result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
-      next: () => this.onSaveSuccess(),
-      error: () => this.onSaveError(),
-    });
-  }
+    save(): void {
+        this.isSaving = true;
+        const fileManager = this.createFromForm();
+        if (fileManager.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.fileManagerService.update(fileManager)
+            );
+        } else {
+            this.subscribeToSaveResponse(
+                this.fileManagerService.create(fileManager)
+            );
+        }
+    }
 
-  protected onSaveSuccess(): void {
-    this.previousState();
-  }
+    trackUserById(_index: number, item: IUser): string {
+        return item.id!;
+    }
 
-  protected onSaveError(): void {
-    // Api for inheritance.
-  }
+    protected subscribeToSaveResponse(
+        result: Observable<HttpResponse<IFileManager>>
+    ): void {
+        result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
+            next: () => this.onSaveSuccess(),
+            error: () => this.onSaveError(),
+        });
+    }
 
-  protected onSaveFinalize(): void {
-    this.isSaving = false;
-  }
+    protected onSaveSuccess(): void {
+        this.previousState();
+    }
 
-  protected updateForm(fileManager: IFileManager): void {
-    this.editForm.patchValue({
-        id: fileManager.id,
-        name: fileManager.name,
-        concurrencyStamp: fileManager.concurrencyStamp,
-        creator: fileManager.creator,
-        owner: fileManager.owner,
-    });
+    protected onSaveError(): void {
+        // Api for inheritance.
+    }
 
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(
-      this.usersSharedCollection,
-        fileManager.creator,
-        fileManager.owner
-    );
-  }
+    protected onSaveFinalize(): void {
+        this.isSaving = false;
+    }
 
-  protected loadRelationshipsOptions(): void {
-    this.userService
-      .query()
-      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(
-        map((users: IUser[]) =>
-          this.userService.addUserToCollectionIfMissing(
-            users,
-            this.editForm.get("creator")!.value,
-            this.editForm.get("owner")!.value
-          )
-        )
-      )
-      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
-  }
+    protected updateForm(fileManager: IFileManager): void {
+        this.editForm.patchValue({
+            id: fileManager.id,
+            name: fileManager.name,
+            concurrencyStamp: fileManager.concurrencyStamp,
+            creator: fileManager.creator,
+            owner: fileManager.owner,
+        });
 
-  protected createFromForm(): IFileManager {
-    return {
-      ...new FileManager(),
-      id: this.editForm.get(["id"])!.value,
-      name: this.editForm.get(["name"])!.value,
-      concurrencyStamp: this.editForm.get(["concurrencyStamp"])!.value,
-      creator: this.editForm.get(["creator"])!.value,
-      owner: this.editForm.get(["owner"])!.value,
-    };
-  }
+        this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(
+            this.usersSharedCollection,
+            fileManager.creator,
+            fileManager.owner
+        );
+    }
+
+    protected loadRelationshipsOptions(): void {
+        this.userService
+            .query()
+            .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+            .pipe(
+                map((users: IUser[]) =>
+                    this.userService.addUserToCollectionIfMissing(
+                        users,
+                        this.editForm.get("creator")!.value,
+                        this.editForm.get("owner")!.value
+                    )
+                )
+            )
+            .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+    }
+
+    protected createFromForm(): IFileManager {
+        return {
+            ...new FileManager(),
+            id: this.editForm.get(["id"])!.value,
+            name: this.editForm.get(["name"])!.value,
+            concurrencyStamp: this.editForm.get(["concurrencyStamp"])!.value,
+            creator: this.editForm.get(["creator"])!.value,
+            owner: this.editForm.get(["owner"])!.value,
+        };
+    }
 }

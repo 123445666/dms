@@ -8,8 +8,7 @@ import { Authority } from "app/config/authority.constants";
             {
                 path: "file-manager",
                 data: {
-                    pageTitle: "dmsApp.fileContainer.home.title",
-                    authorities: [Authority.ADMIN]
+                    pageTitle: "dmsApp.fileContainer.home.title"
                 },
                 loadChildren: () =>
                     import("./file-manager/file-manager.module").then((m) => m.FileManagerModule),

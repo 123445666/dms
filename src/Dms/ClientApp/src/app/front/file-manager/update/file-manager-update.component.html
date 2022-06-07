@@ -8,9 +8,9 @@
       [formGroup]="editForm"
     >
       <h2
-        id="jhi-file-container-heading"
+        id="jhi-file-manager-heading"
         data-cy="fileManagerCreateUpdateHeading"
-        jhiTranslate="dmsApp.FileContainer.home.createOrEditLabel"
+        jhiTranslate="dmsApp.fileContainer.home.createOrEditLabel"
       >
         Create or edit a File Container
       </h2>
@@ -68,37 +68,6 @@
             data-cy="concurrencyStamp"
             formControlName="concurrencyStamp"
           />
-        </div>
-
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.fileContainer.creator"
-            for="field_creator"
-            >Creator</label
-          >
-          <select
-            class="form-control"
-            id="field_creator"
-            data-cy="creator"
-            name="creator"
-            formControlName="creator"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                userOption.id === editForm.get('creator')!.value?.id
-                  ? editForm.get('creator')!.value
-                  : userOption
-              "
-              *ngFor="
-                let userOption of usersSharedCollection;
-                trackBy: trackUserById
-              "
-            >
-              {{ userOption.id }}
-            </option>
-          </select>
         </div>
 
         <div class="row mb-3">

@@ -17,7 +17,7 @@ const FileManagerRoute: Routes = [
     path: ":id/view",
     component: FileManagerDetailComponent,
     resolve: {
-      FileManager: FileManagerRoutingResolveService,
+      fileManager: FileManagerRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },
@@ -25,7 +25,7 @@ const FileManagerRoute: Routes = [
     path: "new",
     component: FileManagerUpdateComponent,
     resolve: {
-      FileManager: FileManagerRoutingResolveService,
+        fileManager: FileManagerRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },
@@ -33,7 +33,7 @@ const FileManagerRoute: Routes = [
     path: ":id/edit",
     component: FileManagerUpdateComponent,
     resolve: {
-      FileManager: FileManagerRoutingResolveService,
+        fileManager: FileManagerRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },
