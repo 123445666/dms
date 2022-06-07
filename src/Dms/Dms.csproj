@@ -19,24 +19,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JHipsterNet.Core"  />
-        <PackageReference Include="JHipsterNet.Web"  />
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection"  />
-        <PackageReference Include="Hellang.Middleware.ProblemDetails"  />
-        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions"  />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson"  />
-        <PackageReference Include="Scrutor"  />
-        <PackageReference Include="Serilog.AspNetCore"  />
-        <PackageReference Include="Serilog.Settings.Configuration"  />
-        <PackageReference Include="Serilog.Sinks.Console"  />
-        <PackageReference Include="Serilog.Enrichers.Process"  />
-        <PackageReference Include="Serilog.Enrichers.Thread"  />
-        <PackageReference Include="Serilog.Sinks.SyslogMessages"  />
-        <PackageReference Include="Swashbuckle.AspNetCore"  />
-        <PackageReference Include="LanguageExt.Core"  />
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt"  />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"  />
-        <PackageReference Include="BCrypt.Net-Next"  />
+        <PackageReference Include="JHipsterNet.Core" />
+        <PackageReference Include="JHipsterNet.Web" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+        <PackageReference Include="Hellang.Middleware.ProblemDetails" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+        <PackageReference Include="Scrutor" />
+        <PackageReference Include="Serilog.AspNetCore" />
+        <PackageReference Include="Serilog.Settings.Configuration" />
+        <PackageReference Include="Serilog.Sinks.Console" />
+        <PackageReference Include="Serilog.Enrichers.Process" />
+        <PackageReference Include="Serilog.Enrichers.Thread" />
+        <PackageReference Include="Serilog.Sinks.SyslogMessages" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="LanguageExt.Core" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+        <PackageReference Include="BCrypt.Net-Next" />
     </ItemGroup>
 
     <ItemGroup>

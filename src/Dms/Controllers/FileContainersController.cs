@@ -21,7 +21,7 @@ using Dms.Crosscutting.Constants;
 
 namespace Dms.Controllers
 {
-    [Authorize(Roles = RolesConstants.ADMIN)]
+    [Authorize]
     [Route("api/file-containers")]
     [ApiController]
     public class FileContainersController : ControllerBase
