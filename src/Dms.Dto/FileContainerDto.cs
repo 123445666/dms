@@ -14,6 +14,7 @@ namespace Dms.Dto
         public FileStatus Status { get; set; }
         public string OwnerId { get; set; }
         public UserDto Owner { get; set; }
+        public IList<FilePartDto> FileParts { get; set; } = new List<FilePartDto>();
 
         // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove
     }

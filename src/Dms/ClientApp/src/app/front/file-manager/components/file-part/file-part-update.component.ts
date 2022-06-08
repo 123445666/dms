@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpResponse } from "@angular/common/http";
-import { FormArray, FormBuilder } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { finalize, map } from "rxjs/operators";
@@ -18,6 +18,8 @@ import { UserService } from "app/entities/user/user.service";
 import { IFileContainer } from "app/entities/file-container/file-container.model";
 import { FileContainerService } from "app/entities/file-container/service/file-container.service";
 import { FileStatus } from "app/entities/enumerations/file-status.model";
+
+import { IFileManager } from "../../file-manager.model";
 
 @Component({
   selector: "jhi-file-part-update",
@@ -49,10 +51,10 @@ export class FilePartUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ filePart }) => {
-      this.updateForm(filePart);
+    this.activatedRoute.data.subscribe(({ fileManager }) => {
+      this.updateForm(fileManager);
 
-      this.loadRelationshipsOptions();
+      // this.loadRelationshipsOptions();
     });
   }
 
@@ -64,9 +66,14 @@ export class FilePartUpdateComponent implements OnInit {
     this.dataUtils.openFile(base64String, contentType);
   }
 
-  setFileData(event: Event, field: string, isImage: boolean): void {
+  setFileData(event: Event, field: string, isImage: boolean, filePartIndex: number): void {
+    /* eslint-disable no-console */
+    console.log(this.fileParts.at(filePartIndex));
+    /* eslint-disable no-console */
+    const filePartsFormGroup : FormGroup = this.fileParts.at(filePartIndex) as FormGroup;
+
     this.dataUtils
-      .loadFileToForm(event, this.editFilePartForm, field, isImage)
+      .loadFileToForm(event, filePartsFormGroup, field, isImage)
       .subscribe({
         error: (err: FileLoadError) =>
           this.eventManager.broadcast(
@@ -97,7 +104,7 @@ export class FilePartUpdateComponent implements OnInit {
     this.fileParts.push(filePartForm);
   }
 
-  deleteFilePart(filePartIndex: number): void  {
+  deleteFilePart(filePartIndex: number): void {
     this.fileParts.removeAt(filePartIndex);
   }
 
@@ -140,27 +147,58 @@ export class FilePartUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  protected updateForm(filePart: IFilePart): void {
-    this.editFilePartForm.patchValue({
-      id: filePart.id,
-      name: filePart.name,
-      content: filePart.content,
-      contentContentType: filePart.contentContentType,
-      concurrencyStamp: filePart.concurrencyStamp,
-      status: filePart.status,
-      signer: filePart.signer,
-      fileContainer: filePart.fileContainer,
+  protected updateForm(fileManager: IFileManager): void {
+
+    const filePartForm = this.fb.group({
+      id: [],
+      name: [],
+      content: [],
+      contentContentType: [],
+      concurrencyStamp: [],
+      status: [],
+      signer: [],
+      fileContainer: [],
     });
 
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(
-      this.usersSharedCollection,
-      filePart.signer
-    );
-    this.fileContainersSharedCollection =
-      this.fileContainerService.addFileContainerToCollectionIfMissing(
-        this.fileContainersSharedCollection,
-        filePart.fileContainer
-      );
+    this.fileParts.push(filePartForm);
+
+    const filePartsData = fileManager.fileParts;
+
+    filePartsData?.forEach(filePartData => {
+      const filePartFormData = this.fb.group({
+        id: filePartData.id,
+        name: filePartData.name,
+        content: filePartData.content,
+        contentContentType: filePartData.contentContentType,
+        concurrencyStamp: filePartData.concurrencyStamp,
+        status: filePartData.status,
+        signer: filePartData.signer,
+        fileContainer: filePartData.fileContainer,
+      });
+
+      this.fileParts.push(filePartFormData);
+    })
+
+    // this.editFilePartForm.patchValue({
+    //   id: filePart.id,
+    //   name: filePart.name,
+    //   content: filePart.content,
+    //   contentContentType: filePart.contentContentType,
+    //   concurrencyStamp: filePart.concurrencyStamp,
+    //   status: filePart.status,
+    //   signer: filePart.signer,
+    //   fileContainer: filePart.fileContainer,
+    // });
+
+    // this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(
+    //   this.usersSharedCollection,
+    //   filePart.signer
+    // );
+    // this.fileContainersSharedCollection =
+    //   this.fileContainerService.addFileContainerToCollectionIfMissing(
+    //     this.fileContainersSharedCollection,
+    //     filePart.fileContainer
+    //   );
   }
 
   protected loadRelationshipsOptions(): void {

@@ -20,6 +20,9 @@ namespace Dms.Infrastructure.Data.Repositories
         public override async Task<FileContainer> CreateOrUpdateAsync(FileContainer fileContainer)
         {
             List<Type> entitiesToBeUpdated = new List<Type>();
+            entitiesToBeUpdated.Add(typeof(FileContainer));
+            entitiesToBeUpdated.Add(typeof(FilePart));
+            
             return await base.CreateOrUpdateAsync(fileContainer, entitiesToBeUpdated);
         }
     }

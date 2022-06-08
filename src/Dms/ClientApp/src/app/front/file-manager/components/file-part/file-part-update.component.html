@@ -19,23 +19,23 @@
           <div class="row mb-3">
             <label class="form-label" jhiTranslate="dmsApp.filePart.content" for="field_content">Content</label>
             <div>
-              <div *ngIf="editFilePartForm.get('content')!.value" class="form-text text-danger clearfix">
+              <div *ngIf="filePartForm.get('content')!.value" class="form-text text-danger clearfix">
                 <a class="pull-start" (click)="
                   openFile(
-                    editFilePartForm.get('content')!.value,
-                    editFilePartForm.get('contentContentType')!.value
+                    filePartForm.get('content')!.value,
+                    filePartForm.get('contentContentType')!.value
                   )
                 " jhiTranslate="entity.action.open">open</a><br />
-                <span class="pull-start">{{ editFilePartForm.get("contentContentType")!.value }},
-                  {{ byteSize(editFilePartForm.get("content")!.value) }}</span>
+                <span class="pull-start">{{ filePartForm.get("contentContentType")!.value }},
+                  {{ byteSize(filePartForm.get("content")!.value) }}</span>
                 <button type="button" (click)="
-                editFilePartForm.patchValue({ content: null });
-                editFilePartForm.patchValue({ contentContentType: null })
+                filePartForm.patchValue({ content: null });
+                filePartForm.patchValue({ contentContentType: null })
                 " class="btn btn-secondary btn-xs pull-end">
                   <fa-icon icon="times"></fa-icon>
                 </button>
               </div>
-              <input type="file" id="file_content" data-cy="content" (change)="setFileData($event, 'content', false)"
+              <input type="file" id="file_content" data-cy="content" (change)="setFileData($event, 'content', false, i)"
                 jhiTranslate="entity.action.addblob" />
             </div>
             <input type="hidden" class="form-control" name="content" id="field_content" data-cy="content"
@@ -49,8 +49,8 @@
             <select class="form-control" id="field_signer" data-cy="signer" name="signer" formControlName="signer">
               <option [ngValue]="null"></option>
               <option [ngValue]="
-                userOption.id === editFilePartForm.get('signer')!.value?.id
-                  ? editFilePartForm.get('signer')!.value
+                userOption.id === filePartForm.get('signer')!.value?.id
+                  ? filePartForm.get('signer')!.value
                   : userOption
               " *ngFor="
                 let userOption of usersSharedCollection;
