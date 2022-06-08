@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
+using JHipsterNet.Core.Pagination;
+using Microsoft.EntityFrameworkCore.Query;
+using Dms.Domain;
+
+namespace Dms.Domain.Repositories.Interfaces
+{
+    public interface IFullAuditedReadOnlyGenericRepository<TEntity, TKey> where TEntity : FullAuditedAggregateRoot<TKey>
+    {
+        Task<TEntity> GetOneAsync(TKey id);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IPage<TEntity>> GetPageAsync(IPageable pageable);
+        Task<bool> Exists(Expression<Func<TEntity, bool>> predicate);
+        Task<int> CountAsync();
+        IFluentRepository<TEntity> QueryHelper();
+    }
+}
