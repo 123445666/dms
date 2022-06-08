@@ -23,7 +23,7 @@ export class FileManagerUpdateComponent implements OnInit {
         id: [],
         name: [],
         concurrencyStamp: [],
-        creator: [],
+        status: [],
         owner: [],
     });
 
@@ -36,7 +36,6 @@ export class FileManagerUpdateComponent implements OnInit {
 
     ngOnInit(): void {
         this.activatedRoute.data.subscribe(({ fileManager }) => {
-            console.log(fileManager);
             this.updateForm(fileManager);
 
             this.loadRelationshipsOptions();
@@ -91,13 +90,12 @@ export class FileManagerUpdateComponent implements OnInit {
             id: fileManager.id,
             name: fileManager.name,
             concurrencyStamp: fileManager.concurrencyStamp,
-            creator: fileManager.creator,
+            status: fileManager.status,
             owner: fileManager.owner,
         });
 
         this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(
             this.usersSharedCollection,
-            fileManager.creator,
             fileManager.owner
         );
     }
@@ -110,7 +108,6 @@ export class FileManagerUpdateComponent implements OnInit {
                 map((users: IUser[]) =>
                     this.userService.addUserToCollectionIfMissing(
                         users,
-                        this.editForm.get("creator")!.value,
                         this.editForm.get("owner")!.value
                     )
                 )
@@ -124,7 +121,7 @@ export class FileManagerUpdateComponent implements OnInit {
             id: this.editForm.get(["id"])!.value,
             name: this.editForm.get(["name"])!.value,
             concurrencyStamp: this.editForm.get(["concurrencyStamp"])!.value,
-            creator: this.editForm.get(["creator"])!.value,
+            status: this.editForm.get(["status"])!.value,
             owner: this.editForm.get(["owner"])!.value,
         };
     }

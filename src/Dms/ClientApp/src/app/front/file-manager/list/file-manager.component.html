@@ -49,24 +49,22 @@
   >
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
-        <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col">
-            <span jhiTranslate="dmsApp.fileContainer.name">Name</span>
-          </th>
-          <th scope="col">
-            <span jhiTranslate="dmsApp.fileContainer.concurrencyStamp"
-              >Concurrency Stamp</span
-            >
-          </th>
-          <th scope="col">
-            <span jhiTranslate="dmsApp.fileContainer.creator">Creator</span>
-          </th>
-          <th scope="col">
-            <span jhiTranslate="dmsApp.fileContainer.owner">Owner</span>
-          </th>
-          <th scope="col"></th>
-        </tr>
+          <tr>
+              <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+              <th scope="col">
+                  <span jhiTranslate="dmsApp.fileContainer.name">Name</span>
+              </th>
+              <th scope="col">
+                  <span jhiTranslate="dmsApp.fileContainer.concurrencyStamp">Concurrency Stamp</span>
+              </th>
+              <th scope="col">
+                  <span jhiTranslate="dmsApp.fileContainer.status">Status</span>
+              </th>
+              <th scope="col">
+                  <span jhiTranslate="dmsApp.fileContainer.owner">Owner</span>
+              </th>
+              <th scope="col"></th>
+          </tr>
       </thead>
       <tbody>
         <tr
@@ -80,8 +78,8 @@
           </td>
           <td>{{ fileManager.name }}</td>
           <td>{{ fileManager.concurrencyStamp }}</td>
-          <td>
-              {{ fileManager.creator?.id }}
+          <td jhiTranslate="{{ 'dmsApp.FileStatus.' + fileManager.status }}">
+              {{ fileManager.status }}
           </td>
           <td>
               {{ fileManager.owner?.id }}

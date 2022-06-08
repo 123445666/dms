@@ -1,69 +1,53 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8">
-    <div *ngIf="fileManager">
-      <h2 data-cy="fileManagerDetailsHeading">
-        <span jhiTranslate="dmsApp.fileManager.detail.title"
-          >File Container</span
-        >
-      </h2>
+    <div class="col-8">
+        <div *ngIf="fileManager">
+            <h2 data-cy="fileManagerDetailsHeading">
+                <span jhiTranslate="dmsApp.fileManager.detail.title">File Container</span>
+            </h2>
 
-      <hr />
+            <hr />
 
-      <jhi-alert-error></jhi-alert-error>
+            <jhi-alert-error></jhi-alert-error>
 
-      <jhi-alert></jhi-alert>
+            <jhi-alert></jhi-alert>
 
-      <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="global.field.id">ID</span></dt>
-        <dd>
-            <span>{{ fileManager.id }}</span>
-        </dd>
-        <dt><span jhiTranslate="dmsApp.fileContainer.name">Name</span></dt>
-        <dd>
-            <span>{{ fileManager.name }}</span>
-        </dd>
-        <dt>
-          <span jhiTranslate="dmsApp.fileContainer.concurrencyStamp"
-            >Concurrency Stamp</span
-          >
-        </dt>
-        <dd>
-            <span>{{ fileManager.concurrencyStamp }}</span>
-        </dd>
-        <dt>
-          <span jhiTranslate="dmsApp.fileContainer.creator">Creator</span>
-        </dt>
-        <dd>
-            <span>{{ fileManager.creator?.id }}</span>
-        </dd>
-        <dt><span jhiTranslate="dmsApp.fileContainer.owner">Owner</span></dt>
-        <dd>
-            <span>{{ fileManager.owner?.id }}</span>
-        </dd>
-      </dl>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="global.field.id">ID</span></dt>
+                <dd>
+                    <span>{{ fileManager.id }}</span>
+                </dd>
+                <dt><span jhiTranslate="dmsApp.fileContainer.name">Name</span></dt>
+                <dd>
+                    <span>{{ fileManager.name }}</span>
+                </dd>
+                <dt>
+                    <span jhiTranslate="dmsApp.fileContainer.concurrencyStamp">Concurrency Stamp</span>
+                </dt>
+                <dd>
+                    <span>{{ fileManager.concurrencyStamp }}</span>
+                </dd>
+                <dt><span jhiTranslate="dmsApp.fileContainer.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'dmsApp.FileStatus.' + fileManager.status }}">{{ fileManager.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="dmsApp.fileContainer.owner">Owner</span></dt>
+                <dd>
+                    <span>{{ fileManager.owner?.id }}</span>
+                </dd>
+            </dl>
 
-      <button
-        type="submit"
-        (click)="previousState()"
-        class="btn btn-info"
-        data-cy="entityDetailsBackButton"
-      >
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span
-          jhiTranslate="entity.action.back"
-          >Back</span
-        >
-      </button>
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info"
+                    data-cy="entityDetailsBackButton">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
 
-      <button
-        type="button"
-        [routerLink]="['user/file-manager', fileManager.id, 'edit']"
-        class="btn btn-primary"
-      >
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span
-          jhiTranslate="entity.action.edit"
-          >Edit</span
-        >
-      </button>
+            <button type="button"
+                    [routerLink]="['user/file-manager', fileManager.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
     </div>
-  </div>
 </div>

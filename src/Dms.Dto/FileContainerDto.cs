@@ -12,7 +12,7 @@ namespace Dms.Dto
         public string Name { get; set; }
         public string ConcurrencyStamp { get; set; }
         public FileStatus Status { get; set; }
-        public long? OwnerId { get; set; }
+        public string OwnerId { get; set; }
         public UserDto Owner { get; set; }
 
         // jhipster-needle-dto-add-field - JHipster will add fields here, do not remove
