@@ -4,6 +4,7 @@ import {
   HttpTestingController,
 } from "@angular/common/http/testing";
 
+import { FileStatus } from "app/entities/enumerations/file-status.model";
 import { IFileContainer, FileContainer } from "../file-container.model";
 
 import { FileContainerService } from "./file-container.service";
@@ -26,6 +27,7 @@ describe("FileContainer Service", () => {
       id: 0,
       name: "AAAAAAA",
       concurrencyStamp: "AAAAAAA",
+      status: FileStatus.NEWLY,
     };
   });
 
@@ -65,6 +67,7 @@ describe("FileContainer Service", () => {
           id: 1,
           name: "BBBBBB",
           concurrencyStamp: "BBBBBB",
+          status: "BBBBBB",
         },
         elemDefault
       );
@@ -84,6 +87,7 @@ describe("FileContainer Service", () => {
       const patchObject = Object.assign(
         {
           name: "BBBBBB",
+          status: "BBBBBB",
         },
         new FileContainer()
       );
@@ -107,6 +111,7 @@ describe("FileContainer Service", () => {
           id: 1,
           name: "BBBBBB",
           concurrencyStamp: "BBBBBB",
+          status: "BBBBBB",
         },
         elemDefault
       );
@@ -170,7 +175,7 @@ describe("FileContainer Service", () => {
         const fileContainerArray: IFileContainer[] = [
           { id: 123 },
           { id: 456 },
-          { id: 94332 },
+          { id: 18836 },
         ];
         const fileContainerCollection: IFileContainer[] = [{ id: 123 }];
         expectedResult = service.addFileContainerToCollectionIfMissing(

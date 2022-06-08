@@ -25,7 +25,6 @@ namespace Dms.Domain.Services
         public virtual async Task<IPage<FileContainer>> FindAll(IPageable pageable)
         {
             var page = await _fileContainerRepository.QueryHelper()
-                .Include(fileContainer => fileContainer.Creator)
                 .Include(fileContainer => fileContainer.Owner)
                 .GetPageAsync(pageable);
             return page;
@@ -34,7 +33,6 @@ namespace Dms.Domain.Services
         public virtual async Task<FileContainer> FindOne(long id)
         {
             var result = await _fileContainerRepository.QueryHelper()
-                .Include(fileContainer => fileContainer.Creator)
                 .Include(fileContainer => fileContainer.Owner)
                 .GetOneAsync(fileContainer => fileContainer.Id == id);
             return result;

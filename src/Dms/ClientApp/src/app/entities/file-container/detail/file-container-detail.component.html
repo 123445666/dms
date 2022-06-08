@@ -30,11 +30,12 @@
         <dd>
           <span>{{ fileContainer.concurrencyStamp }}</span>
         </dd>
-        <dt>
-          <span jhiTranslate="dmsApp.fileContainer.creator">Creator</span>
-        </dt>
+        <dt><span jhiTranslate="dmsApp.fileContainer.status">Status</span></dt>
         <dd>
-          <span>{{ fileContainer.creator?.id }}</span>
+          <span
+            jhiTranslate="{{ 'dmsApp.FileStatus.' + fileContainer.status }}"
+            >{{ fileContainer.status }}</span
+          >
         </dd>
         <dt><span jhiTranslate="dmsApp.fileContainer.owner">Owner</span></dt>
         <dd>

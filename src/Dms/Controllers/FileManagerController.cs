@@ -62,14 +62,9 @@ namespace Dms.Controllers
         [ValidateModel]
         public async Task<IActionResult> UpdateFileContainer(long id, [FromBody] FileContainerDto fileContainerDto)
         {
-            var userName = _userManager.GetUserName(User);
-            var user = await _userManager.FindByNameAsync(userName);
-
             _log.LogDebug($"REST request to update FileContainer : {fileContainerDto}");
             if (fileContainerDto.Id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
             if (id != fileContainerDto.Id) throw new BadRequestAlertException("Invalid Id", EntityName, "idinvalid");
-            fileContainerDto.CreatorId = user.Id;
-            //fileContainerDto.Creator = user;
             FileContainer fileContainer = _mapper.Map<FileContainer>(fileContainerDto);
             await _fileContainerService.Save(fileContainer);
             return Ok(fileContainer)

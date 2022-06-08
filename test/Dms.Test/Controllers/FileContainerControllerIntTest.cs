@@ -8,6 +8,7 @@ using FluentAssertions;
 using Dms.Infrastructure.Data;
 using Dms.Domain;
 using Dms.Domain.Repositories.Interfaces;
+using Dms.Crosscutting.Enums;
 using Dms.Dto;
 using Dms.Configuration.AutoMapper;
 using Dms.Test.Setup;
@@ -41,6 +42,9 @@ namespace Dms.Test.Controllers
         private const string DefaultConcurrencyStamp = "AAAAAAAAAA";
         private const string UpdatedConcurrencyStamp = "BBBBBBBBBB";
 
+        private const FileStatus DefaultStatus = FileStatus.PROCESSING;
+        private const FileStatus UpdatedStatus = FileStatus.PROCESSING;
+
         private readonly AppWebApplicationFactory<TestStartup> _factory;
         private readonly HttpClient _client;
         private readonly IFileContainerRepository _fileContainerRepository;
@@ -55,6 +59,7 @@ namespace Dms.Test.Controllers
             {
                 Name = DefaultName,
                 ConcurrencyStamp = DefaultConcurrencyStamp,
+                Status = DefaultStatus,
             };
         }
 
@@ -79,6 +84,7 @@ namespace Dms.Test.Controllers
             var testFileContainer = fileContainerList.Last();
             testFileContainer.Name.Should().Be(DefaultName);
             testFileContainer.ConcurrencyStamp.Should().Be(DefaultConcurrencyStamp);
+            testFileContainer.Status.Should().Be(DefaultStatus);
         }
 
         [Fact]
@@ -112,6 +118,7 @@ namespace Dms.Test.Controllers
             json.SelectTokens("$.[*].id").Should().Contain(_fileContainer.Id);
             json.SelectTokens("$.[*].name").Should().Contain(DefaultName);
             json.SelectTokens("$.[*].concurrencyStamp").Should().Contain(DefaultConcurrencyStamp);
+            json.SelectTokens("$.[*].status").Should().Contain(DefaultStatus.ToString());
         }
 
         [Fact]
@@ -129,6 +136,7 @@ namespace Dms.Test.Controllers
             json.SelectTokens("$.id").Should().Contain(_fileContainer.Id);
             json.SelectTokens("$.name").Should().Contain(DefaultName);
             json.SelectTokens("$.concurrencyStamp").Should().Contain(DefaultConcurrencyStamp);
+            json.SelectTokens("$.status").Should().Contain(DefaultStatus.ToString());
         }
 
         [Fact]
@@ -153,6 +161,7 @@ namespace Dms.Test.Controllers
             //TODO detach
             updatedFileContainer.Name = UpdatedName;
             updatedFileContainer.ConcurrencyStamp = UpdatedConcurrencyStamp;
+            updatedFileContainer.Status = UpdatedStatus;
 
             FileContainerDto updatedFileContainerDto = _mapper.Map<FileContainerDto>(updatedFileContainer);
             var response = await _client.PutAsync($"/api/file-containers/{_fileContainer.Id}", TestUtil.ToJsonContent(updatedFileContainerDto));
@@ -164,6 +173,7 @@ namespace Dms.Test.Controllers
             var testFileContainer = fileContainerList.Last();
             testFileContainer.Name.Should().Be(UpdatedName);
             testFileContainer.ConcurrencyStamp.Should().Be(UpdatedConcurrencyStamp);
+            testFileContainer.Status.Should().Be(UpdatedStatus);
         }
 
         [Fact]

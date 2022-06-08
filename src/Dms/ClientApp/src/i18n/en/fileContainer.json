@@ -20,7 +20,7 @@
       "id": "ID",
       "name": "Name",
       "concurrencyStamp": "Concurrency Stamp",
-      "creator": "Creator",
+      "status": "Status",
       "owner": "Owner",
       "filePart": "File Part"
     }

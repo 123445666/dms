@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JHipsterNet.Core.Pagination;
 using Dms.Domain;
+using Dms.Crosscutting.Enums;
 using Dms.Crosscutting.Exceptions;
 using Dms.Dto;
 using Dms.Web.Extensions;
@@ -17,7 +18,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using Dms.Crosscutting.Constants;
 
 namespace Dms.Controllers
 {

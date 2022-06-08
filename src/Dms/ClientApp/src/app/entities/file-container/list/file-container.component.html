@@ -60,7 +60,7 @@
             >
           </th>
           <th scope="col">
-            <span jhiTranslate="dmsApp.fileContainer.creator">Creator</span>
+            <span jhiTranslate="dmsApp.fileContainer.status">Status</span>
           </th>
           <th scope="col">
             <span jhiTranslate="dmsApp.fileContainer.owner">Owner</span>
@@ -80,8 +80,8 @@
           </td>
           <td>{{ fileContainer.name }}</td>
           <td>{{ fileContainer.concurrencyStamp }}</td>
-          <td>
-            {{ fileContainer.creator?.id }}
+          <td jhiTranslate="{{ 'dmsApp.FileStatus.' + fileContainer.status }}">
+            {{ fileContainer.status }}
           </td>
           <td>
             {{ fileContainer.owner?.id }}

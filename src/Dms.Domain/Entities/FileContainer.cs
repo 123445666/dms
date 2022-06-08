@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Dms.Crosscutting.Enums;
 
 namespace Dms.Domain
 {
@@ -10,8 +11,7 @@ namespace Dms.Domain
     {
         public string Name { get; set; }
         public string ConcurrencyStamp { get; set; }
-        public string CreatorId { get; set; }
-        public User Creator { get; set; }
+        public FileStatus Status { get; set; }
         public string OwnerId { get; set; }
         public User Owner { get; set; }
         public IList<FilePart> FileParts { get; set; } = new List<FilePart>();
@@ -38,6 +38,7 @@ namespace Dms.Domain
                     $"ID='{Id}'" +
                     $", Name='{Name}'" +
                     $", ConcurrencyStamp='{ConcurrencyStamp}'" +
+                    $", Status='{Status}'" +
                     "}";
         }
     }

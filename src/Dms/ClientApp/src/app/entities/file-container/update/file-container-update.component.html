@@ -73,30 +73,25 @@
         <div class="row mb-3">
           <label
             class="form-label"
-            jhiTranslate="dmsApp.fileContainer.creator"
-            for="field_creator"
-            >Creator</label
+            jhiTranslate="dmsApp.fileContainer.status"
+            for="field_status"
+            >Status</label
           >
           <select
             class="form-control"
-            id="field_creator"
-            data-cy="creator"
-            name="creator"
-            formControlName="creator"
+            name="status"
+            formControlName="status"
+            id="field_status"
+            data-cy="status"
           >
-            <option [ngValue]="null"></option>
+            <option [ngValue]="null">
+              {{ "dmsApp.FileStatus.null" | translate }}
+            </option>
             <option
-              [ngValue]="
-                userOption.id === editForm.get('creator')!.value?.id
-                  ? editForm.get('creator')!.value
-                  : userOption
-              "
-              *ngFor="
-                let userOption of usersSharedCollection;
-                trackBy: trackUserById
-              "
+              *ngFor="let fileStatus of fileStatusValues"
+              [value]="fileStatus"
             >
-              {{ userOption.id }}
+              {{ "dmsApp.FileStatus." + fileStatus | translate }}
             </option>
           </select>
         </div>

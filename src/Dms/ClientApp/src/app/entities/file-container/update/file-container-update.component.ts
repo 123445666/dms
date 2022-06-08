@@ -9,6 +9,7 @@ import { IFileContainer, FileContainer } from "../file-container.model";
 import { FileContainerService } from "../service/file-container.service";
 import { IUser } from "app/entities/user/user.model";
 import { UserService } from "app/entities/user/user.service";
+import { FileStatus } from "app/entities/enumerations/file-status.model";
 
 @Component({
   selector: "jhi-file-container-update",
@@ -16,6 +17,7 @@ import { UserService } from "app/entities/user/user.service";
 })
 export class FileContainerUpdateComponent implements OnInit {
   isSaving = false;
+  fileStatusValues = Object.keys(FileStatus);
 
   usersSharedCollection: IUser[] = [];
 
@@ -23,7 +25,7 @@ export class FileContainerUpdateComponent implements OnInit {
     id: [],
     name: [],
     concurrencyStamp: [],
-    creator: [],
+    status: [],
     owner: [],
   });
 
@@ -90,13 +92,12 @@ export class FileContainerUpdateComponent implements OnInit {
       id: fileContainer.id,
       name: fileContainer.name,
       concurrencyStamp: fileContainer.concurrencyStamp,
-      creator: fileContainer.creator,
+      status: fileContainer.status,
       owner: fileContainer.owner,
     });
 
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(
       this.usersSharedCollection,
-      fileContainer.creator,
       fileContainer.owner
     );
   }
@@ -109,7 +110,6 @@ export class FileContainerUpdateComponent implements OnInit {
         map((users: IUser[]) =>
           this.userService.addUserToCollectionIfMissing(
             users,
-            this.editForm.get("creator")!.value,
             this.editForm.get("owner")!.value
           )
         )
@@ -123,7 +123,7 @@ export class FileContainerUpdateComponent implements OnInit {
       id: this.editForm.get(["id"])!.value,
       name: this.editForm.get(["name"])!.value,
       concurrencyStamp: this.editForm.get(["concurrencyStamp"])!.value,
-      creator: this.editForm.get(["creator"])!.value,
+      status: this.editForm.get(["status"])!.value,
       owner: this.editForm.get(["owner"])!.value,
     };
   }

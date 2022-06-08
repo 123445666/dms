@@ -49,18 +49,16 @@ describe("FileContainer Management Update Component", () => {
   describe("ngOnInit", () => {
     it("Should call User query and add missing value", () => {
       const fileContainer: IFileContainer = { id: 456 };
-      const creator: IUser = { id: "295bd559-0aed-4705-a9fe-e18997b77b5f" };
-      fileContainer.creator = creator;
-      const owner: IUser = { id: "45ffc430-23ee-4165-9375-414a392d1d45" };
+      const owner: IUser = { id: "295bd559-0aed-4705-a9fe-e18997b77b5f" };
       fileContainer.owner = owner;
 
       const userCollection: IUser[] = [
-        { id: "c94be457-35e2-4f8b-a88b-e8f184ebc30a" },
+        { id: "45ffc430-23ee-4165-9375-414a392d1d45" },
       ];
       jest
         .spyOn(userService, "query")
         .mockReturnValue(of(new HttpResponse({ body: userCollection })));
-      const additionalUsers = [creator, owner];
+      const additionalUsers = [owner];
       const expectedCollection: IUser[] = [
         ...additionalUsers,
         ...userCollection,
@@ -82,9 +80,7 @@ describe("FileContainer Management Update Component", () => {
 
     it("Should update editForm", () => {
       const fileContainer: IFileContainer = { id: 456 };
-      const creator: IUser = { id: "125e6986-4949-4500-a9a5-5591428b85e8" };
-      fileContainer.creator = creator;
-      const owner: IUser = { id: "84d5cd42-251b-42cf-a145-3fdd0f3e8ee9" };
+      const owner: IUser = { id: "c94be457-35e2-4f8b-a88b-e8f184ebc30a" };
       fileContainer.owner = owner;
 
       activatedRoute.data = of({ fileContainer });
@@ -93,7 +89,6 @@ describe("FileContainer Management Update Component", () => {
       expect(comp.editForm.value).toEqual(
         expect.objectContaining(fileContainer)
       );
-      expect(comp.usersSharedCollection).toContain(creator);
       expect(comp.usersSharedCollection).toContain(owner);
     });
   });
