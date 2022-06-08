@@ -1,255 +1,74 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" [formGroup]="editFilePartForm">
   <div class="col-8">
-    <form
-      name="editForm"
-      role="form"
-      novalidate
-      (ngSubmit)="save()"
-      [formGroup]="editForm"
-    >
-      <h2
-        id="jhi-file-part-heading"
-        data-cy="FilePartCreateUpdateHeading"
-        jhiTranslate="dmsApp.filePart.home.createOrEditLabel"
-      >
-        Create or edit a File Part
-      </h2>
+    <ng-container formArrayName="fileParts">
+      <ng-container *ngFor="let filePartForm of fileParts.controls; let i = index">
+        <div [formGroupName]="i">
+          <jhi-alert-error></jhi-alert-error>
 
-      <div>
-        <jhi-alert-error></jhi-alert-error>
-
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-          <label
-            class="form-label"
-            jhiTranslate="global.field.id"
-            for="field_id"
-            >ID</label
-          >
-          <input
-            type="number"
-            class="form-control"
-            name="id"
-            id="field_id"
-            data-cy="id"
-            formControlName="id"
-            [readonly]="true"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.filePart.name"
-            for="field_name"
-            >Name</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="name"
-            id="field_name"
-            data-cy="name"
-            formControlName="name"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.filePart.content"
-            for="field_content"
-            >Content</label
-          >
-          <div>
-            <div
-              *ngIf="editForm.get('content')!.value"
-              class="form-text text-danger clearfix"
-            >
-              <a
-                class="pull-start"
-                (click)="
-                  openFile(
-                    editForm.get('content')!.value,
-                    editForm.get('contentContentType')!.value
-                  )
-                "
-                jhiTranslate="entity.action.open"
-                >open</a
-              ><br />
-              <span class="pull-start"
-                >{{ editForm.get("contentContentType")!.value }},
-                {{ byteSize(editForm.get("content")!.value) }}</span
-              >
-              <button
-                type="button"
-                (click)="
-                  editForm.patchValue({ content: null });
-                  editForm.patchValue({ contentContentType: null })
-                "
-                class="btn btn-secondary btn-xs pull-end"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input
-              type="file"
-              id="file_content"
-              data-cy="content"
-              (change)="setFileData($event, 'content', false)"
-              jhiTranslate="entity.action.addblob"
-            />
+          <div class="row mb-3" [hidden]="filePartForm.get('id')!.value == null">
+            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
+              [readonly]="true" />
           </div>
-          <input
-            type="hidden"
-            class="form-control"
-            name="content"
-            id="field_content"
-            data-cy="content"
-            formControlName="content"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            name="contentContentType"
-            id="field_contentContentType"
-            formControlName="contentContentType"
-          />
-        </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.filePart.concurrencyStamp"
-            for="field_concurrencyStamp"
-            >Concurrency Stamp</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="concurrencyStamp"
-            id="field_concurrencyStamp"
-            data-cy="concurrencyStamp"
-            formControlName="concurrencyStamp"
-          />
-        </div>
+          <div class="row mb-3">
+            <label class="form-label" jhiTranslate="dmsApp.filePart.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.filePart.status"
-            for="field_status"
-            >Status</label
-          >
-          <select
-            class="form-control"
-            name="status"
-            formControlName="status"
-            id="field_status"
-            data-cy="status"
-          >
-            <option [ngValue]="null">
-              {{ "dmsApp.FileStatus.null" | translate }}
-            </option>
-            <option
-              *ngFor="let fileStatus of fileStatusValues"
-              [value]="fileStatus"
-            >
-              {{ "dmsApp.FileStatus." + fileStatus | translate }}
-            </option>
-          </select>
-        </div>
+          <div class="row mb-3">
+            <label class="form-label" jhiTranslate="dmsApp.filePart.content" for="field_content">Content</label>
+            <div>
+              <div *ngIf="editFilePartForm.get('content')!.value" class="form-text text-danger clearfix">
+                <a class="pull-start" (click)="
+                  openFile(
+                    editFilePartForm.get('content')!.value,
+                    editFilePartForm.get('contentContentType')!.value
+                  )
+                " jhiTranslate="entity.action.open">open</a><br />
+                <span class="pull-start">{{ editFilePartForm.get("contentContentType")!.value }},
+                  {{ byteSize(editFilePartForm.get("content")!.value) }}</span>
+                <button type="button" (click)="
+                editFilePartForm.patchValue({ content: null });
+                editFilePartForm.patchValue({ contentContentType: null })
+                " class="btn btn-secondary btn-xs pull-end">
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+              <input type="file" id="file_content" data-cy="content" (change)="setFileData($event, 'content', false)"
+                jhiTranslate="entity.action.addblob" />
+            </div>
+            <input type="hidden" class="form-control" name="content" id="field_content" data-cy="content"
+              formControlName="content" />
+            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+              formControlName="contentContentType" />
+          </div>
 
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.filePart.signer"
-            for="field_signer"
-            >Signer</label
-          >
-          <select
-            class="form-control"
-            id="field_signer"
-            data-cy="signer"
-            name="signer"
-            formControlName="signer"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                userOption.id === editForm.get('signer')!.value?.id
-                  ? editForm.get('signer')!.value
+          <div class="row mb-3">
+            <label class="form-label" jhiTranslate="dmsApp.filePart.signer" for="field_signer">Signer</label>
+            <select class="form-control" id="field_signer" data-cy="signer" name="signer" formControlName="signer">
+              <option [ngValue]="null"></option>
+              <option [ngValue]="
+                userOption.id === editFilePartForm.get('signer')!.value?.id
+                  ? editFilePartForm.get('signer')!.value
                   : userOption
-              "
-              *ngFor="
+              " *ngFor="
                 let userOption of usersSharedCollection;
                 trackBy: trackUserById
-              "
-            >
-              {{ userOption.id }}
-            </option>
-          </select>
+              ">
+                {{ userOption.id }}
+              </option>
+            </select>
+          </div>
+
+          <button type="button" (click)="deleteFilePart(i)">
+            Delete
+          </button>
         </div>
-
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.filePart.fileContainer"
-            for="field_fileContainer"
-            >File Container</label
-          >
-          <select
-            class="form-control"
-            id="field_fileContainer"
-            data-cy="fileContainer"
-            name="fileContainer"
-            formControlName="fileContainer"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                fileContainerOption.id ===
-                editForm.get('fileContainer')!.value?.id
-                  ? editForm.get('fileContainer')!.value
-                  : fileContainerOption
-              "
-              *ngFor="
-                let fileContainerOption of fileContainersSharedCollection;
-                trackBy: trackFileContainerById
-              "
-            >
-              {{ fileContainerOption.id }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <button
-          type="button"
-          id="cancel-save"
-          data-cy="entityCreateCancelButton"
-          class="btn btn-secondary"
-          (click)="previousState()"
-        >
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span
-            jhiTranslate="entity.action.cancel"
-            >Cancel</span
-          >
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span
-            jhiTranslate="entity.action.save"
-            >Save</span
-          >
-        </button>
-      </div>
-    </form>
+      </ng-container>
+    </ng-container>
   </div>
+  <button type="button" (click)="addFilePart()">
+    Add
+  </button>
 </div>

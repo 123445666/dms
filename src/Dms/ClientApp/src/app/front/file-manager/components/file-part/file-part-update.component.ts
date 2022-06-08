@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpResponse } from "@angular/common/http";
-import { FormBuilder } from "@angular/forms";
+import { FormArray, FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { finalize, map } from "rxjs/operators";
@@ -30,15 +30,8 @@ export class FilePartUpdateComponent implements OnInit {
   usersSharedCollection: IUser[] = [];
   fileContainersSharedCollection: IFileContainer[] = [];
 
-  editForm = this.fb.group({
-    id: [],
-    name: [],
-    content: [],
-    contentContentType: [],
-    concurrencyStamp: [],
-    status: [],
-    signer: [],
-    fileContainer: [],
+  editFilePartForm = this.fb.group({
+    fileParts: this.fb.array([])
   });
 
   constructor(
@@ -49,7 +42,11 @@ export class FilePartUpdateComponent implements OnInit {
     protected fileContainerService: FileContainerService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
-  ) {}
+  ) { }
+
+  get fileParts(): FormArray {
+    return this.editFilePartForm.controls["fileParts"] as FormArray;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ filePart }) => {
@@ -69,7 +66,7 @@ export class FilePartUpdateComponent implements OnInit {
 
   setFileData(event: Event, field: string, isImage: boolean): void {
     this.dataUtils
-      .loadFileToForm(event, this.editForm, field, isImage)
+      .loadFileToForm(event, this.editFilePartForm, field, isImage)
       .subscribe({
         error: (err: FileLoadError) =>
           this.eventManager.broadcast(
@@ -83,6 +80,25 @@ export class FilePartUpdateComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+
+  addFilePart(): void {
+    const filePartForm = this.fb.group({
+      id: [],
+      name: [],
+      content: [],
+      contentContentType: [],
+      concurrencyStamp: [],
+      status: [],
+      signer: [],
+      fileContainer: [],
+    });
+
+    this.fileParts.push(filePartForm);
+  }
+
+  deleteFilePart(filePartIndex: number): void  {
+    this.fileParts.removeAt(filePartIndex);
   }
 
   save(): void {
@@ -125,7 +141,7 @@ export class FilePartUpdateComponent implements OnInit {
   }
 
   protected updateForm(filePart: IFilePart): void {
-    this.editForm.patchValue({
+    this.editFilePartForm.patchValue({
       id: filePart.id,
       name: filePart.name,
       content: filePart.content,
@@ -155,7 +171,7 @@ export class FilePartUpdateComponent implements OnInit {
         map((users: IUser[]) =>
           this.userService.addUserToCollectionIfMissing(
             users,
-            this.editForm.get("signer")!.value
+            this.editFilePartForm.get("signer")!.value
           )
         )
       )
@@ -168,7 +184,7 @@ export class FilePartUpdateComponent implements OnInit {
         map((fileContainers: IFileContainer[]) =>
           this.fileContainerService.addFileContainerToCollectionIfMissing(
             fileContainers,
-            this.editForm.get("fileContainer")!.value
+            this.editFilePartForm.get("fileContainer")!.value
           )
         )
       )
@@ -181,14 +197,14 @@ export class FilePartUpdateComponent implements OnInit {
   protected createFromForm(): IFilePart {
     return {
       ...new FilePart(),
-      id: this.editForm.get(["id"])!.value,
-      name: this.editForm.get(["name"])!.value,
-      contentContentType: this.editForm.get(["contentContentType"])!.value,
-      content: this.editForm.get(["content"])!.value,
-      concurrencyStamp: this.editForm.get(["concurrencyStamp"])!.value,
-      status: this.editForm.get(["status"])!.value,
-      signer: this.editForm.get(["signer"])!.value,
-      fileContainer: this.editForm.get(["fileContainer"])!.value,
+      id: this.editFilePartForm.get(["id"])!.value,
+      name: this.editFilePartForm.get(["name"])!.value,
+      contentContentType: this.editFilePartForm.get(["contentContentType"])!.value,
+      content: this.editFilePartForm.get(["content"])!.value,
+      concurrencyStamp: this.editFilePartForm.get(["concurrencyStamp"])!.value,
+      status: this.editFilePartForm.get(["status"])!.value,
+      signer: this.editFilePartForm.get(["signer"])!.value,
+      fileContainer: this.editFilePartForm.get(["fileContainer"])!.value,
     };
   }
 }

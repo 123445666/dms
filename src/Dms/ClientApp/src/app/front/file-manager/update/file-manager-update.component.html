@@ -4,7 +4,7 @@
       name="editForm"
       role="form"
       novalidate
-      (ngSubmit)="save()"
+      (ngSubmit)="save(filepart)"
       [formGroup]="editForm"
     >
       <h2
@@ -101,7 +101,8 @@
           </select>
         </div>
       </div>
-      <jhi-file-part-update></jhi-file-part-update>
+
+      <jhi-file-part-update #filepart></jhi-file-part-update>
 
       <div>
         <button

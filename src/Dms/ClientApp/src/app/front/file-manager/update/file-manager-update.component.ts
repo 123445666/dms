@@ -9,6 +9,7 @@ import { IFileManager, FileManager } from "../file-manager.model";
 import { FileManagerService } from "../service/file-manager.service";
 import { IUser } from "app/entities/user/user.model";
 import { UserService } from "app/entities/user/user.service";
+import { FilePartUpdateComponent } from "../components/file-part/file-part-update.component";
 
 @Component({
     selector: "jhi-file-manager-update",
@@ -25,6 +26,7 @@ export class FileManagerUpdateComponent implements OnInit {
         concurrencyStamp: [],
         status: [],
         owner: [],
+        fileParts: []
     });
 
     constructor(
@@ -46,9 +48,12 @@ export class FileManagerUpdateComponent implements OnInit {
         window.history.back();
     }
 
-    save(): void {
+    save(filepart: FilePartUpdateComponent): void {
         this.isSaving = true;
-        const fileManager = this.createFromForm();
+        const fileManager = this.createFromForm(filepart);
+        /* eslint-disable no-console */
+        console.log(fileManager);
+        /* eslint-disable no-console */
         if (fileManager.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.fileManagerService.update(fileManager)
@@ -115,7 +120,10 @@ export class FileManagerUpdateComponent implements OnInit {
             .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
     }
 
-    protected createFromForm(): IFileManager {
+    protected createFromForm(filepart: FilePartUpdateComponent): IFileManager {
+        /* eslint-disable no-console */
+        console.log(filepart.fileParts.value);
+        /* eslint-disable no-console */
         return {
             ...new FileManager(),
             id: this.editForm.get(["id"])!.value,
@@ -123,6 +131,7 @@ export class FileManagerUpdateComponent implements OnInit {
             concurrencyStamp: this.editForm.get(["concurrencyStamp"])!.value,
             status: this.editForm.get(["status"])!.value,
             owner: this.editForm.get(["owner"])!.value,
+            fileParts: filepart.fileParts.value,
         };
     }
 }

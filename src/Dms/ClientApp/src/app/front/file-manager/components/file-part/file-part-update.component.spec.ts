@@ -6,8 +6,8 @@ import { ActivatedRoute } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { of, Subject, from } from "rxjs";
 
-import { FilePartService } from "../service/file-part.service";
-import { IFilePart, FilePart } from "../file-part.model";
+import { FilePartService } from "app/entities/file-part/service/file-part.service";
+import { IFilePart, FilePart } from "app/entities/file-part/file-part.model";
 
 import { IUser } from "app/entities/user/user.model";
 import { UserService } from "app/entities/user/user.service";
@@ -125,7 +125,7 @@ describe("FilePart Management Update Component", () => {
       activatedRoute.data = of({ filePart });
       comp.ngOnInit();
 
-      expect(comp.editForm.value).toEqual(expect.objectContaining(filePart));
+      expect(comp.editFilePartForm.value).toEqual(expect.objectContaining(filePart));
       expect(comp.usersSharedCollection).toContain(signer);
       expect(comp.fileContainersSharedCollection).toContain(fileContainer);
     });
