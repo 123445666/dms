@@ -104,6 +104,23 @@ namespace Dms.Test.Controllers
         }
 
         [Fact]
+        public async Task CheckNameIsRequired()
+        {
+            var databaseSizeBeforeTest = await _fileContainerRepository.CountAsync();
+
+            // Set the field to null
+            _fileContainer.Name = null;
+
+            // Create the FileContainer, which fails.
+            FileContainerDto _fileContainerDto = _mapper.Map<FileContainerDto>(_fileContainer);
+            var response = await _client.PostAsync("/api/file-containers", TestUtil.ToJsonContent(_fileContainerDto));
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var fileContainerList = await _fileContainerRepository.GetAllAsync();
+            fileContainerList.Count().Should().Be(databaseSizeBeforeTest);
+        }
+
+        [Fact]
         public async Task GetAllFileContainers()
         {
             // Initialize the database

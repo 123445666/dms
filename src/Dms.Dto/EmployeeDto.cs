@@ -8,6 +8,7 @@ namespace Dms.Dto
     public class EmployeeDto
     {
         public long Id { get; set; }
+        [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

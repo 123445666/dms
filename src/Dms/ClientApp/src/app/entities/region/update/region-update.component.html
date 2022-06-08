@@ -51,6 +51,21 @@
             data-cy="regionName"
             formControlName="regionName"
           />
+          <div
+            *ngIf="
+              editForm.get('regionName')!.invalid &&
+              (editForm.get('regionName')!.dirty ||
+                editForm.get('regionName')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('regionName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
       </div>
 

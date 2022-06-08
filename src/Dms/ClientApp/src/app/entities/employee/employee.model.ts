@@ -4,7 +4,7 @@ import { IDepartment } from "app/entities/department/department.model";
 
 export interface IEmployee {
   id?: number;
-  firstName?: string | null;
+  firstName?: string;
   lastName?: string | null;
   email?: string | null;
   phoneNumber?: string | null;
@@ -20,7 +20,7 @@ export interface IEmployee {
 export class Employee implements IEmployee {
   constructor(
     public id?: number,
-    public firstName?: string | null,
+    public firstName?: string,
     public lastName?: string | null,
     public email?: string | null,
     public phoneNumber?: string | null,

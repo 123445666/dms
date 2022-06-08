@@ -51,6 +51,21 @@
             data-cy="streetAddress"
             formControlName="streetAddress"
           />
+          <div
+            *ngIf="
+              editForm.get('streetAddress')!.invalid &&
+              (editForm.get('streetAddress')!.dirty ||
+                editForm.get('streetAddress')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('streetAddress')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">

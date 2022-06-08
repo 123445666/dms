@@ -124,6 +124,23 @@ namespace Dms.Test.Controllers
         }
 
         [Fact]
+        public async Task CheckFirstNameIsRequired()
+        {
+            var databaseSizeBeforeTest = await _employeeRepository.CountAsync();
+
+            // Set the field to null
+            _employee.FirstName = null;
+
+            // Create the Employee, which fails.
+            EmployeeDto _employeeDto = _mapper.Map<EmployeeDto>(_employee);
+            var response = await _client.PostAsync("/api/employees", TestUtil.ToJsonContent(_employeeDto));
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var employeeList = await _employeeRepository.GetAllAsync();
+            employeeList.Count().Should().Be(databaseSizeBeforeTest);
+        }
+
+        [Fact]
         public async Task GetAllEmployees()
         {
             // Initialize the database

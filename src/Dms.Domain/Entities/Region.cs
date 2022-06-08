@@ -8,6 +8,7 @@ namespace Dms.Domain
     [Table("region")]
     public class Region : BaseEntity<long>
     {
+        [Required]
         public string RegionName { get; set; }
 
         // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

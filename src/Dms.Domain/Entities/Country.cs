@@ -8,6 +8,7 @@ namespace Dms.Domain
     [Table("country")]
     public class Country : BaseEntity<long>
     {
+        [Required]
         public string CountryName { get; set; }
         public long? RegionId { get; set; }
         public Region Region { get; set; }

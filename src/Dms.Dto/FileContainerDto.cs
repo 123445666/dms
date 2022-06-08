@@ -9,6 +9,7 @@ namespace Dms.Dto
     public class FileContainerDto
     {
         public long Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public string ConcurrencyStamp { get; set; }
         public FileStatus Status { get; set; }

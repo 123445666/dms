@@ -4,7 +4,7 @@ import { FileStatus } from "app/entities/enumerations/file-status.model";
 
 export interface IFileContainer {
   id?: number;
-  name?: string | null;
+  name?: string;
   concurrencyStamp?: string | null;
   status?: FileStatus | null;
   owner?: IUser | null;
@@ -14,7 +14,7 @@ export interface IFileContainer {
 export class FileContainer implements IFileContainer {
   constructor(
     public id?: number,
-    public name?: string | null,
+    public name?: string,
     public concurrencyStamp?: string | null,
     public status?: FileStatus | null,
     public owner?: IUser | null,

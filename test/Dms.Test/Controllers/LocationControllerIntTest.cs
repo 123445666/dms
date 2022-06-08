@@ -108,6 +108,23 @@ namespace Dms.Test.Controllers
         }
 
         [Fact]
+        public async Task CheckStreetAddressIsRequired()
+        {
+            var databaseSizeBeforeTest = await _locationRepository.CountAsync();
+
+            // Set the field to null
+            _location.StreetAddress = null;
+
+            // Create the Location, which fails.
+            LocationDto _locationDto = _mapper.Map<LocationDto>(_location);
+            var response = await _client.PostAsync("/api/locations", TestUtil.ToJsonContent(_locationDto));
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var locationList = await _locationRepository.GetAllAsync();
+            locationList.Count().Should().Be(databaseSizeBeforeTest);
+        }
+
+        [Fact]
         public async Task GetAllLocations()
         {
             // Initialize the database

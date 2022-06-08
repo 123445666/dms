@@ -93,6 +93,23 @@ namespace Dms.Test.Controllers
         }
 
         [Fact]
+        public async Task CheckRegionNameIsRequired()
+        {
+            var databaseSizeBeforeTest = await _regionRepository.CountAsync();
+
+            // Set the field to null
+            _region.RegionName = null;
+
+            // Create the Region, which fails.
+            RegionDto _regionDto = _mapper.Map<RegionDto>(_region);
+            var response = await _client.PostAsync("/api/regions", TestUtil.ToJsonContent(_regionDto));
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var regionList = await _regionRepository.GetAllAsync();
+            regionList.Count().Should().Be(databaseSizeBeforeTest);
+        }
+
+        [Fact]
         public async Task GetAllRegions()
         {
             // Initialize the database

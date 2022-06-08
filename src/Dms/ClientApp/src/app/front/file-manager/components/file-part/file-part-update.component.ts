@@ -163,18 +163,18 @@ export class FilePartUpdateComponent implements OnInit {
     })
 
 
-    const filePartForm = this.fb.group({
-      id: [],
-      name: [],
-      content: [],
-      contentContentType: [],
-      concurrencyStamp: [],
-      status: [],
-      signer: [],
-      fileContainer: [],
-    });
+    //const filePartForm = this.fb.group({
+    //  id: [],
+    //  name: [],
+    //  content: [],
+    //  contentContentType: [],
+    //  concurrencyStamp: [],
+    //  status: [],
+    //  signer: [],
+    //  fileContainer: [],
+    //});
 
-    this.fileParts.push(filePartForm);
+    //this.fileParts.push(filePartForm);
 
     // this.editFilePartForm.patchValue({
     //   id: filePart.id,

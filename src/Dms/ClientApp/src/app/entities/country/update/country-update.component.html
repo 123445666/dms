@@ -51,6 +51,21 @@
             data-cy="countryName"
             formControlName="countryName"
           />
+          <div
+            *ngIf="
+              editForm.get('countryName')!.invalid &&
+              (editForm.get('countryName')!.dirty ||
+                editForm.get('countryName')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('countryName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">

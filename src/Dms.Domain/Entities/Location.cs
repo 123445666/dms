@@ -8,6 +8,7 @@ namespace Dms.Domain
     [Table("location")]
     public class Location : BaseEntity<long>
     {
+        [Required]
         public string StreetAddress { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }

@@ -2,14 +2,14 @@ import { IRegion } from "app/entities/region/region.model";
 
 export interface ICountry {
   id?: number;
-  countryName?: string | null;
+  countryName?: string;
   region?: IRegion | null;
 }
 
 export class Country implements ICountry {
   constructor(
     public id?: number,
-    public countryName?: string | null,
+    public countryName?: string,
     public region?: IRegion | null
   ) {}
 }

@@ -1,10 +1,10 @@
 export interface IRegion {
   id?: number;
-  regionName?: string | null;
+  regionName?: string;
 }
 
 export class Region implements IRegion {
-  constructor(public id?: number, public regionName?: string | null) {}
+  constructor(public id?: number, public regionName?: string) {}
 }
 
 export function getRegionIdentifier(region: IRegion): number | undefined {

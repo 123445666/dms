@@ -93,6 +93,23 @@ namespace Dms.Test.Controllers
         }
 
         [Fact]
+        public async Task CheckCountryNameIsRequired()
+        {
+            var databaseSizeBeforeTest = await _countryRepository.CountAsync();
+
+            // Set the field to null
+            _country.CountryName = null;
+
+            // Create the Country, which fails.
+            CountryDto _countryDto = _mapper.Map<CountryDto>(_country);
+            var response = await _client.PostAsync("/api/countries", TestUtil.ToJsonContent(_countryDto));
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var countryList = await _countryRepository.GetAllAsync();
+            countryList.Count().Should().Be(databaseSizeBeforeTest);
+        }
+
+        [Fact]
         public async Task GetAllCountries()
         {
             // Initialize the database

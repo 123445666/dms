@@ -109,6 +109,23 @@ namespace Dms.Test.Controllers
         }
 
         [Fact]
+        public async Task CheckNameIsRequired()
+        {
+            var databaseSizeBeforeTest = await _filePartRepository.CountAsync();
+
+            // Set the field to null
+            _filePart.Name = null;
+
+            // Create the FilePart, which fails.
+            FilePartDto _filePartDto = _mapper.Map<FilePartDto>(_filePart);
+            var response = await _client.PostAsync("/api/file-parts", TestUtil.ToJsonContent(_filePartDto));
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var filePartList = await _filePartRepository.GetAllAsync();
+            filePartList.Count().Should().Be(databaseSizeBeforeTest);
+        }
+
+        [Fact]
         public async Task GetAllFileParts()
         {
             // Initialize the database

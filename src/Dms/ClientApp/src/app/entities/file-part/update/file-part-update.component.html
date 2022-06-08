@@ -51,6 +51,20 @@
             data-cy="name"
             formControlName="name"
           />
+          <div
+            *ngIf="
+              editForm.get('name')!.invalid &&
+              (editForm.get('name')!.dirty || editForm.get('name')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('name')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
         </div>
 
         <div class="row mb-3">

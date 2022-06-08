@@ -22,7 +22,7 @@ namespace Dms.Infrastructure.Data.Repositories
             List<Type> entitiesToBeUpdated = new List<Type>();
             entitiesToBeUpdated.Add(typeof(FileContainer));
             entitiesToBeUpdated.Add(typeof(FilePart));
-            
+
             return await base.CreateOrUpdateAsync(fileContainer, entitiesToBeUpdated);
         }
     }

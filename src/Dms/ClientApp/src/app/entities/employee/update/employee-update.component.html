@@ -38,6 +38,17 @@
                            id="field_firstName"
                            data-cy="firstName"
                            formControlName="firstName" />
+                    <div *ngIf="
+              editForm.get('firstName')!.invalid &&
+              (editForm.get('firstName')!.dirty ||
+                editForm.get('firstName')!.touched)
+            ">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('firstName')?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
                 </div>
 
                 <div class="row mb-3">
@@ -140,10 +151,10 @@
                             </button>
                         </div>
                         <!--<input type="file"
-           id="file_signature"
-           data-cy="signature"
-           (change)="setFileData($event, 'signature', false)"
-           jhiTranslate="entity.action.addblob" />-->
+                        id="file_signature"
+                        data-cy="signature"
+                        (change)="setFileData($event, 'signature', false)"
+                        jhiTranslate="entity.action.addblob" />-->
                     </div>
                     <input type="hidden"
                            class="form-control"

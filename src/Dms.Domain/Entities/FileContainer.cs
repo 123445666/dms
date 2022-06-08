@@ -9,6 +9,7 @@ namespace Dms.Domain
     [Table("file_container")]
     public class FileContainer : BaseEntity<long>
     {
+        [Required]
         public string Name { get; set; }
         public string ConcurrencyStamp { get; set; }
         public FileStatus Status { get; set; }

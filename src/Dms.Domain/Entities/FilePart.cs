@@ -9,6 +9,7 @@ namespace Dms.Domain
     [Table("file_part")]
     public class FilePart : BaseEntity<long>
     {
+        [Required]
         public string Name { get; set; }
         public byte[] Content { get; set; }
         public string contentContentType { get; set; }

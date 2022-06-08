@@ -4,7 +4,7 @@ import { FileStatus } from "app/entities/enumerations/file-status.model";
 
 export interface IFilePart {
   id?: number;
-  name?: string | null;
+  name?: string;
   contentContentType?: string | null;
   content?: string | null;
   concurrencyStamp?: string | null;
@@ -16,7 +16,7 @@ export interface IFilePart {
 export class FilePart implements IFilePart {
   constructor(
     public id?: number,
-    public name?: string | null,
+    public name?: string,
     public contentContentType?: string | null,
     public content?: string | null,
     public concurrencyStamp?: string | null,
