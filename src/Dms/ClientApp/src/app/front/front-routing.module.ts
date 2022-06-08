@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { Authority } from "app/config/authority.constants";
 
 @NgModule({
     imports: [
