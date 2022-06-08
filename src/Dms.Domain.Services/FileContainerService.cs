@@ -26,6 +26,7 @@ namespace Dms.Domain.Services
         {
             var page = await _fileContainerRepository.QueryHelper()
                 .Include(fileContainer => fileContainer.Owner)
+                .Include(fileContainer => fileContainer.FileParts)
                 .GetPageAsync(pageable);
             return page;
         }
@@ -34,6 +35,7 @@ namespace Dms.Domain.Services
         {
             var result = await _fileContainerRepository.QueryHelper()
                 .Include(fileContainer => fileContainer.Owner)
+                .Include(fileContainer => fileContainer.FileParts)
                 .GetOneAsync(fileContainer => fileContainer.Id == id);
             return result;
         }

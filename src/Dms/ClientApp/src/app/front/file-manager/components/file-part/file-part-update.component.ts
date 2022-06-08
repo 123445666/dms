@@ -67,10 +67,7 @@ export class FilePartUpdateComponent implements OnInit {
   }
 
   setFileData(event: Event, field: string, isImage: boolean, filePartIndex: number): void {
-    /* eslint-disable no-console */
-    console.log(this.fileParts.at(filePartIndex));
-    /* eslint-disable no-console */
-    const filePartsFormGroup : FormGroup = this.fileParts.at(filePartIndex) as FormGroup;
+    const filePartsFormGroup: FormGroup = this.fileParts.at(filePartIndex) as FormGroup;
 
     this.dataUtils
       .loadFileToForm(event, filePartsFormGroup, field, isImage)
@@ -148,20 +145,6 @@ export class FilePartUpdateComponent implements OnInit {
   }
 
   protected updateForm(fileManager: IFileManager): void {
-
-    const filePartForm = this.fb.group({
-      id: [],
-      name: [],
-      content: [],
-      contentContentType: [],
-      concurrencyStamp: [],
-      status: [],
-      signer: [],
-      fileContainer: [],
-    });
-
-    this.fileParts.push(filePartForm);
-
     const filePartsData = fileManager.fileParts;
 
     filePartsData?.forEach(filePartData => {
@@ -178,6 +161,20 @@ export class FilePartUpdateComponent implements OnInit {
 
       this.fileParts.push(filePartFormData);
     })
+
+
+    const filePartForm = this.fb.group({
+      id: [],
+      name: [],
+      content: [],
+      contentContentType: [],
+      concurrencyStamp: [],
+      status: [],
+      signer: [],
+      fileContainer: [],
+    });
+
+    this.fileParts.push(filePartForm);
 
     // this.editFilePartForm.patchValue({
     //   id: filePart.id,
