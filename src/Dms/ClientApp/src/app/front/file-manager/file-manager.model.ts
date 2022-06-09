@@ -1,5 +1,5 @@
 import { IUser } from "app/entities/user/user.model";
-import { IFilePart } from "app/entities/file-part/file-part.model";
+import { IFilePart } from "../file-manager/file-part.model";
 import { FileStatus } from "app/entities/enumerations/file-status.model";
 
 export interface IFileManager {

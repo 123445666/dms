@@ -69,17 +69,13 @@
 
                             <td>
                                 <label class="form-label" jhiTranslate="dmsApp.filePart.signer" for="field_signer">Signer</label>
-                                <select class="form-control" id="field_signer" data-cy="signer" name="signer" formControlName="signer">
+                                <select class="form-control" id="field_signer" data-cy="signerId" name="signerId" formControlName="signerId">
                                     <option [ngValue]="null"></option>
-                                    <option [ngValue]="
-                userOption.id === filePartForm.get('signer')!.value?.id
-                  ? filePartForm.get('signer')!.value
-                  : userOption
-              " *ngFor="
-                let userOption of usersSharedCollection;
-                trackBy: trackUserById
-              ">
-                                        {{ userOption.id }}
+                                    <option [ngValue]="userOption.id" *ngFor="
+                                            let userOption of usersSharedCollection;
+                                            trackBy: trackUserById
+                                          ">
+                                        {{ userOption.login }}
                                     </option>
                                 </select>
                             </td>
@@ -96,7 +92,7 @@
         </table>
     </div>
 
-
+    <br />
     <button type="button" (click)="addFilePart()">
         Add File
     </button>
