@@ -75,7 +75,10 @@ namespace Dms.Controllers
         public async Task<ActionResult<IEnumerable<FileContainerDto>>> GetAllFileContainers(IPageable pageable)
         {
             _log.LogDebug("REST request to get a page of FileContainers");
-            var result = await _fileContainerService.FindAll(pageable);
+            var userName = _userManager.GetUserName(User);
+            var user = await _userManager.FindByNameAsync(userName);
+
+            var result = await _fileContainerService.FindAllByUserId(pageable, user.Id);
             var page = new Page<FileContainerDto>(result.Content.Select(entity => _mapper.Map<FileContainerDto>(entity)).ToList(), pageable, result.TotalElements);
             return Ok(((IPage<FileContainerDto>)page).Content).WithHeaders(page.GeneratePaginationHttpHeaders());
         }

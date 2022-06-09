@@ -9,6 +9,7 @@ namespace Dms.Domain.Services.Interfaces
         Task<FileContainer> Save(FileContainer fileContainer);
 
         Task<IPage<FileContainer>> FindAll(IPageable pageable);
+        Task<IPage<FileContainer>> FindAllByUserId(IPageable pageable, string userId);
 
         Task<FileContainer> FindOne(long id);
 
