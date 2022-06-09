@@ -52,54 +52,6 @@
             formControlName="name"
           />
         </div>
-
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.fileContainer.concurrencyStamp"
-            for="field_concurrencyStamp"
-            >Concurrency Stamp</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="concurrencyStamp"
-            id="field_concurrencyStamp"
-            data-cy="concurrencyStamp"
-            formControlName="concurrencyStamp"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label
-            class="form-label"
-            jhiTranslate="dmsApp.fileContainer.owner"
-            for="field_owner"
-            >Owner</label
-          >
-          <select
-            class="form-control"
-            id="field_owner"
-            data-cy="owner"
-            name="owner"
-            formControlName="owner"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                userOption.id === editForm.get('owner')!.value?.id
-                  ? editForm.get('owner')!.value
-                  : userOption
-              "
-              *ngFor="
-                let userOption of usersSharedCollection;
-                trackBy: trackUserById
-              "
-            >
-              {{ userOption.id }}
-            </option>
-          </select>
-        </div>
       </div>
 
       <jhi-file-part-update #filepart></jhi-file-part-update>

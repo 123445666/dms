@@ -1,54 +1,77 @@
-<div class="d-flex justify-content-center" [formGroup]="editFilePartForm">
-  <div class="col-8">
-    <ng-container formArrayName="fileParts">
-      <ng-container *ngFor="let filePartForm of fileParts.controls; let i = index">
-        <div [formGroupName]="i">
-          <jhi-alert-error></jhi-alert-error>
+<div class="card">
+    <div class="card-header">
+        <h5>Files</h5>
+    </div>
+    <div class="d-flex justify-content-center" [formGroup]="editFilePartForm">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col">
+                        <span jhiTranslate="dmsApp.filePart.name">Name</span>
+                    </th>
+                    <th scope="col">
+                        <span jhiTranslate="dmsApp.filePart.content">Content</span>
+                    </th>
+                    <th scope="col">
+                        <span jhiTranslate="dmsApp.filePart.signer">Signer</span>
+                    </th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container formArrayName="fileParts">
+                    <ng-container *ngFor="let filePartForm of fileParts.controls; let i = index">
+                        <tr [formGroupName]="i">
+                            <td>
+                                <div [hidden]="filePartForm.get('id')!.value == null">
+                                    <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                                    <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
+                                           [readonly]="true" />
+                                </div>
+                                <jhi-alert-error></jhi-alert-error>
+                            </td>
 
-          <div class="row mb-3" [hidden]="filePartForm.get('id')!.value == null">
-            <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id"
-              [readonly]="true" />
-          </div>
+                            <td>
+                                <label class="form-label" jhiTranslate="dmsApp.filePart.name" for="field_name">Name</label>
+                                <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+                            </td>
 
-          <div class="row mb-3">
-            <label class="form-label" jhiTranslate="dmsApp.filePart.name" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-          </div>
-
-          <div class="row mb-3">
-            <label class="form-label" jhiTranslate="dmsApp.filePart.content" for="field_content">Content</label>
-            <div>
-              <div *ngIf="filePartForm.get('content')!.value" class="form-text text-danger clearfix">
-                <a class="pull-start" (click)="
+                            <td>
+                                <label class="form-label" jhiTranslate="dmsApp.filePart.content" for="field_content">Content</label>
+                                <div>
+                                    <div *ngIf="filePartForm.get('content')!.value" class="form-text text-danger clearfix">
+                                        <a class="pull-start" (click)="
                   openFile(
                     filePartForm.get('content')!.value,
                     filePartForm.get('contentContentType')!.value
                   )
                 " jhiTranslate="entity.action.open">open</a><br />
-                <span class="pull-start">{{ filePartForm.get("contentContentType")!.value }},
-                  {{ byteSize(filePartForm.get("content")!.value) }}</span>
-                <button type="button" (click)="
+                                        <span class="pull-start">
+                                            {{ filePartForm.get("contentContentType")!.value }},
+                                            {{ byteSize(filePartForm.get("content")!.value) }}
+                                        </span>
+                                        <button type="button" (click)="
                 filePartForm.patchValue({ content: null });
                 filePartForm.patchValue({ contentContentType: null })
                 " class="btn btn-secondary btn-xs pull-end">
-                  <fa-icon icon="times"></fa-icon>
-                </button>
-              </div>
-              <input type="file" id="file_content" data-cy="content" (change)="setFileData($event, 'content', false, i)"
-                jhiTranslate="entity.action.addblob" />
-            </div>
-            <input type="hidden" class="form-control" name="content" id="field_content" data-cy="content"
-              formControlName="content" />
-            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
-              formControlName="contentContentType" />
-          </div>
+                                            <fa-icon icon="times"></fa-icon>
+                                        </button>
+                                    </div>
+                                    <input type="file" id="file_content" data-cy="content" (change)="setFileData($event, 'content', false, i)"
+                                           jhiTranslate="entity.action.addblob" />
+                                </div>
+                                <input type="hidden" class="form-control" name="content" id="field_content" data-cy="content"
+                                       formControlName="content" />
+                                <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+                                       formControlName="contentContentType" />
+                            </td>
 
-          <div class="row mb-3">
-            <label class="form-label" jhiTranslate="dmsApp.filePart.signer" for="field_signer">Signer</label>
-            <select class="form-control" id="field_signer" data-cy="signer" name="signer" formControlName="signer">
-              <option [ngValue]="null"></option>
-              <option [ngValue]="
+                            <td>
+                                <label class="form-label" jhiTranslate="dmsApp.filePart.signer" for="field_signer">Signer</label>
+                                <select class="form-control" id="field_signer" data-cy="signer" name="signer" formControlName="signer">
+                                    <option [ngValue]="null"></option>
+                                    <option [ngValue]="
                 userOption.id === filePartForm.get('signer')!.value?.id
                   ? filePartForm.get('signer')!.value
                   : userOption
@@ -56,20 +79,25 @@
                 let userOption of usersSharedCollection;
                 trackBy: trackUserById
               ">
-                {{ userOption.id }}
-              </option>
-            </select>
-          </div>
+                                        {{ userOption.id }}
+                                    </option>
+                                </select>
+                            </td>
 
-          <button type="button" (click)="deleteFilePart(i)">
-            Delete
-          </button>
-        </div>
-      </ng-container>
-    </ng-container>
-  </div>
+                            <td>
+                                <button type="button" (click)="deleteFilePart(i)">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+
+
+    <button type="button" (click)="addFilePart()">
+        Add File
+    </button>
 </div>
-
-<button type="button" (click)="addFilePart()">
-  Add File
-</button>

@@ -1,5 +1,5 @@
 <div>
-  <h2 id="page-heading" data-cy="fileManagerHeading">
+  <div id="page-heading" data-cy="fileManagerHeading">
     <span jhiTranslate="dmsApp.fileContainer.home.title">File Containers</span>
 
     <div class="d-flex justify-content-end">
@@ -26,7 +26,7 @@
         </span>
       </button>
     </div>
-  </h2>
+  </div>
 
   <jhi-alert-error></jhi-alert-error>
 
@@ -55,13 +55,7 @@
                   <span jhiTranslate="dmsApp.fileContainer.name">Name</span>
               </th>
               <th scope="col">
-                  <span jhiTranslate="dmsApp.fileContainer.concurrencyStamp">Concurrency Stamp</span>
-              </th>
-              <th scope="col">
                   <span jhiTranslate="dmsApp.fileContainer.status">Status</span>
-              </th>
-              <th scope="col">
-                  <span jhiTranslate="dmsApp.fileContainer.owner">Owner</span>
               </th>
               <th scope="col"></th>
           </tr>
@@ -77,12 +71,8 @@
             }}</a>
           </td>
           <td>{{ fileManager.name }}</td>
-          <td>{{ fileManager.concurrencyStamp }}</td>
           <td jhiTranslate="{{ 'dmsApp.FileStatus.' + fileManager.status }}">
               {{ fileManager.status }}
-          </td>
-          <td>
-              {{ fileManager.owner?.id }}
           </td>
           <td class="text-end">
             <div class="btn-group">
