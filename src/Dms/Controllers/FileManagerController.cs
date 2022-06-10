@@ -49,10 +49,19 @@ namespace Dms.Controllers
         public async Task<ActionResult<FileContainerDto>> CreateFileContainer([FromBody] FileContainerDto fileContainerDto)
         {
             _log.LogDebug($"REST request to save FileContainer : {fileContainerDto}");
+
+
             if (fileContainerDto.Id != 0)
                 throw new BadRequestAlertException("A new fileContainer cannot already have an ID", EntityName, "idexists");
 
+
             FileContainer fileContainer = _mapper.Map<FileContainer>(fileContainerDto);
+
+            var userName = _userManager.GetUserName(User);
+            var user = await _userManager.FindByNameAsync(userName);
+            fileContainer.Owner = user;
+            fileContainer.OwnerId = user.Id;
+
             await _fileContainerService.Save(fileContainer);
             return CreatedAtAction(nameof(GetFileContainer), new { id = fileContainer.Id }, fileContainer)
                 .WithHeaders(HeaderUtil.CreateEntityCreationAlert(EntityName, fileContainer.Id.ToString()));
@@ -78,7 +87,16 @@ namespace Dms.Controllers
             var userName = _userManager.GetUserName(User);
             var user = await _userManager.FindByNameAsync(userName);
 
-            var result = await _fileContainerService.FindAllByUserId(pageable, user.Id);
+            IPage<FileContainer> result = null;
+
+            if (User.IsInRole("ROLE_ADMIN"))
+            {
+                result = await _fileContainerService.FindAll(pageable);
+            }
+            else
+            {
+                result = await _fileContainerService.FindAllByUserId(pageable, user.Id);
+            }
             var page = new Page<FileContainerDto>(result.Content.Select(entity => _mapper.Map<FileContainerDto>(entity)).ToList(), pageable, result.TotalElements);
             return Ok(((IPage<FileContainerDto>)page).Content).WithHeaders(page.GeneratePaginationHttpHeaders());
         }

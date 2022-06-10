@@ -36,6 +36,66 @@
                 </dd>
             </dl>
 
+            <div class="card">
+                <div class="card-header">
+                    <h5>Files</h5>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <table class="table table-striped" aria-describedby="page-heading">
+                        <thead>
+                            <tr>
+                                <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+                                <th scope="col">
+                                    <span jhiTranslate="dmsApp.filePart.name">Name</span>
+                                </th>
+                                <th scope="col">
+                                    <span jhiTranslate="dmsApp.filePart.content">Content</span>
+                                </th>
+                                <th scope="col">
+                                    <span jhiTranslate="dmsApp.filePart.signer">Signer</span>
+                                </th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container>
+                                <ng-container *ngFor="let filePart of fileManager.fileParts; let i = index">
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                {{ filePart.id }}
+                                            </div>
+                                            <jhi-alert-error></jhi-alert-error>
+                                        </td>
+
+                                        <td>
+                                            <div>
+                                                {{ filePart.name }}
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div *ngIf="filePart.content">
+                                                <a (click)="openFile(filePart.content, filePart.contentContentType)"
+                                                   jhiTranslate="entity.action.open">open</a>
+                                                {{ filePart.contentContentType }}, {{ byteSize(filePart.content) }}
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div>
+                                                {{ filePart.signerId }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info"
@@ -44,7 +104,7 @@
             </button>
 
             <button type="button"
-                    [routerLink]="['user/file-manager', fileManager.id, 'edit']"
+                    [routerLink]="['/user/file-manager', fileManager.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
             </button>
