@@ -11,6 +11,14 @@ import { RouterModule } from "@angular/router";
                 },
                 loadChildren: () =>
                     import("./file-manager/file-manager.module").then((m) => m.FileManagerModule),
+            },
+            {
+                path: "esign",
+                data: {
+                    pageTitle: "dmsApp.fileContainer.home.title"
+                },
+                loadChildren: () =>
+                    import("./esign/esign.module").then((m) => m.FilePartModule),
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ]),

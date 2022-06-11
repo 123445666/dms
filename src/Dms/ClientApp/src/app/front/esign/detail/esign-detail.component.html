@@ -1,0 +1,95 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="filePart">
+      <h2 data-cy="filePartDetailsHeading">
+        <span jhiTranslate="dmsApp.filePart.detail.title">File Part</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ filePart.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="dmsApp.filePart.name">Name</span></dt>
+        <dd>
+          <span>{{ filePart.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="dmsApp.filePart.content">Content</span></dt>
+        <dd>
+          <div *ngIf="filePart.content">
+            <a
+              (click)="openFile(filePart.content, filePart.contentContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            {{ filePart.contentContentType }}, {{ byteSize(filePart.content) }}
+          </div>
+        </dd>
+        <dt>
+          <span jhiTranslate="dmsApp.filePart.concurrencyStamp"
+            >Concurrency Stamp</span
+          >
+        </dt>
+        <dd>
+          <span>{{ filePart.concurrencyStamp }}</span>
+        </dd>
+        <dt><span jhiTranslate="dmsApp.filePart.status">Status</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'dmsApp.FileStatus.' + filePart.status }}">{{
+            filePart.status
+          }}</span>
+        </dd>
+        <dt><span jhiTranslate="dmsApp.filePart.signer">Signer</span></dt>
+        <dd>
+          <span>{{ filePart.signer?.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="dmsApp.filePart.fileContainer"
+            >File Container</span
+          >
+        </dt>
+        <dd>
+          <div *ngIf="filePart.fileContainer">
+            <a
+              [routerLink]="[
+                '/file-container',
+                filePart.fileContainer?.id,
+                'view'
+              ]"
+              >{{ filePart.fileContainer?.id }}</a
+            >
+          </div>
+        </dd>
+      </dl>
+
+      <button
+        type="submit"
+        (click)="previousState()"
+        class="btn btn-info"
+        data-cy="entityDetailsBackButton"
+      >
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span
+          jhiTranslate="entity.action.back"
+          >Back</span
+        >
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/file-part', filePart.id, 'edit']"
+        class="btn btn-primary"
+      >
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span
+          jhiTranslate="entity.action.edit"
+          >Edit</span
+        >
+      </button>
+    </div>
+  </div>
+</div>
