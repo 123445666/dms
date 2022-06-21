@@ -67,6 +67,20 @@ namespace Dms.Controllers
                 .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
         }
 
+        [HttpGet("signfile/{id}")]
+        public async Task<IActionResult> SignFilePart(long id)
+        {
+            _log.LogDebug($"REST request to update FilePartId : {id}");
+            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
+
+            var filePart = await _filePartService.FindOne(id);
+            filePart.Status = FileStatus.SIGNED;
+
+            await _filePartService.Save(filePart);
+            return Ok(filePart)
+                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FilePartDto>>> GetAllFileParts(IPageable pageable)
         {
@@ -89,7 +103,11 @@ namespace Dms.Controllers
         public async Task<IActionResult> DeleteFilePart([FromRoute] long id)
         {
             _log.LogDebug($"REST request to delete FilePart : {id}");
-            await _filePartService.Delete(id);
+            var filePart = await _filePartService.FindOne(id);
+            filePart.Status = FileStatus.DELETED;
+
+            await _filePartService.Save(filePart);
+            //await _filePartService.Delete(id);
             return NoContent().WithHeaders(HeaderUtil.CreateEntityDeletionAlert(EntityName, id.ToString()));
         }
     }

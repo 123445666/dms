@@ -3,6 +3,7 @@ using JHipsterNet.Core.Pagination;
 using Dms.Domain.Services.Interfaces;
 using Dms.Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Dms.Crosscutting.Enums;
 
 namespace Dms.Domain.Services
 {
@@ -27,6 +28,7 @@ namespace Dms.Domain.Services
             var page = await _filePartRepository.QueryHelper()
                 .Include(filePart => filePart.Signer)
                 .Include(filePart => filePart.FileContainer)
+                .Filter(filePart => filePart.Status != FileStatus.DELETED)
                 .GetPageAsync(pageable);
             return page;
         }
