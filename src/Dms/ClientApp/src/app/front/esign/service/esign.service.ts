@@ -62,9 +62,30 @@ export class FilePartService {
         });
     }
 
-    signFile(id: number | undefined, action: string): Observable<HttpResponse<{}>> {
+    signFile(id: number | undefined): Observable<HttpResponse<{}>> {
         if (id === undefined) { id = 0; }
         return this.http.get(`${this.resourceUrl}/signfile/${id}`, {
+            observe: "response",
+        });
+    }
+
+    unsignFile(id: number | undefined): Observable<HttpResponse<{}>> {
+        if (id === undefined) { id = 0; }
+        return this.http.get(`${this.resourceUrl}/unsignfile/${id}`, {
+            observe: "response",
+        });
+    }
+
+    processFile(id: number | undefined): Observable<HttpResponse<{}>> {
+        if (id === undefined) { id = 0; }
+        return this.http.get(`${this.resourceUrl}/processfile/${id}`, {
+            observe: "response",
+        });
+    }
+
+    returnFile(id: number | undefined): Observable<HttpResponse<{}>> {
+        if (id === undefined) { id = 0; }
+        return this.http.get(`${this.resourceUrl}/returnfile/${id}`, {
             observe: "response",
         });
     }

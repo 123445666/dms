@@ -48,7 +48,22 @@ export class FilePartDetailComponent implements OnInit {
 
     signFile(id: number | undefined): void {
         this.isSaving = true;
-        this.subscribeToSaveResponse(this.filePartService.signFile(id, "SIGNED"));
+        this.subscribeToSaveResponse(this.filePartService.signFile(id));
+    }
+
+    unsignFile(id: number | undefined): void {
+        this.isSaving = true;
+        this.subscribeToSaveResponse(this.filePartService.unsignFile(id));
+    }
+
+    processFile(id: number | undefined): void {
+        this.isSaving = true;
+        this.subscribeToSaveResponse(this.filePartService.processFile(id));
+    }
+
+    returnFile(id: number | undefined): void {
+        this.isSaving = true;
+        this.subscribeToSaveResponse(this.filePartService.returnFile(id));
     }
 
     protected onSaveSuccess(): void {

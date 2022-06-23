@@ -75,6 +75,30 @@
                     (click)="signFile(filePart.id)">
                 <fa-icon icon="file-signature"></fa-icon>&nbsp;<span>Sign This File</span>
             </button>
+            <button *ngIf="!isSigned"
+                    type="button"
+                    id="sign-button"
+                    data-cy="entitySignButton"
+                    class="btn btn-dark"
+                    (click)="unsignFile(filePart.id)">
+                <fa-icon icon="text-slash"></fa-icon>&nbsp;<span>Unsign This File</span>
+            </button>
+            <button *ngIf="!isSigned"
+                    type="button"
+                    id="sign-button"
+                    data-cy="entitySignButton"
+                    class="btn btn-dark"
+                    (click)="processFile(filePart.id)">
+                <fa-icon icon="microchip"></fa-icon>&nbsp;<span>Process This File</span>
+            </button>
+            <button *ngIf="!isSigned"
+                    type="button"
+                    id="sign-button"
+                    data-cy="entitySignButton"
+                    class="btn btn-dark"
+                    (click)="returnFile(filePart.id)">
+                <fa-icon icon="arrow-rotate-left"></fa-icon>&nbsp;<span>Return This File</span>
+            </button>
         </div>
     </div>
 </div>
