@@ -9,6 +9,7 @@ export interface IFilePart {
   content?: string | null;
   concurrencyStamp?: string | null;
   status?: FileStatus | null;
+  uniqueId?: string | null;
   signer?: IUser | null;
   fileContainer?: IFileContainer | null;
 }
@@ -21,6 +22,7 @@ export class FilePart implements IFilePart {
     public content?: string | null,
     public concurrencyStamp?: string | null,
     public status?: FileStatus | null,
+    public uniqueId?: string | null,
     public signer?: IUser | null,
     public fileContainer?: IFileContainer | null
   ) {}

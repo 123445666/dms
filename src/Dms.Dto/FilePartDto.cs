@@ -15,6 +15,7 @@ namespace Dms.Dto
         public string contentContentType { get; set; }
         public string ConcurrencyStamp { get; set; }
         public FileStatus Status { get; set; }
+        public string UniqueId { get; set; }
         public string SignerId { get; set; }
         public UserDto Signer { get; set; }
         public string FileContainerId { get; set; }

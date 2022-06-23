@@ -15,6 +15,7 @@ namespace Dms.Domain
         public string contentContentType { get; set; }
         public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
         public FileStatus Status { get; set; }
+        public string UniqueId { get; set; }
         public string SignerId { get; set; }
         public User Signer { get; set; }
 
@@ -45,6 +46,7 @@ namespace Dms.Domain
                     $", Content='{Content}'" +
                     $", ConcurrencyStamp='{ConcurrencyStamp}'" +
                     $", Status='{Status}'" +
+                    $", UniqueId='{UniqueId}'" +
                     "}";
         }
     }

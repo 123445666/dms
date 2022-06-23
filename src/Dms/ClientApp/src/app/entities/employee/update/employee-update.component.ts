@@ -80,10 +80,10 @@ export class EmployeeUpdateComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         this.signaturePad = new SignaturePad(this.canvasEl?.nativeElement);
 
-        const dataUrl = this.dataUtils.createFileFromData(
-            this.editForm.get('signature')!.value,
-            this.editForm.get('signatureContentType')!.value
-        );
+        // const dataUrl = this.dataUtils.createFileFromData(
+        //     this.editForm.get('signature')!.value,
+        //     this.editForm.get('signatureContentType')!.value
+        // );
 
         this.signatureImg = this.editForm.get('signature')!.value;
     }

@@ -30,6 +30,7 @@ describe("FilePart Service", () => {
       content: "AAAAAAA",
       concurrencyStamp: "AAAAAAA",
       status: FileStatus.NEWLY,
+      uniqueId: "AAAAAAA",
     };
   });
 
@@ -71,6 +72,7 @@ describe("FilePart Service", () => {
           content: "BBBBBB",
           concurrencyStamp: "BBBBBB",
           status: "BBBBBB",
+          uniqueId: "BBBBBB",
         },
         elemDefault
       );
@@ -92,6 +94,7 @@ describe("FilePart Service", () => {
           name: "BBBBBB",
           content: "BBBBBB",
           status: "BBBBBB",
+          uniqueId: "BBBBBB",
         },
         new FilePart()
       );
@@ -117,6 +120,7 @@ describe("FilePart Service", () => {
           content: "BBBBBB",
           concurrencyStamp: "BBBBBB",
           status: "BBBBBB",
+          uniqueId: "BBBBBB",
         },
         elemDefault
       );
@@ -177,7 +181,7 @@ describe("FilePart Service", () => {
         const filePartArray: IFilePart[] = [
           { id: 123 },
           { id: 456 },
-          { id: 87813 },
+          { id: 93389 },
         ];
         const filePartCollection: IFilePart[] = [{ id: 123 }];
         expectedResult = service.addFilePartToCollectionIfMissing(

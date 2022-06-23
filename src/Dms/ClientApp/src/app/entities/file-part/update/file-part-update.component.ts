@@ -37,6 +37,7 @@ export class FilePartUpdateComponent implements OnInit {
     contentContentType: [],
     concurrencyStamp: [],
     status: [],
+    uniqueId: [],
     signer: [],
     fileContainer: [],
   });
@@ -132,6 +133,7 @@ export class FilePartUpdateComponent implements OnInit {
       contentContentType: filePart.contentContentType,
       concurrencyStamp: filePart.concurrencyStamp,
       status: filePart.status,
+      uniqueId: filePart.uniqueId,
       signer: filePart.signer,
       fileContainer: filePart.fileContainer,
     });
@@ -187,6 +189,7 @@ export class FilePartUpdateComponent implements OnInit {
       content: this.editForm.get(["content"])!.value,
       concurrencyStamp: this.editForm.get(["concurrencyStamp"])!.value,
       status: this.editForm.get(["status"])!.value,
+      uniqueId: this.editForm.get(["uniqueId"])!.value,
       signer: this.editForm.get(["signer"])!.value,
       fileContainer: this.editForm.get(["fileContainer"])!.value,
     };

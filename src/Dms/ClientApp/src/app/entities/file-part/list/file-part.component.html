@@ -64,6 +64,9 @@
             <span jhiTranslate="dmsApp.filePart.status">Status</span>
           </th>
           <th scope="col">
+            <span jhiTranslate="dmsApp.filePart.uniqueId">Unique Id</span>
+          </th>
+          <th scope="col">
             <span jhiTranslate="dmsApp.filePart.signer">Signer</span>
           </th>
           <th scope="col">
@@ -101,6 +104,7 @@
           <td jhiTranslate="{{ 'dmsApp.FileStatus.' + filePart.status }}">
             {{ filePart.status }}
           </td>
+          <td>{{ filePart.uniqueId }}</td>
           <td>
             {{ filePart.signer?.id }}
           </td>

@@ -48,6 +48,9 @@ namespace Dms.Test.Controllers
         private const FileStatus DefaultStatus = FileStatus.PROCESSING;
         private const FileStatus UpdatedStatus = FileStatus.PROCESSING;
 
+        private const string DefaultUniqueId = "AAAAAAAAAA";
+        private const string UpdatedUniqueId = "BBBBBBBBBB";
+
         private readonly AppWebApplicationFactory<TestStartup> _factory;
         private readonly HttpClient _client;
         private readonly IFilePartRepository _filePartRepository;
@@ -64,6 +67,7 @@ namespace Dms.Test.Controllers
                 Content = DefaultContent,
                 ConcurrencyStamp = DefaultConcurrencyStamp,
                 Status = DefaultStatus,
+                UniqueId = DefaultUniqueId,
             };
         }
 
@@ -90,6 +94,7 @@ namespace Dms.Test.Controllers
             //testFilePart.Content.Should().Be(DefaultContent);
             testFilePart.ConcurrencyStamp.Should().Be(DefaultConcurrencyStamp);
             testFilePart.Status.Should().Be(DefaultStatus);
+            testFilePart.UniqueId.Should().Be(DefaultUniqueId);
         }
 
         [Fact]
@@ -142,6 +147,7 @@ namespace Dms.Test.Controllers
             json.SelectTokens("$.[*].content").Should().Contain(DefaultContent);
             json.SelectTokens("$.[*].concurrencyStamp").Should().Contain(DefaultConcurrencyStamp);
             json.SelectTokens("$.[*].status").Should().Contain(DefaultStatus.ToString());
+            json.SelectTokens("$.[*].uniqueId").Should().Contain(DefaultUniqueId);
         }
 
         [Fact]
@@ -161,6 +167,7 @@ namespace Dms.Test.Controllers
             json.SelectTokens("$.content").Should().Contain(DefaultContent);
             json.SelectTokens("$.concurrencyStamp").Should().Contain(DefaultConcurrencyStamp);
             json.SelectTokens("$.status").Should().Contain(DefaultStatus.ToString());
+            json.SelectTokens("$.uniqueId").Should().Contain(DefaultUniqueId);
         }
 
         [Fact]
@@ -187,6 +194,7 @@ namespace Dms.Test.Controllers
             updatedFilePart.Content = UpdatedContent;
             updatedFilePart.ConcurrencyStamp = UpdatedConcurrencyStamp;
             updatedFilePart.Status = UpdatedStatus;
+            updatedFilePart.UniqueId = UpdatedUniqueId;
 
             FilePartDto updatedFilePartDto = _mapper.Map<FilePartDto>(updatedFilePart);
             var response = await _client.PutAsync($"/api/file-parts/{_filePart.Id}", TestUtil.ToJsonContent(updatedFilePartDto));
@@ -200,6 +208,7 @@ namespace Dms.Test.Controllers
             //testFilePart.Content.Should().Be(UpdatedContent);
             testFilePart.ConcurrencyStamp.Should().Be(UpdatedConcurrencyStamp);
             testFilePart.Status.Should().Be(UpdatedStatus);
+            testFilePart.UniqueId.Should().Be(UpdatedUniqueId);
         }
 
         [Fact]
