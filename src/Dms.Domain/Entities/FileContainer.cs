@@ -11,7 +11,7 @@ namespace Dms.Domain
     {
         [Required]
         public string Name { get; set; }
-        public string ConcurrencyStamp { get; set; }
+        public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
         public FileStatus Status { get; set; }
         public string OwnerId { get; set; }
         public User Owner { get; set; }

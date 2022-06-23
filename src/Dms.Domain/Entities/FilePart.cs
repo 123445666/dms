@@ -13,7 +13,7 @@ namespace Dms.Domain
         public string Name { get; set; }
         public byte[] Content { get; set; }
         public string contentContentType { get; set; }
-        public string ConcurrencyStamp { get; set; }
+        public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
         public FileStatus Status { get; set; }
         public string SignerId { get; set; }
         public User Signer { get; set; }
