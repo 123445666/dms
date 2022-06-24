@@ -142,13 +142,22 @@ namespace Dms.Controllers
             _log.LogDebug($"REST request to sign FilePartId : {id}");
             if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
 
+            var userName = _userManager.GetUserName(User);
+            var user = await _userManager.FindByNameAsync(userName);
+
             var filePart = await _filePartService.FindOne(id);
             filePart.Status = FileStatus.SIGNED;
 
             SignedDocument document = new SignedDocument()
             {
-                Checksum = Checksum.CalculateMD5(filePart.Content)
+                Checksum = Checksum.CalculateMD5(filePart.Content),
+                SignedBy = user.Id,
+                SignedUserNameBy = user.UserName,
+                LastUniqueId = filePart.UniqueId,
             };
+
+            //generate new UniqueId
+            filePart.UniqueId = Guid.NewGuid().ToString();
 
             Blockchain bcDocument;
 
@@ -175,14 +184,14 @@ namespace Dms.Controllers
             return Ok(filePart)
                 .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
         }
-        [HttpGet("validatefile/{id}")]
-        public async Task<IActionResult> ValidateFilePart([FromBody] string Document, string UniqueId)
+        [HttpPost("validatefile")]
+        public async Task<IActionResult> ValidateFilePart([FromBody] EsignValidate esignValidate)
         {
-            _log.LogDebug($"REST request to validate File : {UniqueId}");
-            if (Document == null || UniqueId == null)
+            _log.LogDebug($"REST request to validate File : {esignValidate.UniqueId}");
+            if (esignValidate.DataContent == null || esignValidate.UniqueId == null)
                 throw new BadRequestAlertException("Invalid UniqueId", EntityName, "idnull");
 
-            await ValidateFile(Document, UniqueId);
+            SignedDocument signedDocument = await ValidateFile(esignValidate.DataContent, esignValidate.UniqueId);
             //if (UniqueId == 0) throw new BadRequestAlertException("Invalid UniqueId", EntityName, "idnull");
 
             //var filePart = await _filePartService.FindOne(id);
@@ -191,15 +200,19 @@ namespace Dms.Controllers
             //await _filePartService.Save(filePart);
             //return Ok(filePart)
             //    .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
-            return Ok();
+            if (!string.IsNullOrEmpty(signedDocument.Checksum))
+                return Ok(signedDocument)
+                    .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, signedDocument.Checksum.ToString()));
+            return Ok()
+                   .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, signedDocument.Checksum.ToString()));
         }
 
-        public async Task<bool> ValidateFile(string Document, string UniqueId)
+        public async Task<SignedDocument> ValidateFile(byte[] DataContent, string UniqueId)
         {
-            if (Document == null || UniqueId == null)
-                return false;
+            if (DataContent == null || UniqueId == null)
+                return new SignedDocument();
             // calculate the MD5 of the uploaded document
-            string sChecksum = Checksum.CalculateMD5(Convert.FromBase64String(Document));
+            string sChecksum = Checksum.CalculateMD5(DataContent);
 
             Blockchain newDocument;
 
@@ -217,12 +230,12 @@ namespace Dms.Controllers
                 // compare the checksum in the stored block
                 // with the checksum of the uploaded document
                 if (signedDocument.Checksum == sChecksum)
-                    return true; // document valid
+                    return signedDocument; // document valid
                 else
-                    return false; // not valid
+                    return new SignedDocument();
             }
             else
-                return false; // blockchain doesn't exist
+                return new SignedDocument();
         }
         [HttpGet("unsignfile/{id}")]
         public async Task<IActionResult> UnsignFilePart(long id)

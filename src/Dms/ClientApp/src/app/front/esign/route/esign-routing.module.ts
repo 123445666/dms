@@ -6,6 +6,7 @@ import { FilePartComponent } from "../list/esign.component";
 import { FilePartDetailComponent } from "../detail/esign-detail.component";
 import { FilePartUpdateComponent } from "../update/esign-update.component";
 import { FilePartRoutingResolveService } from "./esign-routing-resolve.service";
+import { FilePartValidateComponent } from '../validate/esign-validate.component';
 
 const filePartRoute: Routes = [
     {
@@ -32,6 +33,14 @@ const filePartRoute: Routes = [
     {
         path: ":id/edit",
         component: FilePartUpdateComponent,
+        resolve: {
+            filePart: FilePartRoutingResolveService,
+        },
+        canActivate: [UserRouteAccessService],
+    },
+    {
+        path: "validation",
+        component: FilePartValidateComponent,
         resolve: {
             filePart: FilePartRoutingResolveService,
         },

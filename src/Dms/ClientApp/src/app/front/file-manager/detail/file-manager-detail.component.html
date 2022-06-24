@@ -49,6 +49,9 @@
                                     <span jhiTranslate="dmsApp.filePart.name">Name</span>
                                 </th>
                                 <th scope="col">
+                                    <span jhiTranslate="dmsApp.filePart.uniqueId">UniqueId</span>
+                                </th>
+                                <th scope="col">
                                     <span jhiTranslate="dmsApp.filePart.content">Content</span>
                                 </th>
                                 <th scope="col">
@@ -71,6 +74,12 @@
                                         <td>
                                             <div>
                                                 {{ filePart.name }}
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div>
+                                                {{ filePart.uniqueId }}
                                             </div>
                                         </td>
 

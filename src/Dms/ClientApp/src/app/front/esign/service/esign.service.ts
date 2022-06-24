@@ -6,6 +6,7 @@ import { isPresent } from "app/core/util/operators";
 import { ApplicationConfigService } from "app/core/config/application-config.service";
 import { createRequestOption } from "app/core/request/request-util";
 import { IFilePart, getFilePartIdentifier } from "../esign.model";
+import { IEsignValidate } from "../esign-validate.model";
 
 export type EntityResponseType = HttpResponse<IFilePart>;
 export type EntityArrayResponseType = HttpResponse<IFilePart[]>;
@@ -88,6 +89,12 @@ export class FilePartService {
     returnFile(id: number | undefined): Observable<HttpResponse<{}>> {
         if (id === undefined) { id = 0; }
         return this.http.get(`${this.resourceFileManagerUrl}/returnfile/${id}`, {
+            observe: "response",
+        });
+    }
+
+    validateFile(esignValidate: IEsignValidate): Observable<EntityResponseType> {
+        return this.http.post<IFilePart>(`${this.resourceFileManagerUrl}/validatefile/`, esignValidate, {
             observe: "response",
         });
     }

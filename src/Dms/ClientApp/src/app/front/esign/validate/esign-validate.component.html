@@ -1,0 +1,73 @@
+<div class="d-flex justify-content-center">
+    <div class="col-8">
+        <div>
+            <h2 data-cy="filePartDetailsHeading">
+                <span jhiTranslate="dmsApp.filePart.detail.title">File Part</span>
+            </h2>
+
+            <hr />
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <jhi-alert></jhi-alert>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Files</h5>
+                </div>
+                <div class="d-flex justify-content-center" [formGroup]="esignValidateForm">
+                    <table class="table table-striped" aria-describedby="page-heading">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <span jhiTranslate="dmsApp.filePart.name">Name</span>
+                                </th>
+                                <th scope="col">
+                                    <span jhiTranslate="dmsApp.filePart.content">Content</span>
+                                </th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label class="form-label" for="field_uniqueid">UniqueId</label>
+                                    <input type="text" class="form-control" name="uniqueId" id="field_uniqueid" data-cy="uniqueId" formControlName="uniqueId" />
+                                </td>
+
+                                <td>
+                                    <label class="form-label" jhiTranslate="dmsApp.filePart.content" for="field_content">Content</label>
+                                    <div>
+                                        <div *ngIf="esignValidateForm.get('dataContent')!.value" class="form-text text-danger clearfix">
+                                            <span class="pull-start">
+                                                {{ byteSize(esignValidateForm.get("dataContent")!.value) }}
+                                            </span>
+                                            <button type="button" (click)="
+                esignValidateForm.patchValue({ dataContent: null });
+                " class="btn btn-secondary btn-xs pull-end">
+                                                <fa-icon icon="times"></fa-icon>
+                                            </button>
+                                        </div>
+                                        <input type="file" id="file_content" data-cy="content" (change)="setFileData($event, 'dataContent', false)"
+                                               jhiTranslate="entity.action.addblob" />
+                                    </div>
+                                    <input type="hidden" class="form-control" name="dataContent" id="field_dataContent" data-cy="dataContent"
+                                           formControlName="dataContent" />
+                                </td>
+                                <td>
+                                    <button type="submit"
+                                            (click)="validateFile()"
+                                            class="btn btn-danger btn-sm"
+                                            data-cy="entityValidateFileButton">
+                                        <span class="d-none d-md-inline">Validate</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

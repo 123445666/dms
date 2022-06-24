@@ -51,9 +51,7 @@ export class FileManagerUpdateComponent implements OnInit {
     save(filepart: FilePartUpdateComponent): void {
         this.isSaving = true;
         const fileManager = this.createFromForm(filepart);
-        /* eslint-disable no-console */
-        console.log(fileManager);
-        /* eslint-disable no-console */
+
         if (fileManager.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.fileManagerService.update(fileManager)

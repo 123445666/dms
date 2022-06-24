@@ -9,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace Dms.BlockChain.Library.Models
 {
-    public class SignedDocument
+    public class EsignValidate
     {
-        public string Checksum { get; set; }
-        public string SignedBy { get; set; }
-        public string SignedUserNameBy { get; set; }
-        public string LastUniqueId { get; set; }
+        public byte[] DataContent { get; set; }
+        public string UniqueId { get; set; }
     }
 }

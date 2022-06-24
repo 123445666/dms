@@ -56,8 +56,8 @@
             <span jhiTranslate="dmsApp.filePart.content">Content</span>
           </th>
           <th scope="col">
-            <span jhiTranslate="dmsApp.filePart.concurrencyStamp"
-              >Concurrency Stamp</span
+            <span jhiTranslate="dmsApp.filePart.uniqueId"
+              >UniqueId</span
             >
           </th>
           <th scope="col">
@@ -97,7 +97,7 @@
               {{ byteSize(filePart.content) }}</span
             >
           </td>
-          <td>{{ filePart.concurrencyStamp }}</td>
+          <td>{{ filePart.uniqueId }}</td>
           <td jhiTranslate="{{ 'dmsApp.FileStatus.' + filePart.status }}">
             {{ filePart.status }}
           </td>
