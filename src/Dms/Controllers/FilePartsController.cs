@@ -70,59 +70,6 @@ namespace Dms.Controllers
                 .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
         }
 
-        [HttpGet("signfile/{id}")]
-        public async Task<IActionResult> SignFilePart(long id)
-        {
-            _log.LogDebug($"REST request to update FilePartId : {id}");
-            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
-
-            var filePart = await _filePartService.FindOne(id);
-            filePart.Status = FileStatus.SIGNED;
-
-            await _filePartService.Save(filePart);
-            return Ok(filePart)
-                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
-        }
-        [HttpGet("unsignfile/{id}")]
-        public async Task<IActionResult> UnsignFilePart(long id)
-        {
-            _log.LogDebug($"REST request to update FilePartId : {id}");
-            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
-
-            var filePart = await _filePartService.FindOne(id);
-            filePart.Status = FileStatus.UNSIGNED;
-
-            await _filePartService.Save(filePart);
-            return Ok(filePart)
-                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
-        }
-        [HttpGet("processfile/{id}")]
-        public async Task<IActionResult> ProcessFilePart(long id)
-        {
-            _log.LogDebug($"REST request to update FilePartId : {id}");
-            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
-
-            var filePart = await _filePartService.FindOne(id);
-            filePart.Status = FileStatus.PROCESSING;
-
-            await _filePartService.Save(filePart);
-            return Ok(filePart)
-                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
-        }
-        [HttpGet("returnfile/{id}")]
-        public async Task<IActionResult> ReturnFilePart(long id)
-        {
-            _log.LogDebug($"REST request to update FilePartId : {id}");
-            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
-
-            var filePart = await _filePartService.FindOne(id);
-            filePart.Status = FileStatus.RETURNED;
-
-            await _filePartService.Save(filePart);
-            return Ok(filePart)
-                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
-        }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FilePartDto>>> GetAllFileParts(IPageable pageable)
         {

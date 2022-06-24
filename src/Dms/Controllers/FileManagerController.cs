@@ -19,6 +19,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Dms.Crosscutting.Constants;
 using Microsoft.AspNetCore.Identity;
+using Dms.Crosscutting.Enums;
+using Dms.BlockChain.Library.Models;
+using Dms.BlockChain.Library.Helpers;
+using Dms.BlockChain.Library;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Hosting;
+using System;
 
 namespace Dms.Controllers
 {
@@ -31,17 +38,28 @@ namespace Dms.Controllers
         private readonly ILogger<FileManagerController> _log;
         private readonly IMapper _mapper;
         private readonly IFileContainerService _fileContainerService;
+        private readonly IFilePartService _filePartService;
         private readonly UserManager<User> _userManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        string webRootPath;
+        string contentRootPath;
 
         public FileManagerController(ILogger<FileManagerController> log,
         IMapper mapper,
         IFileContainerService fileContainerService,
-        UserManager<User> userManager)
+        IFilePartService filePartService,
+        UserManager<User> userManager,
+        IWebHostEnvironment webHostEnvironment)
         {
             _log = log;
             _mapper = mapper;
             _fileContainerService = fileContainerService;
+            _filePartService = filePartService;
             _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;
+
+            webRootPath = _webHostEnvironment.WebRootPath;
+            contentRootPath = _webHostEnvironment.ContentRootPath;
         }
 
         [HttpPost]
@@ -116,6 +134,134 @@ namespace Dms.Controllers
             _log.LogDebug($"REST request to delete FileContainer : {id}");
             await _fileContainerService.Delete(id);
             return NoContent().WithHeaders(HeaderUtil.CreateEntityDeletionAlert(EntityName, id.ToString()));
+        }
+
+        [HttpGet("signfile/{id}")]
+        public async Task<IActionResult> SignFilePart(long id)
+        {
+            _log.LogDebug($"REST request to sign FilePartId : {id}");
+            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
+
+            var filePart = await _filePartService.FindOne(id);
+            filePart.Status = FileStatus.SIGNED;
+
+            SignedDocument document = new SignedDocument()
+            {
+                Checksum = Checksum.CalculateMD5(filePart.Content)
+            };
+
+            Blockchain bcDocument;
+
+            // if the blockchain exists, load it
+            if (System.IO.File.Exists(webRootPath + "/Blockchains/" + filePart.UniqueId + ".bc"))
+            {
+                string bc = System.IO.File.ReadAllText(webRootPath + "/Blockchains/" + filePart.UniqueId + ".bc");
+
+                bcDocument = JsonConvert.DeserializeObject<Blockchain>(bc);
+            }
+            else
+                bcDocument = new Blockchain(true); // otherwise create a new blockchain
+
+            bcDocument.AddBlock(new Block(DateTime.Now, null, JsonConvert.SerializeObject(document)));
+
+            if (System.IO.Directory.Exists(webRootPath + "/Blockchains/") == false)
+                System.IO.Directory.CreateDirectory(webRootPath + "/Blockchains/");
+
+            // store the blockchain as a file
+            System.IO.File.WriteAllText(webRootPath + "/Blockchains/" + filePart.UniqueId + ".bc",
+                JsonConvert.SerializeObject(bcDocument));
+
+            await _filePartService.Save(filePart);
+            return Ok(filePart)
+                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
+        }
+        [HttpGet("validatefile/{id}")]
+        public async Task<IActionResult> ValidateFilePart([FromBody] string Document, string UniqueId)
+        {
+            _log.LogDebug($"REST request to validate File : {UniqueId}");
+            if (Document == null || UniqueId == null)
+                throw new BadRequestAlertException("Invalid UniqueId", EntityName, "idnull");
+
+            await ValidateFile(Document, UniqueId);
+            //if (UniqueId == 0) throw new BadRequestAlertException("Invalid UniqueId", EntityName, "idnull");
+
+            //var filePart = await _filePartService.FindOne(id);
+            //filePart.Status = FileStatus.RETURNED;
+
+            //await _filePartService.Save(filePart);
+            //return Ok(filePart)
+            //    .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
+            return Ok();
+        }
+
+        public async Task<bool> ValidateFile(string Document, string UniqueId)
+        {
+            if (Document == null || UniqueId == null)
+                return false;
+            // calculate the MD5 of the uploaded document
+            string sChecksum = Checksum.CalculateMD5(Convert.FromBase64String(Document));
+
+            Blockchain newDocument;
+
+            // load the associated blockchain
+            if (System.IO.File.Exists(webRootPath + "/Blockchains/" + UniqueId + ".bc"))
+            {
+                string bc = System.IO.File.ReadAllText(webRootPath + "/Blockchains/" + UniqueId + ".bc");
+
+                newDocument = JsonConvert.DeserializeObject<Blockchain>(bc);
+
+                // get the SignedDocument object from the block
+                SignedDocument signedDocument =
+                    JsonConvert.DeserializeObject<SignedDocument>(newDocument.GetCurrentBlock().Data);
+
+                // compare the checksum in the stored block
+                // with the checksum of the uploaded document
+                if (signedDocument.Checksum == sChecksum)
+                    return true; // document valid
+                else
+                    return false; // not valid
+            }
+            else
+                return false; // blockchain doesn't exist
+        }
+        [HttpGet("unsignfile/{id}")]
+        public async Task<IActionResult> UnsignFilePart(long id)
+        {
+            _log.LogDebug($"REST request to unsign FilePartId : {id}");
+            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
+
+            var filePart = await _filePartService.FindOne(id);
+            filePart.Status = FileStatus.UNSIGNED;
+
+            await _filePartService.Save(filePart);
+            return Ok(filePart)
+                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
+        }
+        [HttpGet("processfile/{id}")]
+        public async Task<IActionResult> ProcessFilePart(long id)
+        {
+            _log.LogDebug($"REST request to process FilePartId : {id}");
+            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
+
+            var filePart = await _filePartService.FindOne(id);
+            filePart.Status = FileStatus.PROCESSING;
+
+            await _filePartService.Save(filePart);
+            return Ok(filePart)
+                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
+        }
+        [HttpGet("returnfile/{id}")]
+        public async Task<IActionResult> ReturnFilePart(long id)
+        {
+            _log.LogDebug($"REST request to return FilePartId : {id}");
+            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
+
+            var filePart = await _filePartService.FindOne(id);
+            filePart.Status = FileStatus.RETURNED;
+
+            await _filePartService.Save(filePart);
+            return Ok(filePart)
+                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
         }
     }
 }
