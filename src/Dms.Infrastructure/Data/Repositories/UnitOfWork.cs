@@ -74,6 +74,16 @@ namespace Dms.Infrastructure.Data.Repositories
                 {
                     e.Entry.State = EntityState.Added;
                 }
+
+                if (e.Entry.State == EntityState.Modified)
+                {
+                    if (e.Entry.Metadata.FindProperty("CreatedBy") != null)
+                        e.Entry.Property("CreatedBy").IsModified = false;
+                    if (e.Entry.Metadata.FindProperty("CreatedDate") != null)
+                        e.Entry.Property("CreatedDate").IsModified = false;
+                    if (e.Entry.Metadata.FindProperty("UniqueId") != null)
+                        e.Entry.Property("UniqueId").IsModified = false;
+                }
                 System.Diagnostics.Debug.WriteLine($"Tracking {e.Entry.Metadata.DisplayName()} as {e.Entry.State}");
             });
         }

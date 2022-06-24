@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Dms.Controllers
 {
@@ -47,6 +48,8 @@ namespace Dms.Controllers
             _log.LogDebug($"REST request to save FilePart : {filePartDto}");
             if (filePartDto.Id != 0)
                 throw new BadRequestAlertException("A new filePart cannot already have an ID", EntityName, "idexists");
+
+            filePartDto.UniqueId = Guid.NewGuid().ToString();
 
             FilePart filePart = _mapper.Map<FilePart>(filePartDto);
             await _filePartService.Save(filePart);

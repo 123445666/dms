@@ -11,7 +11,7 @@ namespace Dms.Dto
         public long Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string ConcurrencyStamp { get; set; }
+        public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
         public FileStatus Status { get; set; }
         public string OwnerId { get; set; }
         public UserDto Owner { get; set; }
