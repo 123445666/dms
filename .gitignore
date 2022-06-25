@@ -61,6 +61,7 @@ target/
 .vscode
 
 # Web
+**/Blockchains/*
 **/ClientApp/dist/
 !**/wwwroot/content/css/loading.css
 !**/wwwroot/content/images/**

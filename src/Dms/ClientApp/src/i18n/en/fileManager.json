@@ -1,21 +1,21 @@
 {
     "dmsApp": {
-        "filePart": {
+        "fileManager": {
             "home": {
-                "title": "File Parts",
+                "title": "File Manager",
                 "refreshListLabel": "Refresh list",
                 "createLabel": "Create a new File Part",
                 "createOrEditLabel": "Create or edit a File Part",
                 "notFound": "No File Parts found"
             },
-            "created": "A new File Part is created with identifier {{ param }}",
-            "updated": "A File Part is updated with identifier {{ param }}",
-            "deleted": "A File Part is deleted with identifier {{ param }}",
+            "created": "A new File Manager is created with identifier {{ param }}",
+            "updated": "A File Manager is updated with identifier {{ param }}",
+            "deleted": "A File Manager is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete File Part {{ id }}?"
+                "question": "Are you sure you want to delete File Manager {{ id }}?"
             },
             "detail": {
-                "title": "File Part"
+                "title": "File Manager"
             },
             "id": "ID",
             "name": "Name",
@@ -24,7 +24,7 @@
             "status": "Status",
             "uniqueId": "Unique Id",
             "signer": "Signer",
-            "fileContainer": "File Container",
+            "fileContainer": "File Manager",
             "validateFIle": "Validation Document Signed"
         }
     }

@@ -102,7 +102,13 @@ export class FilePartUpdateComponent implements OnInit {
         this.fileParts.push(filePartForm);
     }
 
-    deleteFilePart(filePartIndex: number): void {
+    deleteFilePart(filePartIndex: number, filePartId: string | undefined): void {
+        /* eslint-disable no-console */
+        console.log(filePartId);
+        /* eslint-disable no-console */
+        if (filePartId !== undefined) {
+            this.subscribeToSaveResponse(this.filePartService.delete(Number(filePartId)));
+        }
         this.fileParts.removeAt(filePartIndex);
     }
 

@@ -26,10 +26,6 @@
                 <dd>
                     <span>{{ fileManager.concurrencyStamp }}</span>
                 </dd>
-                <dt><span jhiTranslate="dmsApp.fileContainer.status">Status</span></dt>
-                <dd>
-                    <span jhiTranslate="{{ 'dmsApp.FileStatus.' + fileManager.status }}">{{ fileManager.status }}</span>
-                </dd>
                 <dt><span jhiTranslate="dmsApp.fileContainer.owner">Owner</span></dt>
                 <dd>
                     <span>{{ fileManager.owner?.id }}</span>
@@ -52,6 +48,9 @@
                                     <span jhiTranslate="dmsApp.filePart.uniqueId">UniqueId</span>
                                 </th>
                                 <th scope="col">
+                                    <span jhiTranslate="dmsApp.filePart.status">Status</span>
+                                </th>
+                                <th scope="col">
                                     <span jhiTranslate="dmsApp.filePart.content">Content</span>
                                 </th>
                                 <th scope="col">
@@ -63,40 +62,52 @@
                         <tbody>
                             <ng-container>
                                 <ng-container *ngFor="let filePart of fileManager.fileParts; let i = index">
-                                    <tr>
-                                        <td>
-                                            <div>
-                                                {{ filePart.id }}
-                                            </div>
-                                            <jhi-alert-error></jhi-alert-error>
-                                        </td>
+                                    <ng-container *ngIf="filePart.status !== 'DELETED'">
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    {{ filePart.id }}
+                                                </div>
+                                                <jhi-alert-error></jhi-alert-error>
+                                            </td>
 
-                                        <td>
-                                            <div>
-                                                {{ filePart.name }}
-                                            </div>
-                                        </td>
+                                            <td>
+                                                <div>
+                                                    {{ filePart.name }}
+                                                </div>
+                                            </td>
 
-                                        <td>
-                                            <div>
-                                                {{ filePart.uniqueId }}
-                                            </div>
-                                        </td>
+                                            <td>
+                                                <div>
+                                                    {{ filePart.uniqueId }}
+                                                </div>
+                                            </td>
 
-                                        <td>
-                                            <div *ngIf="filePart.content">
-                                                <a (click)="openFile(filePart.content, filePart.contentContentType)"
-                                                   jhiTranslate="entity.action.open">open</a>
-                                                {{ filePart.contentContentType }}, {{ byteSize(filePart.content) }}
-                                            </div>
-                                        </td>
+                                            <td>
+                                                <div>
+                                                    <span jhiTranslate="{{ 'dmsApp.FileStatus.' + filePart.status }}">
+                                                        {{
+                                                        filePart.status
+                                                        }}
+                                                    </span>
+                                                </div>
+                                            </td>
 
-                                        <td>
-                                            <div>
-                                                {{ filePart.signerId }}
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            <td>
+                                                <div *ngIf="filePart.content">
+                                                    <a (click)="openFile(filePart.content, filePart.contentContentType)"
+                                                       jhiTranslate="entity.action.open">open</a>
+                                                    {{ filePart.contentContentType }}, {{ byteSize(filePart.content) }}
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div>
+                                                    {{ filePart.signerId }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
                                 </ng-container>
                             </ng-container>
                         </tbody>

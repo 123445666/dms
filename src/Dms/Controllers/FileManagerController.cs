@@ -241,9 +241,9 @@ namespace Dms.Controllers
             Blockchain bcDocument;
 
             // if the blockchain exists, load it
-            if (System.IO.File.Exists(webRootPath + "/Blockchains/" + filePart.UniqueId + ".bc"))
+            if (System.IO.File.Exists(contentRootPath + "/Blockchains/" + filePart.UniqueId + ".bc"))
             {
-                string bc = System.IO.File.ReadAllText(webRootPath + "/Blockchains/" + filePart.UniqueId + ".bc");
+                string bc = System.IO.File.ReadAllText(contentRootPath + "/Blockchains/" + filePart.UniqueId + ".bc");
 
                 bcDocument = JsonConvert.DeserializeObject<Blockchain>(bc);
             }
@@ -252,11 +252,11 @@ namespace Dms.Controllers
 
             bcDocument.AddBlock(new Block(DateTime.Now, null, JsonConvert.SerializeObject(document)));
 
-            if (System.IO.Directory.Exists(webRootPath + "/Blockchains/") == false)
-                System.IO.Directory.CreateDirectory(webRootPath + "/Blockchains/");
+            if (System.IO.Directory.Exists(contentRootPath + "/Blockchains/") == false)
+                System.IO.Directory.CreateDirectory(contentRootPath + "/Blockchains/");
 
             // store the blockchain as a file
-            System.IO.File.WriteAllText(webRootPath + "/Blockchains/" + filePart.UniqueId + ".bc",
+            System.IO.File.WriteAllText(contentRootPath + "/Blockchains/" + filePart.UniqueId + ".bc",
                 JsonConvert.SerializeObject(bcDocument));
 
             await _filePartService.Save(filePart);
@@ -296,9 +296,9 @@ namespace Dms.Controllers
             Blockchain newDocument;
 
             // load the associated blockchain
-            if (System.IO.File.Exists(webRootPath + "/Blockchains/" + UniqueId + ".bc"))
+            if (System.IO.File.Exists(contentRootPath + "/Blockchains/" + UniqueId + ".bc"))
             {
-                string bc = System.IO.File.ReadAllText(webRootPath + "/Blockchains/" + UniqueId + ".bc");
+                string bc = System.IO.File.ReadAllText(contentRootPath + "/Blockchains/" + UniqueId + ".bc");
 
                 newDocument = JsonConvert.DeserializeObject<Blockchain>(bc);
 
