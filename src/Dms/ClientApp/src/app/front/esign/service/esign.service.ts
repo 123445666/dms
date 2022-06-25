@@ -65,9 +65,8 @@ export class FilePartService {
         });
     }
 
-    signFile(id: number | undefined): Observable<HttpResponse<{}>> {
-        if (id === undefined) { id = 0; }
-        return this.http.get(`${this.resourceUrl}/signfile/${id}`, {
+    signFile(signedDocument: ISignedDocument | null): Observable<HttpResponse<{}>> {
+        return this.http.post<ISignedDocument>(`${this.resourceUrl}/signfile`, signedDocument, {
             observe: "response",
         });
     }

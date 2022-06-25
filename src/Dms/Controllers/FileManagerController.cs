@@ -214,16 +214,16 @@ namespace Dms.Controllers
         #endregion
 
         #region SignFile
-        [HttpGet("esign/signfile/{id}")]
-        public async Task<IActionResult> SignFilePart(long id)
+        [HttpPost("esign/signfile")]
+        public async Task<IActionResult> SignFilePart([FromBody] SignedDocument signedDocument)
         {
-            _log.LogDebug($"REST request to sign FilePartId : {id}");
-            if (id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
+            _log.LogDebug($"REST request to sign FilePartId : {signedDocument.FileId}");
+            if (signedDocument == null || signedDocument.FileId == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
 
             var userName = _userManager.GetUserName(User);
             var user = await _userManager.FindByNameAsync(userName);
 
-            var filePart = await _filePartService.FindOne(id);
+            var filePart = await _filePartService.FindOne(signedDocument.FileId);
             filePart.Status = FileStatus.SIGNED;
 
             SignedDocument document = new SignedDocument()
@@ -232,7 +232,9 @@ namespace Dms.Controllers
                 SignedBy = user.Id,
                 SignedUserNameBy = user.UserName,
                 LastUniqueId = filePart.UniqueId,
-                SignedDate = DateTime.Now
+                SignedDate = DateTime.Now,
+                SignedData = signedDocument.SignedData,
+                FileId = signedDocument.FileId
             };
 
             //generate new UniqueId

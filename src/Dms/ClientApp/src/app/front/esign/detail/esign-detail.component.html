@@ -60,6 +60,60 @@
                 </dd>
             </dl>
 
+            <div class="row mb-3">
+                <label class="form-label"
+                       jhiTranslate="dmsApp.employee.signature"
+                       for="field_signature">Signature</label>
+                <div>
+                    <div class="signature-pad">
+                        <div class="signature-pad--body">
+                            <canvas style="max-width:100%;" width="900" height="300" (window:resize)="onResize()" #canvas (touchstart)="startDrawing($event)" (touchmove)="moved($event)"></canvas>
+                        </div>
+                    </div>
+                    <button type="button" (click)="clearPad()">Clear</button>
+
+                    <div *ngIf="editForm.get('signature')!.value"
+                         class="form-text text-danger clearfix">
+                        <a class="pull-start"
+                           (click)="
+                  openFile(
+                    editForm.get('signature')!.value,
+                    editForm.get('signatureContentType')!.value
+                  )
+                "
+                           jhiTranslate="entity.action.open">open</a><br />
+                        <span class="pull-start">
+                            {{ editForm.get("signatureContentType")!.value }},
+                            {{ byteSize(editForm.get("signature")!.value) }}
+                        </span>
+                        <button type="button"
+                                (click)="
+                  editForm.patchValue({ signature: null });
+                  editForm.patchValue({ signatureContentType: null })
+                "
+                                class="btn btn-secondary btn-xs pull-end">
+                            <fa-icon icon="times"></fa-icon>
+                        </button>
+                    </div>
+                    <!--<input type="file"
+            id="file_signature"
+            data-cy="signature"
+            (change)="setFileData($event, 'signature', false)"
+            jhiTranslate="entity.action.addblob" />-->
+                </div>
+                <input type="hidden"
+                       class="form-control"
+                       name="signature"
+                       id="field_signature"
+                       data-cy="signature"
+                       formControlName="signature" />
+                <input type="hidden"
+                       class="form-control"
+                       name="signatureContentType"
+                       id="field_signatureContentType"
+                       formControlName="signatureContentType" />
+            </div>
+
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info"

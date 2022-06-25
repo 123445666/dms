@@ -90,6 +90,14 @@
                     <dd>
                         <span>{{ signedDocument.lastUniqueId }}</span>
                     </dd>
+                    <dt><span>fileId</span></dt>
+                    <dd>
+                        <span>{{ signedDocument.fileId }}</span>
+                    </dd>
+                    <dt><span>Sinature</span></dt>
+                    <dd>
+                        <span><img width="300" src="data:image/png;base64,{{ signedDocument.signedData }}" /></span>
+                    </dd>
                 </dl>
             </div>
         </div>
