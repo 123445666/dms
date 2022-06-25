@@ -3,9 +3,10 @@ import { HttpResponse } from "@angular/common/http";
 import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
-import { finalize, map } from "rxjs/operators";
+import { finalize } from "rxjs/operators";
 
 import { IEsignValidate, EsignValidate } from "../esign-validate.model";
+import { ISignedDocument } from "../signed-document.model";
 import { FilePartService } from "app/front/esign/service/esign.service";
 import { AlertError } from "app/shared/alert/alert-error.model";
 import {
@@ -15,7 +16,6 @@ import {
 import { DataUtils, FileLoadError } from "app/core/util/data-util.service";
 import { IUser } from "app/entities/user/user.model";
 import { UserService } from "app/entities/user/user.service";
-import { IFileContainer } from "app/entities/file-container/file-container.model";
 import { FileContainerService } from "app/entities/file-container/service/file-container.service";
 
 @Component({
@@ -23,10 +23,10 @@ import { FileContainerService } from "app/entities/file-container/service/file-c
     templateUrl: "./esign-validate.component.html",
 })
 export class FilePartValidateComponent implements OnInit {
+    signedDocument: ISignedDocument | null = null;
     isSaving = false;
 
     usersSharedCollection: IUser[] = [];
-    fileContainersSharedCollection: IFileContainer[] = [];
 
     esignValidateForm = this.fb.group({
         dataContent: [],
@@ -83,16 +83,20 @@ export class FilePartValidateComponent implements OnInit {
     }
 
     protected subscribeToSaveResponse(
-        result: Observable<HttpResponse<{}>>
+        result: Observable<HttpResponse<ISignedDocument>>
     ): void {
         result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
-            next: () => this.onSaveSuccess(),
+            next: (res: HttpResponse<ISignedDocument>) => this.onSaveSuccess(res),
             error: () => this.onSaveError(),
         });
     }
 
-    protected onSaveSuccess(): void {
+    protected onSaveSuccess(res: HttpResponse<ISignedDocument>): void {
         // this.previousState();
+        /* eslint-disable no-console */
+        console.log(res.body ?? []);
+        /* eslint-disable no-console */
+        this.signedDocument = res.body;
     }
 
     protected onSaveError(): void {

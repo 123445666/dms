@@ -67,7 +67,31 @@
                     </table>
                 </div>
             </div>
-
+            <div *ngIf="signedDocument">
+                <hr />
+                <dl class="row-md jh-entity-details">
+                    <dt><span>Checksum</span></dt>
+                    <dd>
+                        <span>{{ signedDocument.checksum }}</span>
+                    </dd>
+                    <dt><span>signedBy</span></dt>
+                    <dd>
+                        <span>{{ signedDocument.signedBy }}</span>
+                    </dd>
+                    <dt><span>signedUserNameBy</span></dt>
+                    <dd>
+                        <span>{{ signedDocument.signedUserNameBy }}</span>
+                    </dd>
+                    <dt><span>signedDate</span></dt>
+                    <dd>
+                        <span>{{ signedDocument.signedDate }}</span>
+                    </dd>
+                    <dt><span>lastUniqueId</span></dt>
+                    <dd>
+                        <span>{{ signedDocument.lastUniqueId }}</span>
+                    </dd>
+                </dl>
+            </div>
         </div>
     </div>
 </div>

@@ -33,6 +33,16 @@ namespace Dms.Domain.Services
             return page;
         }
 
+        public virtual async Task<IPage<FilePart>> FindAllByUserId(IPageable pageable, string userId)
+        {
+            var page = await _filePartRepository.QueryHelper()
+                .Include(filePart => filePart.Signer)
+                .Include(filePart => filePart.FileContainer)
+                .Filter(fileContainer => fileContainer.SignerId.Equals(userId))
+                .GetPageAsync(pageable);
+            return page;
+        }
+
         public virtual async Task<FilePart> FindOne(long id)
         {
             var result = await _filePartRepository.QueryHelper()

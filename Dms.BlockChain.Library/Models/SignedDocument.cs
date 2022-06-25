@@ -15,5 +15,6 @@ namespace Dms.BlockChain.Library.Models
         public string SignedBy { get; set; }
         public string SignedUserNameBy { get; set; }
         public string LastUniqueId { get; set; }
+        public DateTime SignedDate { get; set; }
     }
 }

@@ -10,6 +10,8 @@ namespace Dms.Domain.Services.Interfaces
 
         Task<IPage<FilePart>> FindAll(IPageable pageable);
 
+        Task<IPage<FilePart>> FindAllByUserId(IPageable pageable, string userId);
+
         Task<FilePart> FindOne(long id);
 
         Task Delete(long id);

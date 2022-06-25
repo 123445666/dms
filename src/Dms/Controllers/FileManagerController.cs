@@ -62,6 +62,7 @@ namespace Dms.Controllers
             contentRootPath = _webHostEnvironment.ContentRootPath;
         }
 
+        #region FileContainer
         [HttpPost]
         [ValidateModel]
         public async Task<ActionResult<FileContainerDto>> CreateFileContainer([FromBody] FileContainerDto fileContainerDto)
@@ -135,8 +136,85 @@ namespace Dms.Controllers
             await _fileContainerService.Delete(id);
             return NoContent().WithHeaders(HeaderUtil.CreateEntityDeletionAlert(EntityName, id.ToString()));
         }
+        #endregion
 
-        [HttpGet("signfile/{id}")]
+        #region FilePart
+        [HttpPost("esign")]
+        [ValidateModel]
+        public async Task<ActionResult<FilePartDto>> CreateFilePart([FromBody] FilePartDto filePartDto)
+        {
+            _log.LogDebug($"REST request to save FilePart : {filePartDto}");
+            if (filePartDto.Id != 0)
+                throw new BadRequestAlertException("A new filePart cannot already have an ID", EntityName, "idexists");
+
+            filePartDto.UniqueId = Guid.NewGuid().ToString();
+
+            FilePart filePart = _mapper.Map<FilePart>(filePartDto);
+            await _filePartService.Save(filePart);
+            return CreatedAtAction(nameof(GetFilePart), new { id = filePart.Id }, filePart)
+                .WithHeaders(HeaderUtil.CreateEntityCreationAlert(EntityName, filePart.Id.ToString()));
+        }
+
+        [HttpPut("esign/{id}")]
+        [ValidateModel]
+        public async Task<IActionResult> UpdateFilePart(long id, [FromBody] FilePartDto filePartDto)
+        {
+            _log.LogDebug($"REST request to update FilePart : {filePartDto}");
+            if (filePartDto.Id == 0) throw new BadRequestAlertException("Invalid Id", EntityName, "idnull");
+            if (id != filePartDto.Id) throw new BadRequestAlertException("Invalid Id", EntityName, "idinvalid");
+            FilePart filePart = _mapper.Map<FilePart>(filePartDto);
+            await _filePartService.Save(filePart);
+            return Ok(filePart)
+                .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
+        }
+
+        [HttpGet("esign")]
+        public async Task<ActionResult<IEnumerable<FilePartDto>>> GetAllFileParts(IPageable pageable)
+        {
+            _log.LogDebug("REST request to get a page of FileParts");
+
+            var userName = _userManager.GetUserName(User);
+            var user = await _userManager.FindByNameAsync(userName);
+
+            IPage<FilePart> result = null;
+
+            if (User.IsInRole("ROLE_ADMIN"))
+            {
+                result = await _filePartService.FindAll(pageable);
+            }
+            else
+            {
+                result = await _filePartService.FindAllByUserId(pageable, user.Id);
+            }
+
+            var page = new Page<FilePartDto>(result.Content.Select(entity => _mapper.Map<FilePartDto>(entity)).ToList(), pageable, result.TotalElements);
+            return Ok(((IPage<FilePartDto>)page).Content).WithHeaders(page.GeneratePaginationHttpHeaders());
+        }
+
+        [HttpGet("esign/{id}")]
+        public async Task<IActionResult> GetFilePart([FromRoute] long id)
+        {
+            _log.LogDebug($"REST request to get FilePart : {id}");
+            var result = await _filePartService.FindOne(id);
+            FilePartDto filePartDto = _mapper.Map<FilePartDto>(result);
+            return ActionResultUtil.WrapOrNotFound(filePartDto);
+        }
+
+        [HttpDelete("esign/{id}")]
+        public async Task<IActionResult> DeleteFilePart([FromRoute] long id)
+        {
+            _log.LogDebug($"REST request to delete FilePart : {id}");
+            var filePart = await _filePartService.FindOne(id);
+            filePart.Status = FileStatus.DELETED;
+
+            await _filePartService.Save(filePart);
+            //await _filePartService.Delete(id);
+            return NoContent().WithHeaders(HeaderUtil.CreateEntityDeletionAlert(EntityName, id.ToString()));
+        }
+        #endregion
+
+        #region SignFile
+        [HttpGet("esign/signfile/{id}")]
         public async Task<IActionResult> SignFilePart(long id)
         {
             _log.LogDebug($"REST request to sign FilePartId : {id}");
@@ -154,6 +232,7 @@ namespace Dms.Controllers
                 SignedBy = user.Id,
                 SignedUserNameBy = user.UserName,
                 LastUniqueId = filePart.UniqueId,
+                SignedDate = DateTime.Now
             };
 
             //generate new UniqueId
@@ -184,7 +263,7 @@ namespace Dms.Controllers
             return Ok(filePart)
                 .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
         }
-        [HttpPost("validatefile")]
+        [HttpPost("esign/validatefile")]
         public async Task<IActionResult> ValidateFilePart([FromBody] EsignValidate esignValidate)
         {
             _log.LogDebug($"REST request to validate File : {esignValidate.UniqueId}");
@@ -200,11 +279,11 @@ namespace Dms.Controllers
             //await _filePartService.Save(filePart);
             //return Ok(filePart)
             //    .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
-            if (!string.IsNullOrEmpty(signedDocument.Checksum))
+            if (signedDocument != null && !string.IsNullOrEmpty(signedDocument.Checksum))
                 return Ok(signedDocument)
                     .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, signedDocument.Checksum.ToString()));
-            return Ok()
-                   .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, signedDocument.Checksum.ToString()));
+            return NotFound()
+                   .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, "novalidate"));
         }
 
         public async Task<SignedDocument> ValidateFile(byte[] DataContent, string UniqueId)
@@ -237,7 +316,7 @@ namespace Dms.Controllers
             else
                 return new SignedDocument();
         }
-        [HttpGet("unsignfile/{id}")]
+        [HttpGet("esign/unsignfile/{id}")]
         public async Task<IActionResult> UnsignFilePart(long id)
         {
             _log.LogDebug($"REST request to unsign FilePartId : {id}");
@@ -250,7 +329,7 @@ namespace Dms.Controllers
             return Ok(filePart)
                 .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
         }
-        [HttpGet("processfile/{id}")]
+        [HttpGet("esign/processfile/{id}")]
         public async Task<IActionResult> ProcessFilePart(long id)
         {
             _log.LogDebug($"REST request to process FilePartId : {id}");
@@ -263,7 +342,7 @@ namespace Dms.Controllers
             return Ok(filePart)
                 .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
         }
-        [HttpGet("returnfile/{id}")]
+        [HttpGet("esign/returnfile/{id}")]
         public async Task<IActionResult> ReturnFilePart(long id)
         {
             _log.LogDebug($"REST request to return FilePartId : {id}");
@@ -276,5 +355,6 @@ namespace Dms.Controllers
             return Ok(filePart)
                 .WithHeaders(HeaderUtil.CreateEntityUpdateAlert(EntityName, filePart.Id.ToString()));
         }
+        #endregion
     }
 }

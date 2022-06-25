@@ -7,16 +7,16 @@ import { ApplicationConfigService } from "app/core/config/application-config.ser
 import { createRequestOption } from "app/core/request/request-util";
 import { IFilePart, getFilePartIdentifier } from "../esign.model";
 import { IEsignValidate } from "../esign-validate.model";
+import { ISignedDocument } from "../signed-document.model";
 
 export type EntityResponseType = HttpResponse<IFilePart>;
+export type EntityResponseTypeSignedDocument = HttpResponse<ISignedDocument>;
 export type EntityArrayResponseType = HttpResponse<IFilePart[]>;
 
 @Injectable({ providedIn: "root" })
 export class FilePartService {
     protected resourceUrl =
-        this.applicationConfigService.getEndpointFor("api/file-parts");
-    protected resourceFileManagerUrl =
-        this.applicationConfigService.getEndpointFor("api/file-manager");
+        this.applicationConfigService.getEndpointFor("api/file-manager/esign");
 
     constructor(
         protected http: HttpClient,
@@ -67,34 +67,34 @@ export class FilePartService {
 
     signFile(id: number | undefined): Observable<HttpResponse<{}>> {
         if (id === undefined) { id = 0; }
-        return this.http.get(`${this.resourceFileManagerUrl}/signfile/${id}`, {
+        return this.http.get(`${this.resourceUrl}/signfile/${id}`, {
             observe: "response",
         });
     }
 
     unsignFile(id: number | undefined): Observable<HttpResponse<{}>> {
         if (id === undefined) { id = 0; }
-        return this.http.get(`${this.resourceFileManagerUrl}/unsignfile/${id}`, {
+        return this.http.get(`${this.resourceUrl}/unsignfile/${id}`, {
             observe: "response",
         });
     }
 
     processFile(id: number | undefined): Observable<HttpResponse<{}>> {
         if (id === undefined) { id = 0; }
-        return this.http.get(`${this.resourceFileManagerUrl}/processfile/${id}`, {
+        return this.http.get(`${this.resourceUrl}/processfile/${id}`, {
             observe: "response",
         });
     }
 
     returnFile(id: number | undefined): Observable<HttpResponse<{}>> {
         if (id === undefined) { id = 0; }
-        return this.http.get(`${this.resourceFileManagerUrl}/returnfile/${id}`, {
+        return this.http.get(`${this.resourceUrl}/returnfile/${id}`, {
             observe: "response",
         });
     }
 
-    validateFile(esignValidate: IEsignValidate): Observable<EntityResponseType> {
-        return this.http.post<IFilePart>(`${this.resourceFileManagerUrl}/validatefile/`, esignValidate, {
+    validateFile(esignValidate: IEsignValidate): Observable<EntityResponseTypeSignedDocument> {
+        return this.http.post<ISignedDocument>(`${this.resourceUrl}/validatefile/`, esignValidate, {
             observe: "response",
         });
     }
