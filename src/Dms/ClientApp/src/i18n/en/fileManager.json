@@ -4,28 +4,28 @@
             "home": {
                 "title": "File Manager",
                 "refreshListLabel": "Refresh list",
-                "createLabel": "Create a new File Part",
-                "createOrEditLabel": "Create or edit a File Part",
+                "createLabel": "Create a new File Container",
+                "createOrEditLabel": "Create or edit a File Container",
                 "notFound": "No File Parts found"
             },
-            "created": "A new File Manager is created with identifier {{ param }}",
-            "updated": "A File Manager is updated with identifier {{ param }}",
-            "deleted": "A File Manager is deleted with identifier {{ param }}",
+            "created": "A new File Container is created with identifier {{ param }}",
+            "updated": "A File Container is updated with identifier {{ param }}",
+            "deleted": "A File Container is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete File Manager {{ id }}?"
+                "question": "Are you sure you want to delete File Container {{ id }}?"
             },
             "detail": {
                 "title": "File Manager"
             },
             "id": "ID",
             "name": "Name",
-            "content": "Content",
+            "content": "File",
             "concurrencyStamp": "Concurrency Stamp",
             "status": "Status",
             "uniqueId": "Unique Id",
             "signer": "Signer",
-            "fileContainer": "File Manager",
-            "validateFIle": "Validation Document Signed"
+            "fileContainer": "File Container",
+            "validateFile": "Validation Document Signed"
         }
     }
 }

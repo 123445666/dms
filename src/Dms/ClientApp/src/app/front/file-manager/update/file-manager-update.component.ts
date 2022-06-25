@@ -10,6 +10,7 @@ import { FileManagerService } from "../service/file-manager.service";
 import { IUser } from "app/entities/user/user.model";
 import { UserService } from "app/entities/user/user.service";
 import { FilePartUpdateComponent } from "../components/file-part/file-part-update.component";
+import { FileStatus } from "app/entities/enumerations/file-status.model";
 
 @Component({
     selector: "jhi-file-manager-update",
@@ -17,6 +18,7 @@ import { FilePartUpdateComponent } from "../components/file-part/file-part-updat
 })
 export class FileManagerUpdateComponent implements OnInit {
     isSaving = false;
+    fileStatusValues = Object.keys(FileStatus);
 
     usersSharedCollection: IUser[] = [];
 

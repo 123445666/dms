@@ -2,7 +2,7 @@
     <div class="card-header">
         <h5>Files</h5>
     </div>
-    <div class="d-flex justify-content-center" [formGroup]="editFilePartForm">
+    <div class="d-flex table-responsive" [formGroup]="editFilePartForm">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
@@ -15,6 +15,9 @@
                     </th>
                     <th scope="col">
                         <span jhiTranslate="dmsApp.filePart.signer">Signer</span>
+                    </th>
+                    <th scope="col">
+                        <span jhiTranslate="dmsApp.filePart.status">Status</span>
                     </th>
                     <th scope="col"></th>
                 </tr>
@@ -78,6 +81,14 @@
                                         {{ userOption.login }}
                                     </option>
                                 </select>
+                            </td>
+
+                            <td>
+                                <div [hidden]="filePartForm.get('status')!.value == null">
+                                    <label class="form-label" jhiTranslate="dmsApp.filePart.status" for="field_id">Status</label>
+                                    <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status"
+                                           [readonly]="true" />
+                                </div>
                             </td>
 
                             <td>

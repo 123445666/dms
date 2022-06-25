@@ -3,6 +3,7 @@ using JHipsterNet.Core.Pagination;
 using Dms.Domain.Services.Interfaces;
 using Dms.Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Dms.Domain.Services
 {
@@ -27,6 +28,7 @@ namespace Dms.Domain.Services
             var page = await _fileContainerRepository.QueryHelper()
                 .Include(fileContainer => fileContainer.Owner)
                 .Include(fileContainer => fileContainer.FileParts)
+                .OrderBy(orderBy: fileContainer => fileContainer.OrderByDescending(d => d.Id))
                 .GetPageAsync(pageable);
             return page;
         }
@@ -37,6 +39,7 @@ namespace Dms.Domain.Services
                 .Include(fileContainer => fileContainer.Owner)
                 .Include(fileContainer => fileContainer.FileParts)
                 .Filter(fileContainer => fileContainer.Owner.Id.Equals(userId))
+                .OrderBy(orderBy: fileContainer => fileContainer.OrderByDescending(d => d.Id))
                 .GetPageAsync(pageable);
             return page;
         }

@@ -19,7 +19,7 @@
       },
       "id": "ID",
       "name": "Name",
-      "content": "Content",
+      "content": "File",
       "concurrencyStamp": "Concurrency Stamp",
       "status": "Status",
       "uniqueId": "Unique Id",

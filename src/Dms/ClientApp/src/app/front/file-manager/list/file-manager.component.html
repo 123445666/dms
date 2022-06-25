@@ -1,6 +1,6 @@
 <div>
   <div id="page-heading" data-cy="fileManagerHeading">
-    <span jhiTranslate="dmsApp.fileContainer.home.title">File Containers</span>
+    <span jhiTranslate="dmsApp.fileManager.home.title">File Containers</span>
 
     <div class="d-flex justify-content-end">
       <button
@@ -9,7 +9,7 @@
         [disabled]="isLoading"
       >
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="dmsApp.fileContainer.home.refreshListLabel"
+        <span jhiTranslate="dmsApp.fileManager.home.refreshListLabel"
           >Refresh List</span
         >
       </button>
@@ -21,7 +21,7 @@
         [routerLink]="['/user/file-manager/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="dmsApp.fileContainer.home.createLabel">
+        <span jhiTranslate="dmsApp.fileManager.home.createLabel">
           Create a new File Container
         </span>
       </button>
@@ -37,7 +37,7 @@
     id="no-result"
     *ngIf="fileManagers?.length === 0"
   >
-    <span jhiTranslate="dmsApp.fileContainer.home.notFound"
+    <span jhiTranslate="dmsApp.fileManager.home.notFound"
       >No FileManagers found</span
     >
   </div>
@@ -52,10 +52,10 @@
           <tr>
               <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
               <th scope="col">
-                  <span jhiTranslate="dmsApp.fileContainer.name">Name</span>
+                  <span jhiTranslate="dmsApp.fileManager.name">Name</span>
               </th>
               <th scope="col">
-                  <span jhiTranslate="dmsApp.fileContainer.status">Status</span>
+                  <span jhiTranslate="dmsApp.fileManager.status">Status</span>
               </th>
               <th scope="col"></th>
           </tr>

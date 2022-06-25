@@ -4,6 +4,7 @@ using Dms.Domain.Services.Interfaces;
 using Dms.Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Dms.Crosscutting.Enums;
+using System.Linq;
 
 namespace Dms.Domain.Services
 {
@@ -29,6 +30,7 @@ namespace Dms.Domain.Services
                 .Include(filePart => filePart.Signer)
                 .Include(filePart => filePart.FileContainer)
                 .Filter(filePart => filePart.Status != FileStatus.DELETED)
+                .OrderBy(orderBy: filePart => filePart.OrderByDescending(d => d.Id))
                 .GetPageAsync(pageable);
             return page;
         }
@@ -39,6 +41,7 @@ namespace Dms.Domain.Services
                 .Include(filePart => filePart.Signer)
                 .Include(filePart => filePart.FileContainer)
                 .Filter(fileContainer => fileContainer.SignerId.Equals(userId))
+                .OrderBy(orderBy: filePart => filePart.OrderByDescending(d => d.Id))
                 .GetPageAsync(pageable);
             return page;
         }

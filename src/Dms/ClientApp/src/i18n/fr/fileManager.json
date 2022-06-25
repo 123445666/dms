@@ -1,12 +1,12 @@
 {
   "dmsApp": {
-    "filePart": {
+    "fileManager": {
         "home": {
-            "title": "FileParts",
+            "title": "Gestionnaire de Fichiers",
             "refreshListLabel": "Actualiser la liste",
-            "createLabel": "Créer un nouveau File Part",
-            "createOrEditLabel": "Créer ou éditer un File Part",
-            "notFound": "Aucun File Part trouvé"
+            "createLabel": "Créer un nouveau Fichier",
+            "createOrEditLabel": "Créer ou éditer un Fichier",
+            "notFound": "Aucun Fichier trouvé"
         },
         "created": "Un nouveau File Part a été créé avec l'identifiant {{ param }}",
         "updated": "Le File Part avec l'identifiant {{ param }} a été mis à jour",
@@ -15,17 +15,17 @@
             "question": "Êtes-vous certain de vouloir supprimer le File Part {{ id }} ?"
         },
         "detail": {
-            "title": "File Part"
+            "title": "Gestionnaire de Fichiers"
         },
         "id": "ID",
-        "name": "Name",
-        "content": "Content",
+        "name": "Nom",
+        "content": "Fichier",
         "concurrencyStamp": "Concurrency Stamp",
-        "status": "Status",
-        "uniqueId": "Unique Id",
+        "status": "Statut",
+        "uniqueId": "Id Unique",
         "signer": "Signer",
-        "fileContainer": "File Container",
-        "validateFIle": "Document De Validation Signé"
+        "fileContainer": "Conteneur de Fichiers",
+        "validateFile": "Document De Validation Signé"
     }
   }
 }

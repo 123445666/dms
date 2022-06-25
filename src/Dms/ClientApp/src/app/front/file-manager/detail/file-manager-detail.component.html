@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-    <div class="col-8">
+    <div class="col-12 col-sm-8">
         <div *ngIf="fileManager">
             <h2 data-cy="fileManagerDetailsHeading">
                 <span jhiTranslate="dmsApp.fileManager.detail.title">File Container</span>
@@ -20,12 +20,6 @@
                 <dd>
                     <span>{{ fileManager.name }}</span>
                 </dd>
-                <dt>
-                    <span jhiTranslate="dmsApp.fileContainer.concurrencyStamp">Concurrency Stamp</span>
-                </dt>
-                <dd>
-                    <span>{{ fileManager.concurrencyStamp }}</span>
-                </dd>
                 <dt><span jhiTranslate="dmsApp.fileContainer.owner">Owner</span></dt>
                 <dd>
                     <span>{{ fileManager.owner?.id }}</span>
@@ -36,7 +30,7 @@
                 <div class="card-header">
                     <h5>Files</h5>
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex table-responsive">
                     <table class="table table-striped" aria-describedby="page-heading">
                         <thead>
                             <tr>
@@ -48,13 +42,13 @@
                                     <span jhiTranslate="dmsApp.filePart.uniqueId">UniqueId</span>
                                 </th>
                                 <th scope="col">
-                                    <span jhiTranslate="dmsApp.filePart.status">Status</span>
-                                </th>
-                                <th scope="col">
                                     <span jhiTranslate="dmsApp.filePart.content">Content</span>
                                 </th>
                                 <th scope="col">
                                     <span jhiTranslate="dmsApp.filePart.signer">Signer</span>
+                                </th>
+                                <th scope="col">
+                                    <span jhiTranslate="dmsApp.filePart.status">Status</span>
                                 </th>
                                 <th scope="col"></th>
                             </tr>
@@ -84,16 +78,6 @@
                                             </td>
 
                                             <td>
-                                                <div>
-                                                    <span jhiTranslate="{{ 'dmsApp.FileStatus.' + filePart.status }}">
-                                                        {{
-                                                        filePart.status
-                                                        }}
-                                                    </span>
-                                                </div>
-                                            </td>
-
-                                            <td>
                                                 <div *ngIf="filePart.content">
                                                     <a (click)="openFile(filePart.content, filePart.contentContentType)"
                                                        jhiTranslate="entity.action.open">open</a>
@@ -104,6 +88,16 @@
                                             <td>
                                                 <div>
                                                     {{ filePart.signerId }}
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div>
+                                                    <span jhiTranslate="{{ 'dmsApp.FileStatus.' + filePart.status }}">
+                                                        {{
+                                                        filePart.status
+                                                        }}
+                                                    </span>
                                                 </div>
                                             </td>
                                         </tr>

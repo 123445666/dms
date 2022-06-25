@@ -1,28 +1,28 @@
 {
   "dmsApp": {
     "fileContainer": {
-      "home": {
-        "title": "FileContainers",
-        "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau File Container",
-        "createOrEditLabel": "Créer ou éditer un File Container",
-        "notFound": "Aucun File Container trouvé"
-      },
-      "created": "Un nouveau File Container a été créé avec l'identifiant {{ param }}",
-      "updated": "Le File Container avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le File Container avec l'identifiant {{ param }} a été supprimé",
-      "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le File Container {{ id }} ?"
-      },
-      "detail": {
-        "title": "File Container"
-      },
-      "id": "ID",
-      "name": "Name",
-      "concurrencyStamp": "Concurrency Stamp",
-      "status": "Status",
-      "owner": "Owner",
-      "filePart": "File Part"
+        "home": {
+            "title": "FileContainers",
+            "refreshListLabel": "Actualiser la liste",
+            "createLabel": "Créer un nouveau File Container",
+            "createOrEditLabel": "Créer ou éditer un File Container",
+            "notFound": "Aucun File Container trouvé"
+        },
+        "created": "Un nouveau File Container a été créé avec l'identifiant {{ param }}",
+        "updated": "Le File Container avec l'identifiant {{ param }} a été mis à jour",
+        "deleted": "Le File Container avec l'identifiant {{ param }} a été supprimé",
+        "delete": {
+            "question": "Êtes-vous certain de vouloir supprimer le File Container {{ id }} ?"
+        },
+        "detail": {
+            "title": "File Container"
+        },
+        "id": "ID",
+        "name": "Nom",
+        "concurrencyStamp": "Concurrency Stamp",
+        "status": "Statut",
+        "owner": "Propriétaire",
+        "filePart": "Parties de fichier"
     }
   }
 }
