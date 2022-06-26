@@ -21,6 +21,7 @@ import SignaturePad from 'signature_pad';
 @Component({
     selector: "jhi-file-part-detail",
     templateUrl: "./esign-detail.component.html",
+    styleUrls: ["./esign-detail.component.scss"]
 })
 export class FilePartDetailComponent implements OnInit, AfterViewInit {
     filePart: IFilePart | null = null;

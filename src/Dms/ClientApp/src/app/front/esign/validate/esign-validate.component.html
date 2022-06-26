@@ -2,7 +2,7 @@
     <div class="col-8">
         <div>
             <h2 data-cy="filePartDetailsHeading">
-                <span jhiTranslate="dmsApp.filePart.detail.title">File Part</span>
+                <span jhiTranslate="dmsApp.fileManager.esign.validation">File Part</span>
             </h2>
 
             <hr />
@@ -20,10 +20,10 @@
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <span jhiTranslate="dmsApp.filePart.name">Name</span>
+                                    <span jhiTranslate="dmsApp.fileManager.name">Name</span>
                                 </th>
                                 <th scope="col">
-                                    <span jhiTranslate="dmsApp.filePart.content">Content</span>
+                                    <span jhiTranslate="dmsApp.fileManager.content">Content</span>
                                 </th>
                                 <th scope="col"></th>
                             </tr>
@@ -36,7 +36,7 @@
                                 </td>
 
                                 <td>
-                                    <label class="form-label" jhiTranslate="dmsApp.filePart.content" for="field_content">Content</label>
+                                    <label class="form-label" jhiTranslate="dmsApp.fileManager.content" for="field_content">Content</label>
                                     <div>
                                         <div *ngIf="esignValidateForm.get('dataContent')!.value" class="form-text text-danger clearfix">
                                             <span class="pull-start">

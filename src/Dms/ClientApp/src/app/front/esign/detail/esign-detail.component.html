@@ -2,7 +2,7 @@
     <div class="col-8">
         <div *ngIf="filePart">
             <h2 data-cy="filePartDetailsHeading">
-                <span jhiTranslate="dmsApp.filePart.detail.title">File Part</span>
+                <span jhiTranslate="dmsApp.fileManager.detail.esign">File Part</span>
             </h2>
 
             <hr />
@@ -16,11 +16,11 @@
                 <dd>
                     <span>{{ filePart.id }}</span>
                 </dd>
-                <dt><span jhiTranslate="dmsApp.filePart.name">Name</span></dt>
+                <dt><span jhiTranslate="dmsApp.fileManager.name">Name</span></dt>
                 <dd>
                     <span>{{ filePart.name }}</span>
                 </dd>
-                <dt><span jhiTranslate="dmsApp.filePart.content">Content</span></dt>
+                <dt><span jhiTranslate="dmsApp.fileManager.content">Content</span></dt>
                 <dd>
                     <div *ngIf="filePart.content">
                         <a (click)="openFile(filePart.content, filePart.contentContentType)"
@@ -29,12 +29,12 @@
                     </div>
                 </dd>
                 <dt>
-                    <span jhiTranslate="dmsApp.filePart.concurrencyStamp">Concurrency Stamp</span>
+                    <span jhiTranslate="dmsApp.fileManager.concurrencyStamp">Concurrency Stamp</span>
                 </dt>
                 <dd>
                     <span>{{ filePart.concurrencyStamp }}</span>
                 </dd>
-                <dt><span jhiTranslate="dmsApp.filePart.status">Status</span></dt>
+                <dt><span jhiTranslate="dmsApp.fileManager.status">Status</span></dt>
                 <dd>
                     <span jhiTranslate="{{ 'dmsApp.FileStatus.' + filePart.status }}">
                         {{
@@ -42,12 +42,12 @@
                         }}
                     </span>
                 </dd>
-                <dt><span jhiTranslate="dmsApp.filePart.signer">Signer</span></dt>
+                <dt><span jhiTranslate="dmsApp.fileManager.signer">Signer</span></dt>
                 <dd>
                     <span>{{ filePart.signer?.id }}</span>
                 </dd>
                 <dt>
-                    <span jhiTranslate="dmsApp.filePart.fileContainer">File Container</span>
+                    <span jhiTranslate="dmsApp.fileManager.fileContainer">File Container</span>
                 </dt>
                 <dd>
                     <div *ngIf="filePart.fileContainer">
@@ -70,7 +70,7 @@
                             <canvas style="max-width:100%;" width="900" height="300" (window:resize)="onResize()" #canvas (touchstart)="startDrawing($event)" (touchmove)="moved($event)"></canvas>
                         </div>
                     </div>
-                    <button type="button" (click)="clearPad()">Clear</button>
+                    <button class="btn-clear" type="button" (click)="clearPad()">Clear</button>
 
                     <div *ngIf="editForm.get('signature')!.value"
                          class="form-text text-danger clearfix">
@@ -127,7 +127,7 @@
                     data-cy="entitySignButton"
                     class="btn btn-dark"
                     (click)="signFile(filePart.id)">
-                <fa-icon icon="file-signature"></fa-icon>&nbsp;<span>Sign This File</span>
+                <fa-icon icon="file-signature"></fa-icon>&nbsp;<span jhiTranslate="dmsApp.fileManager.esign.signThisFile">Sign This File</span>
             </button>
             <button *ngIf="!isSigned"
                     type="button"
@@ -135,7 +135,7 @@
                     data-cy="entitySignButton"
                     class="btn btn-dark"
                     (click)="unsignFile(filePart.id)">
-                <fa-icon icon="text-slash"></fa-icon>&nbsp;<span>Unsign This File</span>
+                <fa-icon icon="text-slash"></fa-icon>&nbsp;<span jhiTranslate="dmsApp.fileManager.esign.unsignThisFile">Unsign This File</span>
             </button>
             <button *ngIf="!isSigned"
                     type="button"
@@ -143,7 +143,7 @@
                     data-cy="entitySignButton"
                     class="btn btn-dark"
                     (click)="processFile(filePart.id)">
-                <fa-icon icon="microchip"></fa-icon>&nbsp;<span>Process This File</span>
+                <fa-icon icon="microchip"></fa-icon>&nbsp;<span jhiTranslate="dmsApp.fileManager.esign.processThisFile">Process This File</span>
             </button>
             <button *ngIf="!isSigned"
                     type="button"
@@ -151,7 +151,7 @@
                     data-cy="entitySignButton"
                     class="btn btn-dark"
                     (click)="returnFile(filePart.id)">
-                <fa-icon icon="arrow-rotate-left"></fa-icon>&nbsp;<span>Return This File</span>
+                <fa-icon icon="arrow-rotate-left"></fa-icon>&nbsp;<span jhiTranslate="dmsApp.fileManager.esign.returnThisFile">Return This File</span>
             </button>
         </div>
     </div>

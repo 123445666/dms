@@ -6,7 +6,8 @@
                 "refreshListLabel": "Refresh list",
                 "createLabel": "Create a new File Container",
                 "createOrEditLabel": "Create or edit a File Container",
-                "notFound": "No File Parts found"
+                "notFound": "No File Parts found",
+                "esign": "E-Sign"
             },
             "created": "A new File Container is created with identifier {{ param }}",
             "updated": "A File Container is updated with identifier {{ param }}",
@@ -15,7 +16,15 @@
                 "question": "Are you sure you want to delete File Container {{ id }}?"
             },
             "detail": {
-                "title": "File Manager"
+                "title": "File Manager",
+                "esign": "E-Sign"
+            },
+            "esign": {
+                "validation": "Validate E-Sign",
+                "signThisFile": "Sign This File",
+                "unsignThisFile": "Unsign This File",
+                "processThisFile": "Process This File",
+                "returnThisFile": "Return This File"
             },
             "id": "ID",
             "name": "Name",
@@ -25,7 +34,9 @@
             "uniqueId": "Unique Id",
             "signer": "Signer",
             "fileContainer": "File Container",
-            "validateFile": "Validation Document Signed"
+            "validateFile": "Validation Document Signed",
+            "addFilePart": "Add File Part",
+            "deleteFilePart": "Delete File Part"
         }
     }
 }

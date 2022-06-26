@@ -6,7 +6,8 @@
             "refreshListLabel": "Actualiser la liste",
             "createLabel": "Créer un nouveau Fichier",
             "createOrEditLabel": "Créer ou éditer un Fichier",
-            "notFound": "Aucun Fichier trouvé"
+            "notFound": "Aucun Fichier trouvé",
+            "esign": "E-Sign"
         },
         "created": "Un nouveau File Part a été créé avec l'identifiant {{ param }}",
         "updated": "Le File Part avec l'identifiant {{ param }} a été mis à jour",
@@ -15,7 +16,15 @@
             "question": "Êtes-vous certain de vouloir supprimer le File Part {{ id }} ?"
         },
         "detail": {
-            "title": "Gestionnaire de Fichiers"
+            "title": "Gestionnaire de Fichiers",
+            "esign": "E-Sign"
+        },
+        "esign": {
+            "validation": "Validation de E-Sign",
+            "signThisFile": "Signer ce fichier",
+            "unsignThisFile": "Annuler la signature de ce fichier",
+            "processThisFile": "Traiter ce fichier",
+            "returnThisFile": "Retourner ce fichier"
         },
         "id": "ID",
         "name": "Nom",
@@ -25,7 +34,9 @@
         "uniqueId": "Id Unique",
         "signer": "Signer",
         "fileContainer": "Conteneur de Fichiers",
-        "validateFile": "Document De Validation Signé"
+        "validateFile": "Document De Validation Signé",
+        "addFilePart": "Ajouter un partie de fichier",
+        "deleteFilePart": "Supprimer un partie de fichier"
     }
   }
 }

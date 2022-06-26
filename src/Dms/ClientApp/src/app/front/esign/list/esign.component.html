@@ -1,23 +1,13 @@
 <div>
     <h2 id="page-heading" data-cy="FilePartHeading">
-        <span jhiTranslate="dmsApp.filePart.home.title">File Parts</span>
+        <span jhiTranslate="dmsApp.fileManager.home.esign">Esign</span>
 
         <div class="d-flex justify-content-end">
             <button class="btn btn-info me-2"
                     (click)="loadAll()"
                     [disabled]="isLoading">
                 <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-                <span jhiTranslate="dmsApp.filePart.home.refreshListLabel">Refresh List</span>
-            </button>
-
-            <button id="jh-create-entity"
-                    data-cy="entityCreateButton"
-                    class="btn btn-primary jh-create-entity create-file-part"
-                    [routerLink]="['/file-part/new']">
-                <fa-icon icon="plus"></fa-icon>
-                <span jhiTranslate="dmsApp.filePart.home.createLabel">
-                    Create a new File Part
-                </span>
+                <span jhiTranslate="dmsApp.fileManager.home.refreshListLabel">Refresh List</span>
             </button>
         </div>
     </h2>
@@ -29,7 +19,7 @@
     <div class="alert alert-warning"
          id="no-result"
          *ngIf="fileParts?.length === 0">
-        <span jhiTranslate="dmsApp.filePart.home.notFound">No fileParts found</span>
+        <span jhiTranslate="dmsApp.fileManager.home.notFound">No fileParts found</span>
     </div>
 
     <div class="table-responsive"
@@ -40,22 +30,22 @@
                 <tr>
                     <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col">
-                        <span jhiTranslate="dmsApp.filePart.name">Name</span>
+                        <span jhiTranslate="dmsApp.fileManager.name">Name</span>
                     </th>
                     <th scope="col">
-                        <span jhiTranslate="dmsApp.filePart.content">Content</span>
+                        <span jhiTranslate="dmsApp.fileManager.content">Content</span>
                     </th>
                     <th scope="col">
-                        <span jhiTranslate="dmsApp.filePart.uniqueId">UniqueId</span>
+                        <span jhiTranslate="dmsApp.fileManager.uniqueId">UniqueId</span>
                     </th>
                     <th scope="col">
-                        <span jhiTranslate="dmsApp.filePart.status">Status</span>
+                        <span jhiTranslate="dmsApp.fileManager.status">Status</span>
                     </th>
                     <th scope="col">
-                        <span jhiTranslate="dmsApp.filePart.signer">Signer</span>
+                        <span jhiTranslate="dmsApp.fileManager.signer">Signer</span>
                     </th>
                     <th scope="col">
-                        <span jhiTranslate="dmsApp.filePart.fileContainer">File Container</span>
+                        <span jhiTranslate="dmsApp.fileManager.fileContainer">File Container</span>
                     </th>
                     <th scope="col"></th>
                 </tr>
