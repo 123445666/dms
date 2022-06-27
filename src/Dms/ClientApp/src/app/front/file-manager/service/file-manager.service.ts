@@ -31,7 +31,6 @@ export class FileManagerService {
     }
 
     update(fileManager: IFileManager): Observable<EntityResponseType> {
-        console.log(this.resourceUrl);
         return this.http.put<IFileManager>(
             `${this.resourceUrl}/${getFileManagerIdentifier(fileManager) as number
             }`,

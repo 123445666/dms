@@ -166,13 +166,13 @@ docker run -p 8080:80 dms
 Or you can simply run :
 
 ```bash
-docker-compose -f .\docker\app.yml build
+docker-compose -f ./docker/app.yml build
 ```
 
 And
 
 ```bash
-docker-compose -f .\docker\app.yml up
+docker-compose -f ./docker/app.yml up
 ```
 
 [node.js]: https://nodejs.org/
