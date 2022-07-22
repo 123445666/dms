@@ -1,4 +1,6 @@
 # Dms
+DMS: Document Management System
+The system helps to manage employees and documents with signing function.
 
 This application was generated using JHipster 7.8.1 and JHipster .Net Core 3.6.0, you can find documentation and help at https://jhipsternet.readthedocs.io/en/latest/index.html and [https://www.jhipster.tech/documentation-archive/v7.8.1](https://www.jhipster.tech/documentation-archive/v7.8.1).
 
