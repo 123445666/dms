@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms.Domain.Services", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dms.Infrastructure", "src\Dms.Infrastructure\Dms.Infrastructure.csproj", "{D9667919-00B5-4729-83C9-DDA79525886B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.BlockChain.Library", "Dms.BlockChain.Library\Dms.BlockChain.Library.csproj", "{DB334CA9-0B9A-401F-90D1-23539A1C1DA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dms.BlockChain.Library", "src\Dms.BlockChain.Library\Dms.BlockChain.Library.csproj", "{DB334CA9-0B9A-401F-90D1-23539A1C1DA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

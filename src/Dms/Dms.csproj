@@ -40,7 +40,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Dms.BlockChain.Library\Dms.BlockChain.Library.csproj" />
+        <ProjectReference Include="..\Dms.BlockChain.Library\Dms.BlockChain.Library.csproj" />
         <ProjectReference Include="..\Dms.Infrastructure\Dms.Infrastructure.csproj" />
         <ProjectReference Include="..\Dms.Domain.Services\Dms.Domain.Services.csproj" />
         <ProjectReference Include="..\Dms.Crosscutting\Dms.Crosscutting.csproj" />
